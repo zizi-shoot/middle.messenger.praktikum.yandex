@@ -5,17 +5,14 @@ styles: ../common.scss
 {{!< Document}}
 <a href="/">На главную</a> <!-- для удобства перехода на главную -->
 <main class="main">
-  <section class="signup">
-    <img
-      class="signup__logo"
-      src="../../../static/images/logo.webp"
-      width="80"
-      height="80"
-      alt="логотип летчат"
-    >
-    <h1 class="signup__title">Регистрация</h1>
-    <p class="signup__helper-text">Уже есть аккаунт? <a class="link" href="../signin/signin.hbs">Войти</a></p>
-    <form class="signup__form signup-form shadow">
+  <section class="entry">
+    <picture class="entry__logo">
+      <source srcset="../../../static/images/logo.webp" type="image/webp" />
+      <img src="../../../static/images/logo.png" alt="логотип летчат" />
+    </picture>
+    <h1 class="entry__title">Регистрация</h1>
+    <p class="entry__helper-text">Уже есть аккаунт? <a class="link" href="../signin/signin.hbs">Войти</a></p>
+    <form class="entry__form entry-form shadow">
       {{#each formsData.signup}}
         {{> FormField/FormField this}}
       {{/each}}

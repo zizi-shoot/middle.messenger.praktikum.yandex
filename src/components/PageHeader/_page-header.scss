@@ -8,16 +8,24 @@
 .header__logo-wrapper {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--font-main-color);
 }
 
 .header__logo {
   width: 48px;
+  line-height: 0;
 }
 
 .header__name {
   font-size: 36px;
   font-weight: 700;
+}
+
+.header__nav-list {
+  list-style: none;
+  display: flex;
 }
 
 .header__link {
