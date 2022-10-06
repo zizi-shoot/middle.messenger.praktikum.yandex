@@ -1,5 +1,5 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": "stylelint-config-standard-scss",
   "rules": {
     "selector-class-pattern": null,
     "custom-property-pattern": null,
@@ -9,5 +9,6 @@
         "ignorePseudoClasses": ["global"]
       }
     ]
-  }
+  },
+  "ignoreFiles": ["**/normalize.css"]
 }
