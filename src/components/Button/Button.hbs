@@ -1,1 +1,6 @@
-<button class="button">{{text}}</button>
+<button class="button {{#if full-width}}button--full-width{{/if}}">
+  {{#if icon}}
+    {{> (lookup . 'icon')}}
+  {{/if}}
+  {{text}}
+</button>
