@@ -1,10 +1,13 @@
 @import "src/components/base/Button/button";
 @import "src/components/base/Avatar/avatar";
+@import "src/components/base/Input/input";
 @import "src/components/Header/header";
 @import "src/components/ChatSearch/chat-search";
 @import "src/components/ChatHead/chat-head";
 @import "src/components/ChatList/chat-list";
 @import "src/components/ChatItem/chat-item";
+@import "src/components/MessageForm/message-form";
+@import "src/components/Chat/chat";
 
 .main {
   display: grid;

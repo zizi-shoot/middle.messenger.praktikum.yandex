@@ -1,0 +1,16 @@
+.chat {
+  background-color: var(--bg-content-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat--empty {
+  background-color: transparent;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.chat__message-list {
+  flex-grow: 1;
+}
