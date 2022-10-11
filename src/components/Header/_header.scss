@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  padding: 32px 32px 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.header__logo {
+  width: 48px;
+}
+
+.header__name {
+  font-size: 36px;
+  font-weight: 700;
+}

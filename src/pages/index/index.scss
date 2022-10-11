@@ -1,8 +1,28 @@
-@import "src/components/Button/button";
+@import "src/components/Header/header";
+@import "src/components/ChatSearch/chat-search";
+@import "src/components/base/Button/button";
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+.main {
+  display: grid;
+  flex-grow: 1;
+  grid-template-areas:
+    "chat-search user"
+    "list chat";
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 320px 1fr;
+  gap: 16px 32px;
+  padding: 16px 32px 32px;
+}
+
+.chat-search {
+  grid-area: chat-search;
+}
+.user {
+  grid-area: user;
+}
+.list {
+  grid-area: list;
+}
+.chat {
+  grid-area: chat;
 }

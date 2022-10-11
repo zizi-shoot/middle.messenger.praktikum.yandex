@@ -2,5 +2,11 @@
 title: LetChat
 styles: ./index.scss
 ---
-{{!< document}}
-{{> Button/Button text="Войти"}}
+{{!< Document}}
+{{> Header/Header}}
+<main class="main">
+  {{> ChatSearch/ChatSearch}}
+  <div class="user"></div>
+  <div class="list"></div>
+  <div class="chat"></div>
+</main>
