@@ -16,6 +16,7 @@
   --red-100: hsl(0deg 95% 92% / 100%);
   --red-500: hsl(0deg 76% 57% / 100%);
   --bg-page-color: var(--gray-100);
+  --bg-content-color: var(--white);
   --accent-color: var(--teal-500);
   --hover-color: var(--teal-600);
   --active-color: var(--teal-700);
@@ -26,4 +27,5 @@
   --btn-focus-color: hsl(207 73% 57% / 60%);
   --font-main-color: var(--gray-700);
   --font-light-color: var(--white);
+  --divider-color: var(--gray-200);
 }

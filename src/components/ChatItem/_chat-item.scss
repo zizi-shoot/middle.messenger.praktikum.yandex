@@ -1,0 +1,43 @@
+.chat-item {
+  display: grid;
+  grid-template-areas:
+    "avatar username time"
+    "avatar message counter";
+  grid-template-rows: 21px 32px;
+  grid-template-columns: auto 178px 30px;
+  gap: 4px 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--divider-color);
+}
+
+.chat-item__avatar {
+  grid-area: avatar;
+}
+
+.chat-item__username {
+  grid-area: username;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chat-item__message {
+  grid-area: message;
+  font-size: 12px;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-item__time {
+  grid-area: time;
+  font-size: 12px;
+}
+
+.chat-item__counter {
+  grid-area: counter;
+  font-size: 12px;
+  font-weight: 500;
+}

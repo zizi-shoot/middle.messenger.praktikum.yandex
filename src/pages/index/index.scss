@@ -1,29 +1,36 @@
+@import "src/components/base/Button/button";
+@import "src/components/base/Avatar/avatar";
 @import "src/components/Header/header";
 @import "src/components/ChatSearch/chat-search";
 @import "src/components/ChatHead/chat-head";
-@import "src/components/base/Button/button";
+@import "src/components/ChatList/chat-list";
+@import "src/components/ChatItem/chat-item";
 
 .main {
   display: grid;
-  flex-grow: 1;
   grid-template-areas:
     "chat-search chat-head"
-    "list chat";
+    "chat-list chat";
   grid-template-rows: auto 1fr;
   grid-template-columns: 320px 1fr;
   gap: 16px 32px;
   padding: 16px 32px 32px;
+  flex-grow: 1;
+  max-height: calc(100vh - 96px); // 96 - высота header
 }
 
 .chat-search {
   grid-area: chat-search;
 }
+
 .chat-head {
   grid-area: chat-head;
 }
-.list {
-  grid-area: list;
+
+.chat-list {
+  grid-area: chat-list;
 }
+
 .chat {
   grid-area: chat;
 }
