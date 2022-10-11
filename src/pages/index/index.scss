@@ -1,12 +1,13 @@
 @import "src/components/Header/header";
 @import "src/components/ChatSearch/chat-search";
+@import "src/components/ChatHead/chat-head";
 @import "src/components/base/Button/button";
 
 .main {
   display: grid;
   flex-grow: 1;
   grid-template-areas:
-    "chat-search user"
+    "chat-search chat-head"
     "list chat";
   grid-template-rows: auto 1fr;
   grid-template-columns: 320px 1fr;
@@ -17,8 +18,8 @@
 .chat-search {
   grid-area: chat-search;
 }
-.user {
-  grid-area: user;
+.chat-head {
+  grid-area: chat-head;
 }
 .list {
   grid-area: list;
