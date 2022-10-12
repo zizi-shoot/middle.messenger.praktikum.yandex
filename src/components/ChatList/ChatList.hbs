@@ -1,19 +1,5 @@
 <ul class="chat-list">
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
-  <li>{{> ChatItem/ChatItem}}</li>
+  {{#each chatList}}
+    <li>{{> ChatItem/ChatItem this}}</li>
+  {{/each}}
 </ul>

@@ -1,15 +1,6 @@
 <form class="profile__form profile-form">
-  {{> ProfileFormField/ProfileFormField
-    name="oldPassword"
-    label="Старый пароль"
-  }}
-  {{> ProfileFormField/ProfileFormField
-    name="newPassword"
-    label="Новый пароль"
-  }}
-  {{> ProfileFormField/ProfileFormField
-    name="checkNewPassword"
-    label="Повторите новый пароль"
-  }}
+  {{#each formsData.password}}
+    {{> ProfileFormField/ProfileFormField this}}
+  {{/each}}
   {{> base/Button/Button text="Сохранить" type="submit" class="profile-form__btn" }}
 </form>

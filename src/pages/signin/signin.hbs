@@ -16,16 +16,9 @@ styles: ../common.scss
     <h1 class="signin__title">Вход в аккаунт</h1>
     <p class="signin__helper-text">Ещё нет аккаунта? <a class="link" href="../signup/signup.hbs">Зарегистрироваться</a></p>
     <form class="signin__form signin-form shadow">
-      {{> FormField/FormField
-        label="Логин"
-        name="signin"
-        placeholder="user_name"
-      }}
-      {{> FormField/FormField
-        label="Пароль"
-        name="password"
-        type="password"
-      }}
+      {{#each formsData.signin}}
+        {{> FormField/FormField this}}
+      {{/each}}
       {{> base/Button/Button text="Войти" full-width="true" type="submit"}}
     </form>
   </section>

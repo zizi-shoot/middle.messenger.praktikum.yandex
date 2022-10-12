@@ -1,10 +1,7 @@
 <ul class="profile__data">
-  {{> ProfileItem/ProfileItem property="Почта" value="example@email.com"}}
-  {{> ProfileItem/ProfileItem property="Логин" value="user_name"}}
-  {{> ProfileItem/ProfileItem property="Имя" value="Иван"}}
-  {{> ProfileItem/ProfileItem property="Фамилия" value="Иванов"}}
-  {{> ProfileItem/ProfileItem property="Имя" value="Ванька"}}
-  {{> ProfileItem/ProfileItem property="Телефон" value="+7 (123) 456-78-90"}}
+  {{#each profileData}}
+    {{> ProfileItem/ProfileItem this}}
+  {{/each}}
 </ul>
 <nav class="profile__nav">
   <a href="../../pages/profile/profileEditData.hbs" class="link">Изменить данные</a>
