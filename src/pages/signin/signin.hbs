@@ -1,0 +1,33 @@
+---
+title: LetChat | Вход
+styles: ../common.scss
+---
+{{!< Document}}
+<main class="main">
+  <section class="signin">
+    <img
+      class="signin__logo"
+      src="../../../static/images/logo.webp"
+      width="80"
+      height="80"
+      alt="логотип летчат"
+    >
+    <h1 class="signin__title">Вход в аккаунт</h1>
+    <p class="signin__helper-text">Ещё нет аккаунта? <a class="link" href="../signup/signup.hbs">Зарегистрироваться</a></p>
+    <form class="signin__form signin-form">
+      {{> base/FormField/FormField
+        label="Логин"
+        name="signin"
+        placeholder="user_name"
+      }}
+      {{> base/FormField/FormField
+        label="Пароль"
+        name="password"
+        type="password"
+      }}
+      {{> base/Button/Button text="Войти" full-width="true" type="submit"}}
+    </form>
+  </section>
+</main>
+
+

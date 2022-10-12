@@ -1,0 +1,42 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.signin,
+.signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 430px;
+}
+
+.signin__title,
+.signup__title {
+  margin: 16px 0 0;
+}
+
+.signin__helper-text,
+.signup__helper-text {
+  margin-bottom: 32px;
+}
+
+.signin__form,
+.signup__form {
+  width: 100%;
+}
+
+.signin-form,
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  background-color: var(--bg-content-color);
+  padding: 32px;
+  border-radius: 12px;
+}
+
+
