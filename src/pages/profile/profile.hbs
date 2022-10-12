@@ -1,0 +1,17 @@
+---
+title: LetChat | Профиль
+styles: ./profile.scss
+---
+{{!< Document}}
+{{> Header/Header}}
+
+<main class="main">
+  <h1 class="visually-hidden">Страница профиля</h1>
+  <div class="profile">
+    <a class="profile__avatar" href="#">
+      {{> base/Avatar/Avatar size=128 class="profile__avatar" }}
+    </a>
+    <h2 class="profile__username">Иван Иванов</h2>
+    {{> ProfileData/ProfileData}}
+  </div>
+</main>

@@ -15,12 +15,12 @@ styles: ../common.scss
     <h1 class="signin__title">Вход в аккаунт</h1>
     <p class="signin__helper-text">Ещё нет аккаунта? <a class="link" href="../signup/signup.hbs">Зарегистрироваться</a></p>
     <form class="signin__form signin-form">
-      {{> base/FormField/FormField
+      {{> FormField/FormField
         label="Логин"
         name="signin"
         placeholder="user_name"
       }}
-      {{> base/FormField/FormField
+      {{> FormField/FormField
         label="Пароль"
         name="password"
         type="password"

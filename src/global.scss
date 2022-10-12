@@ -2,7 +2,7 @@
 @import "fonts";
 @import "vars";
 @import "src/components/base/Button/button";
-@import "components/base/FormField/form-field";
+@import "components/FormField/form-field";
 
 *,
 *::before,
@@ -27,6 +27,15 @@ img {
 ul {
   margin: 0;
   padding: 0;
+}
+
+.link {
+  color: var(--font-link-color);
+  text-decoration: none;
+}
+
+.link--warning {
+  color: var(--error-color);
 }
 
 .visually-hidden {

@@ -1,0 +1,7 @@
+<div class="profile-form-field">
+  <label for="input-{{name}}" class="profile-form-field__label">{{label}}</label>
+  {{> base/Input/Input width=400}}
+  {{#if helper-text}}
+    <span class="profile-form-field__helper-text">{{helper-text}}</span>
+  {{/if}}
+</div>

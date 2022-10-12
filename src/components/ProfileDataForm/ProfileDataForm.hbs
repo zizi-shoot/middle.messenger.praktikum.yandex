@@ -1,0 +1,35 @@
+<form class="profile__form profile-form">
+  {{> ProfileFormField/ProfileFormField
+    name="email"
+    label="Почта"
+    placeholder="example@email.com"
+    helper-text="Неправильный email"
+    hasError="true"
+  }}
+  {{> ProfileFormField/ProfileFormField
+    name="login"
+    label="Логин"
+    placeholder="user_name"
+  }}
+  {{> ProfileFormField/ProfileFormField
+    name="first_name"
+    label="Имя"
+    placeholder="Иван"
+  }}
+  {{> ProfileFormField/ProfileFormField
+    name="second_name"
+    label="Фамилия"
+    placeholder="Иванов"
+  }}
+  {{> ProfileFormField/ProfileFormField
+    name="display_name"
+    label="Имя в чате"
+    placeholder="Ванька"
+  }}
+  {{> ProfileFormField/ProfileFormField
+    name="phone"
+    label="Телефон"
+    placeholder="+7 (123) 456-78-90"
+  }}
+  {{> base/Button/Button text="Сохранить" type="submit" class="profile-form__btn" }}
+</form>
