@@ -3,6 +3,7 @@ title: LetChat | Регистрация
 styles: ../common.scss
 ---
 {{!< Document}}
+<a href="/">На главную</a> <!-- для удобства перехода на главную -->
 <main class="main">
   <section class="signup">
     <img
@@ -14,7 +15,7 @@ styles: ../common.scss
     >
     <h1 class="signup__title">Регистрация</h1>
     <p class="signup__helper-text">Уже есть аккаунт? <a class="link" href="../signin/signin.hbs">Войти</a></p>
-    <form class="signup__form signup-form">
+    <form class="signup__form signup-form shadow">
       {{> FormField/FormField
         name="signin"
         placeholder="user_name"

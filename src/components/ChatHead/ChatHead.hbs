@@ -4,7 +4,17 @@
     <span class="chat-head__username">Вадим</span>
   </div>
   <div class="chat-head__controls">
-    <button class="chat-head__btn">Добавить пользователя</button>
-    <button class="chat-head__btn">Удалить пользователя</button>
+    {{> base/Button/Button
+      text="Добавить пользователя"
+      class="chat-head__btn"
+      mode="alt"
+      icon="base/Icons/AddIcon"
+    }}
+    {{> base/Button/Button
+      text="Удалить пользователя"
+      class="chat-head__btn"
+      mode="alt"
+      icon="base/Icons/RemoveIcon"
+    }}
   </div>
 </div>
