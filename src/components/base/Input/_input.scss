@@ -1,0 +1,32 @@
+.input {
+  border-color: var(--border-color);
+  border-radius: 6px;
+  background-color: transparent;
+  padding: 10px 16px;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  outline: 2px solid transparent;
+  transition: outline-color var(--transtition-duration);
+
+  &::placeholder {
+    color: var(--placeholder-color);
+  }
+
+  &:hover {
+    outline-color: var(--border-hover-color);
+  }
+
+  &:focus {
+    outline-color: var(--border-focus-color);
+  }
+
+  &:invalid,
+  &--error {
+    outline-color: var(--error-color);
+  }
+
+  &--half-width {
+    width: 50%;
+  }
+}
+

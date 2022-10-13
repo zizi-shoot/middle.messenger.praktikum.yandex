@@ -1,0 +1,56 @@
+@import "normalize.css";
+@import "fonts";
+@import "vars";
+@import "src/components/base/Button/button";
+@import "components/FormField/form-field";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0;
+  background-color: var(--bg-page-color);
+  color: var(--font-main-color);
+  font-family: "Exo 2", sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  color: var(--font-link-color);
+  text-decoration: none;
+}
+
+.link--warning {
+  color: var(--error-color);
+}
+
+.shadow {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+}

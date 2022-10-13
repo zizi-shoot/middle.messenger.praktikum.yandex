@@ -1,0 +1,10 @@
+{
+  "extends": "@parcel/config-default",
+  "transformers": {
+    "*.{hbs,handlebars}": ["@partiellkorrekt/parcel-transformer-handlebars"]
+  },
+  "reporters": [
+    "...",
+    "parcel-reporter-clean-dist"
+  ]
+}
