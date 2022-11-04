@@ -43,6 +43,7 @@
         "props": false
       }
     ],
-    "class-methods-use-this": 0
+    "class-methods-use-this": 0,
+    "@typescript-eslint/no-useless-constructor": 0
   }
 }

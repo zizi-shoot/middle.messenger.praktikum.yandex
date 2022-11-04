@@ -1,0 +1,10 @@
+<ul class="profile__data">
+  {{#each profileData}}
+    {{> ProfileItem/ProfileItem this}}
+  {{/each}}
+</ul>
+<nav class="profile__nav">
+  <a href="../../../pages/profile/profileEditData.hbs" class="link">Изменить данные</a>
+  <a href="../../../pages/profile/profileEditPassword.hbs" class="link">Изменить пароль</a>
+  <a href="../../../pages/signin/signin.hbs" class="link link--warning">Выйти</a>
+</nav>
