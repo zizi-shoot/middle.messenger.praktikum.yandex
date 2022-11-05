@@ -1,6 +1,4 @@
 import { renderDOM } from './core';
-import { IndexPage } from './pages';
-import { PageHeader } from './components';
+import { NotFoundPage } from './pages';
 
-renderDOM('#root', new PageHeader({}));
-renderDOM('#root', new IndexPage({}));
+renderDOM('#root', new NotFoundPage({}));

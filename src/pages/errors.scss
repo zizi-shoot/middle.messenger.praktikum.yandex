@@ -1,0 +1,26 @@
+.error {
+  flex-direction: column;
+}
+
+.error__title {
+  font-weight: 700;
+  font-size: 72px;
+  color: var(--accent-color);
+  margin: 0 0 32px;
+}
+
+.error__descr {
+  font-weight: 500;
+  font-size: 24px;
+  margin-bottom: 128px;
+}
+
+.error__return-link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  padding: 10px 16px;
+  border-radius: 6px;
+}

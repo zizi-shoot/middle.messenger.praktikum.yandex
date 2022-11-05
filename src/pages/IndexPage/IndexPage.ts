@@ -1,9 +1,13 @@
 import { Component, Props } from '../../core';
 import { template } from './IndexPage.template';
-import { ChatHead, ChatList, ChatSearch } from '../../components/chat';
-import './index-page.scss';
-import { ChatBody } from '../../components/chat/ChatBody';
+import {
+  ChatBody,
+  ChatHead,
+  ChatList,
+  ChatSearch,
+} from '../../components/chat';
 import { messages } from '../../data/messages';
+import './index-page.scss';
 
 export class IndexPage extends Component<Props> {
   constructor(props: Props) {
