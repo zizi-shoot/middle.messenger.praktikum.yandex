@@ -2,11 +2,12 @@ import { Children, Component, Props } from '../../core';
 import { template } from './SignInPage.template';
 import { formsData } from '../../data/formsData';
 import { Button } from '../../components/base';
-import { FormField } from '../../components/FormField';
+import { FormField } from '../../components';
+import '../common.scss';
 
-export class SignInPage extends Component<Props<Component>> {
-  constructor(props: Props<Component>) {
-    const inputs = formsData.signin.reduce((children: Children<Component>, { name, label }) => {
+export class SignInPage extends Component<Props> {
+  constructor(props: Props) {
+    const inputs = formsData.signin.reduce((children: Children, { name, label }) => {
       children[name] = new FormField({ label, name });
 
       return children;

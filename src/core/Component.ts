@@ -3,17 +3,18 @@ import Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
 import { isObject } from '../utils/isObject';
 import { isDeepEqual } from '../utils/isDeepEqual';
-import { Nullable } from '../types/Nullable';
+// eslint-disable-next-line import/no-cycle
+import { Nullable } from '../types';
 
-export type Children<K> = Record<string, K>;
-export type Props<K> = {
+export type Children = Record<string, Component>;
+export type Props = {
   events?: Record<string, <T>(...args: T[]) => void>,
   withInternalID?: boolean,
-  children?: Children<K>
+  children?: Children
   [N: string]: unknown,
 };
 
-export abstract class Component<P extends Props<Component> = {}> {
+export abstract class Component<P extends Props = {}> {
   public static EVENT = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -33,7 +34,7 @@ export abstract class Component<P extends Props<Component> = {}> {
 
   protected props: P;
 
-  protected children?: Children<Component>;
+  protected children?: Children;
 
   public constructor(propsAndChildren: P, tagName: string = 'div') {
     const props = this.getProps(propsAndChildren);

@@ -1,5 +1,6 @@
 import { renderDOM } from './core';
-import { SignUpPage } from './pages/SignUpPage';
+import { IndexPage } from './pages';
+import { PageHeader } from './components';
 
-// renderDOM('#root', new SignInPage({}));
-renderDOM('#root', new SignUpPage({}));
+renderDOM('#root', new PageHeader({}));
+renderDOM('#root', new IndexPage({}));

@@ -1,14 +1,18 @@
 .chat {
-  background-color: var(--bg-content-color);
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  overflow-y: scroll;
+  height: 100%;
+  padding-top: 16px;
   border-radius: 16px;
+  background-color: var(--bg-content-color);
 }
 
 .chat--empty {
-  background-color: transparent;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
 }
 
 .chat__empty-message {
@@ -16,7 +20,12 @@
   font-size: 20px;
 }
 
-
 .chat__message-list {
   flex-grow: 1;
+}
+
+.chat__divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0 16px;
 }
