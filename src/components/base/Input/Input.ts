@@ -1,5 +1,6 @@
 import { Component, Props } from '../../../core';
 import { template } from './Input.template';
+import './_input.scss';
 
 interface InputProps<T> extends Props<T> {
   type?: 'text' | 'phone' | 'email',
