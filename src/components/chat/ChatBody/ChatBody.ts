@@ -3,7 +3,7 @@ import { template } from './ChatBody.template';
 import { MessageList } from '../MessageList';
 import { MessageItemProps } from '../../../types';
 import { MessageForm } from '../MessageForm';
-import './chat-body.scss';
+import './chat-body.css';
 
 interface ChatBodyProps extends Props {
   messages: MessageItemProps[],

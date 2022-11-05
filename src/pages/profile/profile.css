@@ -1,8 +1,8 @@
-@import "src/components/base/Avatar/avatar";
-@import "../../components/PageHeader/page-header";
-@import "../../components/profile/ProfileFormField/profile-form-field";
-@import "../../components/profile/ProfileDataForm/profile-data-form";
-@import "../../components/profile/ProfileData/profile-data";
+@import url("src/components/base/Avatar/avatar");
+@import url("../../components/PageHeader/page-header");
+@import url("../../components/profile/ProfileFormField/profile-form-field");
+@import url("../../components/profile/ProfileDataForm/profile-data-form");
+@import url("../../components/profile/ProfileData/profile-data");
 
 .main {
   display: flex;
@@ -60,5 +60,3 @@
 .profile__form {
   width: 670px;
 }
-
-

@@ -1,6 +1,6 @@
 import { Component, Props } from '../../../core';
 import { template } from './Button.template';
-import './button.scss';
+import './button.css';
 
 interface ButtonProps extends Props {
   text: string,

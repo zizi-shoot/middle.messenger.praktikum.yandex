@@ -1,7 +1,7 @@
 import { Component, Props } from '../../core';
 import { template } from './FormField.template';
 import { Input } from '../base';
-import './form-field.scss';
+import './form-field.css';
 
 interface FormFieldProps extends Props {
   name: string,

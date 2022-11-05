@@ -7,7 +7,7 @@ import {
   ChatSearch,
 } from '../../components/chat';
 import { messages } from '../../data/messages';
-import './index-page.scss';
+import './index-page.css';
 
 export class IndexPage extends Component<Props> {
   constructor(props: Props) {

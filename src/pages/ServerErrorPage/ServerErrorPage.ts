@@ -1,6 +1,6 @@
 import { Component } from '../../core';
 import { template } from './ServerErrorPage.template';
-import '../errors.scss';
+import '../errors.css';
 
 export class ServerErrorPage extends Component {
   protected render(): string {

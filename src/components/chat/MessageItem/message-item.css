@@ -12,6 +12,13 @@
   }
 }
 
+.message-item__time {
+  width: 100%;
+  display: inline-block;
+  text-align: right;
+  color: var(--placeholder-color);
+}
+
 .message-item--me .message-item__time {
   color: var(--border-color);
 }
@@ -20,9 +27,4 @@
   margin: 0 0 8px;
 }
 
-.message-item__time {
-  width: 100%;
-  display: inline-block;
-  text-align: right;
-  color: var(--placeholder-color);
-}
+

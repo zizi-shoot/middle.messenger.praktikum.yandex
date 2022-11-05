@@ -3,7 +3,7 @@ import { template } from './SignInPage.template';
 import { formsData } from '../../data/formsData';
 import { Button } from '../../components/base';
 import { FormField } from '../../components';
-import '../common.scss';
+import '../entry.css';
 
 export class SignInPage extends Component<Props> {
   constructor(props: Props) {

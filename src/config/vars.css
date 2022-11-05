@@ -24,7 +24,7 @@
   --btn-color: var(--accent-color);
   --btn-hover-color: var(--hover-color);
   --btn-active-color: var(--active-color);
-  --btn-focus-color: hsl(207 73% 57% / 60%);
+  --btn-focus-color: hsl(207deg 73% 57% / 60%);
   --font-main-color: var(--gray-700);
   --font-light-color: var(--white);
   --font-alt-color: var(--gray-500);

@@ -1,7 +1,7 @@
 import { Component, Props } from '../../../core';
 import { template } from './ChatHead.template';
 import { Avatar, Button, Icon } from '../../base';
-import './chat-head.scss';
+import './chat-head.css';
 
 interface ChatHeadProps extends Props {
   userName: string,

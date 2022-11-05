@@ -1,7 +1,7 @@
 import { Component, Props } from '../../../core';
 import { template } from './MessageForm.template';
 import { Button, Icon, Input } from '../../base';
-import './message-form.scss';
+import './message-form.css';
 
 interface MessageFormProps extends Props {
   class?: string,

@@ -2,7 +2,7 @@ import { Children, Component, Props } from '../../../core';
 import { chatList } from '../../../data/chatList';
 import { ChatItem } from '../ChatItem';
 import { template } from './ChatList.template';
-import './chat-list.scss';
+import './chat-list.css';
 
 interface ChatListProps extends Props {
 }

@@ -2,7 +2,7 @@ import { Children, Component, Props } from '../../../core';
 import { template } from './MessageList.template';
 import { MessageItemProps } from '../../../types';
 import { MessageItem } from '../MessageItem';
-import './message-list.scss';
+import './message-list.css';
 
 interface MessageListProps extends Props {
   messageList: MessageItemProps[],

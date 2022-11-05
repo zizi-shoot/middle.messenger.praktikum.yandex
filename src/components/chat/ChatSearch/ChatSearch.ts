@@ -1,7 +1,7 @@
 import { Component, Props } from '../../../core';
 import { Icon } from '../../base';
 import { template } from './ChatSearch.template';
-import './chat-search.scss';
+import './chat-search.css';
 
 interface ChatSearchProps extends Props {
 }

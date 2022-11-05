@@ -3,7 +3,7 @@ import { formsData } from '../../data/formsData';
 import { Button } from '../../components/base';
 import { template } from './SignUpPage.template';
 import { FormField } from '../../components';
-import '../common.scss';
+import '../entry.css';
 
 export class SignUpPage extends Component<Props> {
   constructor(props: Props) {
