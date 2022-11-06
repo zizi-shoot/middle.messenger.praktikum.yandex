@@ -31,7 +31,7 @@ export abstract class Component<P extends ComponentProps = {}> {
     const props = this.getProps(propsAndChildren);
     const { children } = propsAndChildren;
 
-    this.id = nanoid(6);
+    this.id = nanoid();
     this.tagName = tagName || 'div';
     this.eventBus = new EventBus();
     this.props = this.makeProxy(props);
