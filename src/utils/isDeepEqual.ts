@@ -16,7 +16,11 @@ export const isDeepEqual = (item1: object, item2: object): boolean => {
     const val2 = item2[key];
     const areObjects = isObject(val1) && isObject(val2);
 
-    if ((areObjects && isDeepEqual(val1, val2)) || isDeepEqual(val1, val2)) {
+    if (areObjects) {
+      isDeepEqual(val1, val2);
+    }
+
+    if (val1 !== val2) {
       return false;
     }
   }

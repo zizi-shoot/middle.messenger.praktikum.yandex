@@ -1,13 +1,8 @@
-import { Component, Props } from '../../core';
+import { Component } from '../../core';
 import { template } from './FormField.template';
 import { Input } from '../base';
 import './form-field.css';
-
-interface FormFieldProps extends Props {
-  name: string,
-  label: string,
-  helperText?: string,
-}
+import { FormFieldProps } from '../../types';
 
 export class FormField extends Component<FormFieldProps> {
   constructor(props: FormFieldProps) {

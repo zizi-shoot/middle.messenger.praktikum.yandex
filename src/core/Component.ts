@@ -3,12 +3,11 @@ import Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
 import { isObject } from '../utils/isObject';
 import { isDeepEqual } from '../utils/isDeepEqual';
-// eslint-disable-next-line import/no-cycle
-import { Nullable } from '../types';
+import { EventCallback } from '../types';
 
 export type Children = Record<string, Component>;
 export type Props = {
-  events?: Record<string, <T>(...args: T[]) => void>,
+  events?: Record<string, EventCallback>,
   withInternalID?: boolean,
   children?: Children
   [N: string]: unknown,
@@ -28,13 +27,13 @@ export abstract class Component<P extends Props = {}> {
 
   private readonly eventBus: EventBus;
 
-  private element: Nullable<HTMLElement | SVGElement> = null;
+  private element: HTMLElement | SVGElement | null = null;
 
   private requireUpdate = false;
 
   protected props: P;
 
-  protected children?: Children;
+  protected children: Children;
 
   public constructor(propsAndChildren: P, tagName: string = 'div') {
     const props = this.getProps(propsAndChildren);
@@ -44,22 +43,21 @@ export abstract class Component<P extends Props = {}> {
     this.tagName = tagName || 'div';
     this.eventBus = new EventBus();
     this.props = this.makeProxy(props);
-
-    if (children) {
-      this.children = this.makeProxy(children);
-    }
+    this.children = this.makeProxy(children || {});
 
     this.registerEvents(this.eventBus);
     this.eventBus.emit(Component.EVENT.INIT);
   }
 
-  private init() {
+  private _init() {
     this.element = this.createDocumentElement(this.tagName);
+
+    this.init();
     this.eventBus.emit(Component.EVENT.FLOW_RENDER);
   }
 
   private registerEvents(eventBus: EventBus) {
-    eventBus.subscribe(Component.EVENT.INIT, this.init.bind(this));
+    eventBus.subscribe(Component.EVENT.INIT, this._init.bind(this));
     eventBus.subscribe(Component.EVENT.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.subscribe(Component.EVENT.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.subscribe(Component.EVENT.FLOW_RENDER, this._render.bind(this));
@@ -89,6 +87,14 @@ export abstract class Component<P extends Props = {}> {
   }
 
   private getProps(propsAndChildren: P): P {
+    const props = { ...propsAndChildren };
+
+    delete props.children;
+
+    return props;
+  }
+
+  private getPartialProps(propsAndChildren: Partial<P>): Partial<P> {
     const props = { ...propsAndChildren };
 
     delete props.children;
@@ -183,7 +189,7 @@ export abstract class Component<P extends Props = {}> {
   }
 
   private _componentDidUpdate(prevProps: P, nextProps: P) {
-    const requireReRender = this.componentDidUpdate(prevProps, nextProps);
+    const requireReRender = !this.componentDidUpdate(prevProps, nextProps);
 
     if (!requireReRender) {
       return;
@@ -206,29 +212,8 @@ export abstract class Component<P extends Props = {}> {
     }
   }
 
-  protected setProps(nextProps: P) {
-    if (!nextProps) {
-      return;
-    }
+  protected init() {
 
-    this.requireUpdate = false;
-
-    const prevProps = { ...this.props };
-    const props = this.getProps(nextProps);
-    const { children } = nextProps;
-
-    if (this.children && children && Object.values(children).length > 0) {
-      Object.assign(this.children, children);
-    }
-
-    if (Object.values(props).length > 0) {
-      Object.assign(this.props, props);
-    }
-
-    if (this.requireUpdate) {
-      this.eventBus.emit(Component.EVENT.FLOW_CDU, prevProps, this.props);
-      this.requireUpdate = false;
-    }
   }
 
   protected componentDidMount() {
@@ -244,6 +229,32 @@ export abstract class Component<P extends Props = {}> {
 
   protected render(): string {
     return '';
+  }
+
+  public setProps(nextProps: Partial<P>) {
+    if (!nextProps) {
+      return;
+    }
+
+    this.requireUpdate = false;
+
+    const prevProps = { ...this.props };
+    const prevChildren = { ...this.children } as Children;
+    const props = this.getPartialProps(nextProps);
+    const { children } = nextProps;
+
+    if (children && Object.keys(children).length > 0) {
+      Object.assign(this.children, children);
+    }
+
+    if (Object.values(props).length > 0) {
+      Object.assign(this.props, props);
+    }
+
+    if (this.requireUpdate) {
+      this.eventBus.emit(Component.EVENT.FLOW_CDU, { ...prevProps, ...prevChildren }, { ...this.props, ...this.children });
+      this.requireUpdate = false;
+    }
   }
 
   public show() {
@@ -271,7 +282,7 @@ export abstract class Component<P extends Props = {}> {
     }
   }
 
-  public getContent(): Nullable<HTMLElement | SVGElement> {
+  public getContent(): HTMLElement | SVGElement | null {
     return this.element;
   }
 }
