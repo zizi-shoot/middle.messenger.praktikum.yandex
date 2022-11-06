@@ -1,1 +1,1 @@
-export * from './MessageList';
+export { MessageList } from './MessageList';

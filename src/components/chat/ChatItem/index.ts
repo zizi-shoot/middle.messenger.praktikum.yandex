@@ -1,1 +1,1 @@
-export * from './ChatItem';
+export { ChatItem } from './ChatItem';

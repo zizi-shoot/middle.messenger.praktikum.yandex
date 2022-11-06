@@ -1,1 +1,1 @@
-export * from './ProfileFormField';
+export { ProfileFormField } from './ProfileFormField';

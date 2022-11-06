@@ -1,1 +1,1 @@
-export * from './ChatHead';
+export { ChatHead } from './ChatHead';

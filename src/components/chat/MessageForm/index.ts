@@ -1,1 +1,1 @@
-export * from './MessageForm';
+export { MessageForm } from './MessageForm';
