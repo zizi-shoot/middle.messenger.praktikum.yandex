@@ -8,7 +8,7 @@ interface MessageFormProps extends Props {
 }
 
 export class MessageForm extends Component<MessageFormProps> {
-  constructor(props: MessageFormProps) {
+  protected init() {
     const input = new Input({
       class: 'message-form__input',
       name: 'message',
@@ -26,14 +26,11 @@ export class MessageForm extends Component<MessageFormProps> {
       },
     });
 
-    super({
-      ...props,
-      children: {
-        input,
-        attachIcon,
-        sentButton,
-      },
-    });
+    this.children = {
+      input,
+      attachIcon,
+      sentButton,
+    };
   }
 
   protected render(): string {

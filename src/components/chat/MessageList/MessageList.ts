@@ -9,8 +9,8 @@ interface MessageListProps extends Props {
 }
 
 export class MessageList extends Component<MessageListProps> {
-  constructor(props: MessageListProps) {
-    const messageList = props.messageList.reduce((children: Children, messageProps) => {
+  protected init() {
+    const messageList = this.props.messageList.reduce((children: Children, messageProps) => {
       children[messageProps.id] = new MessageItem({
         ...messageProps,
         class: `message-list__item ${messageProps.author === 'me' ? 'message-list__item--me message-item--me' : ''}`,
@@ -20,12 +20,9 @@ export class MessageList extends Component<MessageListProps> {
       return children;
     }, {});
 
-    super({
-      ...props,
-      children: {
-        ...messageList,
-      },
-    });
+    this.children = {
+      ...messageList,
+    };
   }
 
   protected render(): string {

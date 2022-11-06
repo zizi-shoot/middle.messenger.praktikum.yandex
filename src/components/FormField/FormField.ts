@@ -1,19 +1,12 @@
 import { Component } from '../../core';
-import { template } from './FormField.template';
 import { Input } from '../base';
-import './form-field.css';
 import { FormFieldProps } from '../../types';
+import { template } from './FormField.template';
+import './form-field.css';
 
 export class FormField extends Component<FormFieldProps> {
-  constructor(props: FormFieldProps) {
-    const input = new Input({ ...props });
-
-    super({
-      ...props,
-      children: {
-        input,
-      },
-    });
+  protected init() {
+    this.children.input = new Input({ ...this.props });
   }
 
   protected render(): string {

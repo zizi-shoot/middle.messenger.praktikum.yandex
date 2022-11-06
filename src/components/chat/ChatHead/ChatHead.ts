@@ -9,11 +9,11 @@ interface ChatHeadProps extends Props {
 }
 
 export class ChatHead extends Component<ChatHeadProps> {
-  constructor(props: ChatHeadProps) {
+  protected init() {
     const avatar = new Avatar({
       size: 48,
-      src: props.userPic,
-      altText: `аватар пользователя ${props.userName}`,
+      src: this.props.userPic,
+      altText: `аватар пользователя ${this.props.userName}`,
     });
 
     const addUserButton = new Button({
@@ -34,14 +34,11 @@ export class ChatHead extends Component<ChatHeadProps> {
       },
     });
 
-    super({
-      ...props,
-      children: {
-        avatar,
-        addUserButton,
-        removeUserButton,
-      },
-    });
+    this.children = {
+      avatar,
+      addUserButton,
+      removeUserButton,
+    };
   }
 
   protected render(): string {

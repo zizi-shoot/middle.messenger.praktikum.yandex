@@ -1,29 +1,20 @@
-import { Children, Component, Props } from '../../../core';
+import { Children, Component } from '../../../core';
 import { chatList } from '../../../data/chatList';
 import { ChatItem } from '../ChatItem';
 import { template } from './ChatList.template';
 import './chat-list.css';
 
-interface ChatListProps extends Props {
-}
-
-export class ChatList extends Component<ChatListProps> {
-  constructor(props: ChatListProps) {
+export class ChatList extends Component {
+  protected init() {
     const chatItems = chatList.reduce((children: Children, childProps) => {
-      const item = new ChatItem({ ...childProps, withInternalID: true });
-      const itemId = childProps.id;
-
-      children[itemId] = item;
+      children[childProps.id] = new ChatItem({ ...childProps, withInternalID: true });
 
       return children;
     }, {});
 
-    super({
-      ...props,
-      children: {
-        ...chatItems,
-      },
-    });
+    this.children = {
+      ...chatItems,
+    };
   }
 
   protected render(): string {

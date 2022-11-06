@@ -12,9 +12,7 @@ interface ButtonProps extends Props {
 
 export class Button extends Component<ButtonProps> {
   constructor(props: ButtonProps) {
-    super(props);
-
-    this.props.type = this.props.type || 'button';
+    super({ type: 'button', ...props });
   }
 
   protected render(): string {

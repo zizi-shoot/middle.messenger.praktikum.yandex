@@ -10,17 +10,14 @@ interface ChatBodyProps extends Props {
 }
 
 export class ChatBody extends Component<ChatBodyProps> {
-  constructor(props: ChatBodyProps) {
-    const messageList = new MessageList({ messageList: props.messages });
+  protected init() {
+    const messageList = new MessageList({ messageList: this.props.messages });
     const messageForm = new MessageForm({ class: 'chat__message-form' });
-    super({
-      ...props,
-      messages: props.messages,
-      children: {
-        messageList,
-        messageForm,
-      },
-    });
+
+    this.children = {
+      messageList,
+      messageForm,
+    };
   }
 
   protected render(): string {
