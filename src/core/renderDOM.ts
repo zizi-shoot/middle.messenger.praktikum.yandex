@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-cycle
 import { Component } from './Component';
 
 export const renderDOM = <T extends Component>(query: string, component: T) => {

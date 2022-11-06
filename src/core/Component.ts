@@ -3,17 +3,9 @@ import Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
 import { isObject } from '../utils/isObject';
 import { isDeepEqual } from '../utils/isDeepEqual';
-import { EventCallback } from '../types';
+import { ComponentChildren, ComponentProps } from '../types';
 
-export type Children = Record<string, Component>;
-export type Props = {
-  events?: Record<string, EventCallback>,
-  withInternalID?: boolean,
-  children?: Children
-  [N: string]: unknown,
-};
-
-export abstract class Component<P extends Props = {}> {
+export abstract class Component<P extends ComponentProps = {}> {
   public static EVENT = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -33,7 +25,7 @@ export abstract class Component<P extends Props = {}> {
 
   protected props: P;
 
-  protected children: Children;
+  protected children: ComponentChildren;
 
   public constructor(propsAndChildren: P, tagName: string = 'div') {
     const props = this.getProps(propsAndChildren);
@@ -239,7 +231,7 @@ export abstract class Component<P extends Props = {}> {
     this.requireUpdate = false;
 
     const prevProps = { ...this.props };
-    const prevChildren = { ...this.children } as Children;
+    const prevChildren = { ...this.children } as ComponentChildren;
     const props = this.getPartialProps(nextProps);
     const { children } = nextProps;
 

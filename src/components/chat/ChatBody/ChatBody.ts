@@ -1,11 +1,11 @@
-import { Component, Props } from '../../../core';
+import { Component } from '../../../core';
 import { template } from './ChatBody.template';
 import { MessageList } from '../MessageList';
-import { MessageItemProps } from '../../../types';
+import { MessageItemProps, ComponentProps } from '../../../types';
 import { MessageForm } from '../MessageForm';
 import './chat-body.css';
 
-interface ChatBodyProps extends Props {
+interface ChatBodyProps extends ComponentProps {
   messages: MessageItemProps[],
 }
 

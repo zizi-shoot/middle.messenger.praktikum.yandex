@@ -1,16 +1,16 @@
-import { Children, Component, Props } from '../../../core';
+import { Component } from '../../../core';
 import { template } from './ProfileData.template';
-import { ProfileItemProps } from '../../../types';
+import { ComponentChildren, ProfileItemProps, ComponentProps } from '../../../types';
 import { ProfileItem } from '../ProfileItem';
 import './profile-data.css';
 
-interface ProfileDataProps extends Props {
+interface ProfileDataProps extends ComponentProps {
   items: ProfileItemProps[],
 }
 
 export class ProfileData extends Component<ProfileDataProps> {
   protected init() {
-    const items = this.props.items.reduce((children: Children, itemProps) => {
+    const items = this.props.items.reduce((children: ComponentChildren, itemProps) => {
       children[itemProps.name] = new ProfileItem({ ...itemProps });
 
       return children;

@@ -1,8 +1,9 @@
-import { Component, Props } from '../../../core';
+import { Component } from '../../../core';
 import { template } from './Input.template';
 import './input.css';
+import { ComponentProps } from '../../../types';
 
-interface InputProps extends Props {
+interface InputProps extends ComponentProps {
   type?: 'text' | 'phone' | 'email',
   name?: string,
   placeholder?: string,

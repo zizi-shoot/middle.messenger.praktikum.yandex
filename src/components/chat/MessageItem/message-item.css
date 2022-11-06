@@ -6,7 +6,7 @@
   line-height: 16px;
 
   &--me {
-    border-radius: 8px 8px 0 8px;
+    border-radius: 8px 8px 0;
     background-color: var(--accent-color);
     color: var(--font-light-color);
   }
@@ -26,5 +26,3 @@
 .message-item__text {
   margin: 0 0 8px;
 }
-
-

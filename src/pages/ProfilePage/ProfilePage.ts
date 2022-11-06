@@ -12,7 +12,7 @@ export class ProfilePage extends Component {
     const avatar = new Avatar({
       size: 128,
       src: 'https://i.pinimg.com/736x/05/21/31/052131c411b8aa376dc38d43cff7f333.jpg',
-      altText: `аватар пользователя ${'Артур Флек'}`,
+      altText: 'аватар пользователя Артур Флек',
       class: 'profile__avatar',
     });
 

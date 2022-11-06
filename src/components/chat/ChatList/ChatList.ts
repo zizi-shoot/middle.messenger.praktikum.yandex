@@ -1,12 +1,13 @@
-import { Children, Component } from '../../../core';
+import { Component } from '../../../core';
 import { chatList } from '../../../data/chatList';
 import { ChatItem } from '../ChatItem';
 import { template } from './ChatList.template';
 import './chat-list.css';
+import { ComponentChildren } from '../../../types';
 
 export class ChatList extends Component {
   protected init() {
-    const chatItems = chatList.reduce((children: Children, childProps) => {
+    const chatItems = chatList.reduce((children: ComponentChildren, childProps) => {
       children[childProps.id] = new ChatItem({ ...childProps, withInternalID: true });
 
       return children;

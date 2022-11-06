@@ -1,6 +1,6 @@
-import { Props } from '../core';
+import { ComponentProps } from './ComponentProps';
 
-export interface ProfileItemProps extends Props {
+export interface ProfileItemProps extends ComponentProps {
   name: string,
   label: string,
   value: string

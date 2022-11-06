@@ -1,7 +1,8 @@
-import { Component, Props } from '../../../core';
+import { Component } from '../../../core';
 import { template } from './Icon.template';
+import { ComponentProps } from '../../../types';
 
-interface IconProps extends Props {
+interface IconProps extends ComponentProps {
   type: keyof typeof template,
   class?: string,
 }

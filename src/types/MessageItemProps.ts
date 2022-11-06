@@ -1,7 +1,6 @@
-// eslint-disable-next-line import/no-cycle
-import { Props } from '../core';
+import { ComponentProps } from './ComponentProps';
 
-export interface MessageItemProps extends Props {
+export interface MessageItemProps extends ComponentProps {
   id: string,
   author: string,
   text: string,

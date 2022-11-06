@@ -1,9 +1,10 @@
-import { Component, Props } from '../../../core';
+import { Component } from '../../../core';
 import { template } from './ChatHead.template';
 import { Avatar, Button, Icon } from '../../base';
 import './chat-head.css';
+import { ComponentProps } from '../../../types';
 
-interface ChatHeadProps extends Props {
+interface ChatHeadProps extends ComponentProps {
   userName: string,
   userPic: string,
 }

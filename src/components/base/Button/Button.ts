@@ -1,8 +1,9 @@
-import { Component, Props } from '../../../core';
+import { Component } from '../../../core';
 import { template } from './Button.template';
 import './button.css';
+import { ComponentProps } from '../../../types';
 
-interface ButtonProps extends Props {
+interface ButtonProps extends ComponentProps {
   text: string,
   fullWidth?: boolean,
   type?: 'button' | 'submit',
