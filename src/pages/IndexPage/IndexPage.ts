@@ -1,16 +1,11 @@
-import { Component, Props } from '../../core';
+import { Component } from '../../core';
 import { template } from './IndexPage.template';
-import {
-  ChatBody,
-  ChatHead,
-  ChatList,
-  ChatSearch,
-} from '../../components/chat';
+import { ChatBody, ChatHead, ChatList, ChatSearch } from '../../components/chat';
 import { messages } from '../../data/messages';
 import './index-page.css';
 
-export class IndexPage extends Component<Props> {
-  constructor(props: Props) {
+export class IndexPage extends Component {
+  protected init() {
     const chatSearch = new ChatSearch({});
     const chatHead = new ChatHead({
       userName: 'Артур Флек',
@@ -19,15 +14,12 @@ export class IndexPage extends Component<Props> {
     const chatList = new ChatList({});
     const chatBody = new ChatBody({ messages });
 
-    super({
-      ...props,
-      children: {
-        chatSearch,
-        chatHead,
-        chatList,
-        chatBody,
-      },
-    });
+    this.children = {
+      chatSearch,
+      chatHead,
+      chatList,
+      chatBody,
+    };
   }
 
   protected render(): string {
