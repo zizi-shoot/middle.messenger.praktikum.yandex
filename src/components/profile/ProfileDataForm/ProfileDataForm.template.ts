@@ -1,7 +1,7 @@
 // language=hbs
-export const template = (fieldNames: string[]) => `
+export const template = (fields: string[]) => `
     <form class="profile__form profile-form">
-        ${fieldNames.map((inputName) => `{{{${inputName}}}}`).join('')}
+        ${fields.map((fieldName) => `{{{${fieldName}}}}`).join('')}
         {{{button}}}
     </form>
 `;

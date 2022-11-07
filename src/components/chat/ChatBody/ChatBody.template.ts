@@ -1,7 +1,7 @@
 // language=hbs
 export const template = `
-    <div class="chat {{#if messages}}{{else}}chat--empty{{/if}}">
-        {{#if messages}}
+    <div class="chat {{#if hasMessages}}{{else}}chat--empty{{/if}}">
+        {{#if hasMessages}}
             {{{messageList}}}
             <div class="chat__divider"></div>
             {{{messageForm}}}

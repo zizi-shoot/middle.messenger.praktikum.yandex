@@ -1,5 +1,5 @@
 // language=hbs
-export const template = (inputs: string[]) => `
+export const template = (fields: string[]) => `
     <main class="main">
         <section class="entry">
             <picture class="entry__logo">
@@ -11,7 +11,7 @@ export const template = (inputs: string[]) => `
                 Уже есть аккаунт?
                 <a class="link" href="/signin">Войти</a></p>
             <form class="entry__form entry-form shadow">
-                ${inputs.map((inputName: string) => `{{{${inputName}}}}`).join('')}
+                ${fields.map((fieldName: string) => `{{{${fieldName}}}}`).join('')}
                 {{{button}}}
             </form>
         </section>

@@ -16,7 +16,7 @@ export class ProfilePage extends Component {
       class: 'profile__avatar',
     });
 
-    const content = this.getContentComponent('data');
+    const content = this.getContentComponent('edit-password');
 
     this.children = {
       avatar,

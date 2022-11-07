@@ -1,9 +1,10 @@
 import { Component } from '../../../core';
 import { template } from './ProfileDataForm.template';
 import { Button } from '../../base';
-import { ComponentChildren, FormFieldProps, ComponentProps } from '../../../types';
+import { ComponentProps, FormFieldProps } from '../../../types';
 import { ProfileFormField } from '../ProfileFormField';
 import './profile-data-form.css';
+import { createChildrenComponents } from '../../../utils';
 
 interface ProfileFormProps extends ComponentProps {
   fields: FormFieldProps[],
@@ -17,11 +18,10 @@ export class ProfileForm extends Component<ProfileFormProps> {
       class: 'profile-form__btn',
     });
 
-    const fields = this.props.fields.reduce((children: ComponentChildren, fieldProps) => {
-      children[fieldProps.name] = new ProfileFormField({ ...fieldProps });
-
-      return children;
-    }, {});
+    const fields = createChildrenComponents(
+      this.props.fields,
+      ProfileFormField,
+    );
 
     this.children = {
       button,
@@ -30,8 +30,8 @@ export class ProfileForm extends Component<ProfileFormProps> {
   }
 
   protected render(): string {
-    const fieldNames = this.props.fields.map(({ name }) => name);
+    const fields = this.props.fields.map(({ id }) => id);
 
-    return template(fieldNames);
+    return template(fields);
   }
 }

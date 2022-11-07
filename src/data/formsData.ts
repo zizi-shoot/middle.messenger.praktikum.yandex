@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { FormFieldProps } from '../types';
 
 export const formsData: Record<string, FormFieldProps[]> = {
@@ -7,12 +8,14 @@ export const formsData: Record<string, FormFieldProps[]> = {
       name: 'login',
       hasError: false,
       placeholder: 'user_name',
+      id: nanoid(),
     },
     {
       label: 'Пароль',
       name: 'password',
       hasError: false,
       type: 'password',
+      id: nanoid(),
     },
   ],
   signup: [
@@ -22,6 +25,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       placeholder: 'user_name',
       label: 'Логин',
       helperText: 'Неправильный логин',
+      id: nanoid(),
     },
     {
       name: 'first_name',
@@ -29,6 +33,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       placeholder: 'Иван',
       label: 'Имя',
       helperText: 'Неправильное имя',
+      id: nanoid(),
     },
     {
       name: 'second_name',
@@ -36,6 +41,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       placeholder: 'Иванов',
       label: 'Фамилия',
       helperText: 'Неправильная фамилия',
+      id: nanoid(),
     },
     {
       name: 'email',
@@ -44,6 +50,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Email',
       type: 'email',
       helperText: 'Неправильный email',
+      id: nanoid(),
     },
     {
       name: 'phone',
@@ -52,6 +59,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Телефон',
       type: 'tel',
       helperText: 'Неправильный телефон',
+      id: nanoid(),
     },
     {
       name: 'password',
@@ -59,12 +67,14 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Пароль',
       type: 'password',
       helperText: 'Неправильный пароль',
+      id: nanoid(),
     },
     {
       name: 'password_check',
       hasError: false,
       label: 'Пароль (ещё раз)',
       type: 'password',
+      id: nanoid(),
     },
   ],
   profile: [
@@ -74,6 +84,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Почта',
       placeholder: 'example@email.com',
       helperText: 'Неправильный email',
+      id: nanoid(),
     },
     {
       name: 'login',
@@ -81,6 +92,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Логин',
       placeholder: 'user_name',
       helperText: 'Неправильный логин',
+      id: nanoid(),
     },
     {
       name: 'first_name',
@@ -88,6 +100,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Имя',
       placeholder: 'Иван',
       helperText: 'Неправильное имя',
+      id: nanoid(),
     },
     {
       name: 'second_name',
@@ -95,6 +108,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Фамилия',
       placeholder: 'Иванов',
       helperText: 'Неправильная фамилия',
+      id: nanoid(),
 
     },
     {
@@ -103,6 +117,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Имя в чате',
       placeholder: 'Ванька',
       helperText: 'Неправильное имя',
+      id: nanoid(),
     },
     {
       name: 'phone',
@@ -110,6 +125,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       label: 'Телефон',
       placeholder: '+7 (123) 456-78-90',
       helperText: 'Неправильный телефон',
+      id: nanoid(),
     },
   ],
   password: [
@@ -118,6 +134,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       hasError: false,
       label: 'Старый пароль',
       helperText: 'Неправильный пароль',
+      id: nanoid(),
 
     },
     {
@@ -125,12 +142,14 @@ export const formsData: Record<string, FormFieldProps[]> = {
       hasError: false,
       label: 'Новый пароль',
       helperText: 'Пароль должен содержать цифры, английские большие и маленькие буквы',
+      id: nanoid(),
     },
     {
       name: 'checkNewPassword',
       hasError: false,
       label: 'Повторите новый пароль',
       helperText: 'Пароли не совпадают',
+      id: nanoid(),
     },
   ],
 };

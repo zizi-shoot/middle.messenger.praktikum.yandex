@@ -1,8 +1,9 @@
 import { Component } from '../../../core';
 import { template } from './ProfileData.template';
-import { ComponentChildren, ProfileItemProps, ComponentProps } from '../../../types';
+import { ComponentProps, ProfileItemProps } from '../../../types';
 import { ProfileItem } from '../ProfileItem';
 import './profile-data.css';
+import { createChildrenComponents } from '../../../utils';
 
 interface ProfileDataProps extends ComponentProps {
   items: ProfileItemProps[],
@@ -10,17 +11,16 @@ interface ProfileDataProps extends ComponentProps {
 
 export class ProfileData extends Component<ProfileDataProps> {
   protected init() {
-    const items = this.props.items.reduce((children: ComponentChildren, itemProps) => {
-      children[itemProps.name] = new ProfileItem({ ...itemProps });
-
-      return children;
-    }, {});
+    const items = createChildrenComponents(
+      this.props.items,
+      ProfileItem,
+    );
 
     this.children = { ...items };
   }
 
   protected render(): string {
-    const items = this.props.items.map(({ name }) => name);
+    const items = this.props.items.map(({ id }) => id);
 
     return template(items);
   }

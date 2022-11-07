@@ -1,23 +1,23 @@
 import { Component } from '../../../core';
 import { template } from './ChatBody.template';
 import { MessageList } from '../MessageList';
-import { MessageItemProps, ComponentProps } from '../../../types';
 import { MessageForm } from '../MessageForm';
 import './chat-body.css';
+import { messages } from '../../../data/messages';
+import { ComponentProps } from '../../../types';
 
-interface ChatBodyProps extends ComponentProps {
-  messages: MessageItemProps[],
-}
-
-export class ChatBody extends Component<ChatBodyProps> {
+export class ChatBody extends Component<ComponentProps> {
   protected init() {
-    const messageList = new MessageList({ messageList: this.props.messages });
-    const messageForm = new MessageForm({ class: 'chat__message-form' });
+    if (messages) {
+      const messageList = new MessageList({ messageList: messages });
+      const messageForm = new MessageForm({ class: 'chat__message-form' });
 
-    this.children = {
-      messageList,
-      messageForm,
-    };
+      this.props.hasMessages = true;
+      this.children = {
+        messageList,
+        messageForm,
+      };
+    }
   }
 
   protected render(): string {

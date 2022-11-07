@@ -4,16 +4,15 @@ import { formsData } from '../../data/formsData';
 import { Button } from '../../components/base';
 import { FormField } from '../../components';
 import '../entry.css';
-import { ComponentChildren } from '../../types';
+import { createChildrenComponents } from '../../utils';
 
 export class SignInPage extends Component {
   protected init() {
     const button = new Button({ text: 'Войти', fullWidth: true, type: 'submit' });
-    const fields = formsData.signin.reduce((children: ComponentChildren, fieldProps) => {
-      children[fieldProps.name] = new FormField({ ...fieldProps });
-
-      return children;
-    }, {});
+    const fields = createChildrenComponents(
+      formsData.signin,
+      FormField,
+    );
 
     this.children = {
       button,
@@ -22,6 +21,8 @@ export class SignInPage extends Component {
   }
 
   protected render(): string {
-    return template;
+    const fields = formsData.signin.map(({ id }) => id);
+
+    return template(fields);
   }
 }

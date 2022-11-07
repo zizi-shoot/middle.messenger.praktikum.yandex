@@ -1,7 +1,8 @@
 import { Component } from '../../../core';
 import { template } from './MessageList.template';
-import { ComponentChildren, MessageItemProps, ComponentProps } from '../../../types';
 import { MessageItem } from '../MessageItem';
+import { ComponentProps, MessageItemProps } from '../../../types';
+import { createChildrenComponents } from '../../../utils';
 import './message-list.css';
 
 interface MessageListProps extends ComponentProps {
@@ -10,15 +11,14 @@ interface MessageListProps extends ComponentProps {
 
 export class MessageList extends Component<MessageListProps> {
   protected init() {
-    const messageList = this.props.messageList.reduce((children: ComponentChildren, messageProps) => {
-      children[messageProps.id] = new MessageItem({
-        ...messageProps,
-        class: `message-list__item ${messageProps.author === 'me' ? 'message-list__item--me message-item--me' : ''}`,
+    const messageList = createChildrenComponents(
+      this.props.messageList,
+      MessageItem,
+      {
+        class: 'message-list__item',
         withInternalID: true,
-      });
-
-      return children;
-    }, {});
+      },
+    );
 
     this.children = {
       ...messageList,

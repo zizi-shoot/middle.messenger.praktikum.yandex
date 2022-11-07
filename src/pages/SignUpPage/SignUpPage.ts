@@ -1,19 +1,18 @@
 import { Component } from '../../core';
 import { formsData } from '../../data/formsData';
 import { Button } from '../../components/base';
-import { template } from './SignUpPage.template';
 import { FormField } from '../../components';
+import { template } from './SignUpPage.template';
+import { createChildrenComponents } from '../../utils';
 import '../entry.css';
-import { ComponentChildren } from '../../types';
 
 export class SignUpPage extends Component {
   protected init() {
     const button = new Button({ text: 'Зарегистрироваться', fullWidth: true, type: 'submit' });
-    const fields = formsData.signup.reduce((children: ComponentChildren, inputProps) => {
-      children[inputProps.name] = new FormField({ ...inputProps });
-
-      return children;
-    }, {});
+    const fields = createChildrenComponents(
+      formsData.signup,
+      FormField,
+    );
 
     this.children = {
       button,
@@ -22,7 +21,7 @@ export class SignUpPage extends Component {
   }
 
   protected render(): string {
-    const inputs = formsData.signup.map(({ name }) => name);
-    return template(inputs);
+    const fields = formsData.signup.map(({ id }) => id);
+    return template(fields);
   }
 }

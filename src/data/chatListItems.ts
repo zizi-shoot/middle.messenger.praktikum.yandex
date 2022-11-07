@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { ChatItemProps } from '../types';
 
-export const chatList: ChatItemProps[] = [
+export const chatListItems: ChatItemProps[] = [
   {
     id: nanoid(),
     userPic: 'https://i.pinimg.com/736x/05/21/31/052131c411b8aa376dc38d43cff7f333.jpg',

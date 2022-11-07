@@ -1,17 +1,21 @@
 import { Component } from '../../../core';
-import { chatList } from '../../../data/chatList';
 import { ChatItem } from '../ChatItem';
 import { template } from './ChatList.template';
+import { createChildrenComponents } from '../../../utils';
+import { ChatItemProps, ComponentProps } from '../../../types';
 import './chat-list.css';
-import { ComponentChildren } from '../../../types';
 
-export class ChatList extends Component {
+interface ChatListProps extends ComponentProps {
+  items: ChatItemProps[],
+}
+
+export class ChatList extends Component<ChatListProps> {
   protected init() {
-    const chatItems = chatList.reduce((children: ComponentChildren, childProps) => {
-      children[childProps.id] = new ChatItem({ ...childProps, withInternalID: true });
-
-      return children;
-    }, {});
+    const chatItems = createChildrenComponents(
+      this.props.items,
+      ChatItem,
+      { withInternalID: true },
+    );
 
     this.children = {
       ...chatItems,
@@ -19,6 +23,6 @@ export class ChatList extends Component {
   }
 
   protected render(): string {
-    return template(chatList.map(({ id }) => id));
+    return template(this.props.items.map(({ id }) => id));
   }
 }
