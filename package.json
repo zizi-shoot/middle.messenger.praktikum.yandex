@@ -6,7 +6,10 @@
   "scripts": {
     "start": "npm run build && node src/server.js",
     "build": "parcel build",
-    "dev": "parcel -p 3000"
+    "dev": "parcel -p 3000",
+    "eslint": "eslint \"src/**/*.ts\" --ignore-path .gitignore",
+    "stylelint": "stylelint \"src/**/*.css\" --ignore-path .gitignore",
+    "lint": "npm run eslint && npm run stylelint"
   },
   "repository": {
     "type": "git",

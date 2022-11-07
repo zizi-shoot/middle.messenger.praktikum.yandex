@@ -1,8 +1,7 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
-import { isObject } from '../utils/isObject';
-import { isDeepEqual } from '../utils/isDeepEqual';
+import { isDeepEqual, isObject } from '../utils';
 import { ComponentChildren, ComponentProps } from '../types';
 
 export abstract class Component<P extends ComponentProps = {}> {
