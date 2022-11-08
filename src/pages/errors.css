@@ -1,12 +1,9 @@
-.main {
+.error-main {
   display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
   padding: 32px;
-}
-
-.error {
   flex-direction: column;
 }
 

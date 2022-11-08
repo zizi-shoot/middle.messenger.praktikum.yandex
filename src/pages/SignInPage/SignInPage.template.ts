@@ -1,6 +1,6 @@
 // language=hbs
 export const template = (fields: string[]) => `
-    <main class="main">
+    <main class="entry-main">
         <section class="entry">
             <picture class="entry__logo">
                 <source srcset="images/logo.webp" type="image/webp" />

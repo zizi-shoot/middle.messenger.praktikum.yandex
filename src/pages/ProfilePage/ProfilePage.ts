@@ -16,7 +16,10 @@ export class ProfilePage extends Component {
       class: 'profile__avatar',
     });
 
-    const content = this.getContentComponent('edit-password');
+    // eslint-disable-next-line no-restricted-globals
+    const { pathname } = location;
+
+    const content = this.getContentComponent(pathname);
 
     this.children = {
       avatar,
@@ -26,15 +29,15 @@ export class ProfilePage extends Component {
 
   protected getContentComponent(contentType: string): Component {
     switch (contentType) {
-      case 'edit-data':
+      case '/profile/edit-data':
         return new ProfileForm({
           fields: formsData.profile,
         });
-      case 'edit-password':
+      case '/profile/edit-password':
         return new ProfileForm({
           fields: formsData.password,
         });
-      case 'data':
+      case '/profile/data':
       default:
         return new ProfileData({ items: profileItemList });
     }

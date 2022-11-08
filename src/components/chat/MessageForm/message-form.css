@@ -20,7 +20,7 @@
   position: absolute;
   border: none;
   background-color: transparent;
-  top: calc(50% - 4px);
+  top: calc(50% - 8px);
   transform: translateY(-50%);
   left: 28px;
   padding: 0;

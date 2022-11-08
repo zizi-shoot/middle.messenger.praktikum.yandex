@@ -1,6 +1,6 @@
 // language=hbs
 export const template = `
-    <main class="main">
+    <main class="profile-main">
         <h1 class="visually-hidden">Страница профиля</h1>
         <div class="profile">
             <a class="profile__avatar" href="#">{{{avatar}}}</a>
@@ -10,6 +10,3 @@ export const template = `
         </div>
     </main>
 `;
-// {{{profileData}}}
-// {{{profileEditData}}}
-// {{{profileEditPassword}}}
