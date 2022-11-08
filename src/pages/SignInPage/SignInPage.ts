@@ -37,11 +37,13 @@ export class SignInPage extends Component<ComponentProps> {
           .handleSubmit(formData as SignInForm)
           .then(({ status, errors }) => {
             if (status === 'success') {
+              // eslint-disable-next-line no-console
               console.log(formData);
             }
 
             this.showErrors(errors);
           })
+          // eslint-disable-next-line no-console
           .catch(console.warn);
       },
     };

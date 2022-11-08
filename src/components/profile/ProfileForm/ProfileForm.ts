@@ -49,11 +49,13 @@ export class ProfileForm extends Component<ProfileFormProps> {
       .handleSubmit(formData as ProfileDataForm)
       .then(({ status, errors }) => {
         if (status === 'success') {
+          // eslint-disable-next-line no-console
           console.log(formData);
         }
 
         this.showErrors(errors);
       })
+      // eslint-disable-next-line no-console
       .catch(console.warn);
   }
 
