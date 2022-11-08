@@ -1,5 +1,5 @@
 import { all, ValidationRule } from '../services/validation';
-import { ProfileDataForm, ProfilePasswordForm, SignInForm, SignUpForm } from './types';
+import type { ProfileDataForm, ProfilePasswordForm, SignInForm, SignUpForm } from './types';
 import { contains, inRange, notEmpty } from './utils';
 import {
   EMAIL_PATTERN,

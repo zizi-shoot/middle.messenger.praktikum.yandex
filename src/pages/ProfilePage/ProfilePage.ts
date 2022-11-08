@@ -3,8 +3,8 @@ import { Avatar } from '../../components/base';
 import { ProfileData } from '../../components/profile/ProfileData';
 import { ProfileForm } from '../../components/profile/ProfileForm';
 import { profileItemList } from '../../data/profileItemList';
-import { template } from './ProfilePage.template';
 import { formsData } from '../../data/formsData';
+import { template } from './ProfilePage.template';
 import './profile-page.css';
 
 export class ProfilePage extends Component {

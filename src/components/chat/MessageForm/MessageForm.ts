@@ -1,8 +1,8 @@
 import { Component } from '../../../core';
-import { template } from './MessageForm.template';
 import { Button, Icon, Input } from '../../base';
+import { template } from './MessageForm.template';
+import type { ComponentProps } from '../../../types';
 import './message-form.css';
-import { ComponentProps } from '../../../types';
 
 interface MessageFormProps extends ComponentProps {
   class?: string,

@@ -4,7 +4,7 @@ import {
   validateProfilePasswordField,
   validateProfilePasswordForm,
 } from '../../../utils/validation/app/profileDataValidation';
-import { ProfileDataForm, ProfilePasswordForm } from '../../../utils/validation';
+import type { ProfileDataForm, ProfilePasswordForm } from '../../../utils/validation';
 
 export const isPasswordForm = (data: ProfileDataForm | ProfilePasswordForm): data is ProfilePasswordForm => 'newPassword' in data;
 

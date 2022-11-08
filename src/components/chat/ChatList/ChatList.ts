@@ -2,7 +2,7 @@ import { Component } from '../../../core';
 import { ChatItem } from '../ChatItem';
 import { template } from './ChatList.template';
 import { createChildrenComponents } from '../../../utils';
-import { ChatItemProps, ComponentProps } from '../../../types';
+import type { ChatItemProps, ComponentProps } from '../../../types';
 import './chat-list.css';
 
 interface ChatListProps extends ComponentProps {

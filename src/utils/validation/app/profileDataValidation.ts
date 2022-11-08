@@ -1,5 +1,5 @@
-import type { ErrorMessages, ValidationRules } from '../services/validation';
 import { createValidator } from '../services/validation';
+import type { ErrorMessages, ValidationRules } from '../services/validation';
 import type { ProfileDataForm, ProfilePasswordForm } from './types';
 import {
   MAX_LOGIN_LENGTH,

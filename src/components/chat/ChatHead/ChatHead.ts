@@ -1,8 +1,8 @@
 import { Component } from '../../../core';
-import { template } from './ChatHead.template';
 import { Avatar, Button, Icon } from '../../base';
+import { template } from './ChatHead.template';
+import type { ComponentProps } from '../../../types';
 import './chat-head.css';
-import { ComponentProps } from '../../../types';
 
 interface ChatHeadProps extends ComponentProps {
   userName: string,

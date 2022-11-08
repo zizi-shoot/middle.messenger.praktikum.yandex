@@ -1,8 +1,8 @@
 import { Component } from '../../../core';
-import { template } from './ProfileFormField.template';
-import './profile-form-field.css';
 import { Input } from '../../base';
-import { FormFieldProps } from '../../../types';
+import { template } from './ProfileFormField.template';
+import type { FormFieldProps } from '../../../types';
+import './profile-form-field.css';
 
 export class ProfileFormField extends Component<FormFieldProps> {
   protected init() {

@@ -1,7 +1,7 @@
 import { Component } from '../../core';
 import { Input } from '../base';
-import { FormFieldProps } from '../../types';
 import { template } from './FormField.template';
+import type { FormFieldProps } from '../../types';
 import './form-field.css';
 
 export class FormField extends Component<FormFieldProps> {

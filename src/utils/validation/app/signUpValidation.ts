@@ -1,6 +1,3 @@
-import type { ErrorMessages, ValidationRules } from '../services/validation';
-import { createValidator } from '../services/validation';
-import type { SignUpForm } from './types';
 import {
   MAX_LOGIN_LENGTH,
   MAX_PASSWORD_LENGTH,
@@ -9,6 +6,8 @@ import {
   MIN_PASSWORD_LENGTH,
   MIN_PHONE_LENGTH,
 } from './const';
+import type { ErrorMessages, ValidationRules } from '../services/validation';
+import { createValidator } from '../services/validation';
 import {
   validateCheckPassword,
   validateEmail,
@@ -18,6 +17,7 @@ import {
   validatePhone,
   validateSecondName,
 } from './rules';
+import type { SignUpForm } from './types';
 
 export type SignUpRules = ValidationRules<SignUpForm>;
 export type SignUpErrors = ErrorMessages<SignUpForm>;

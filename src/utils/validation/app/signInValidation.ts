@@ -1,8 +1,8 @@
-import type { ErrorMessages, ValidationRules } from '../services/validation';
-import { createValidator } from '../services/validation';
-import type { SignInForm } from './types';
 import { MAX_LOGIN_LENGTH, MAX_PASSWORD_LENGTH, MIN_LOGIN_LENGTH, MIN_PASSWORD_LENGTH } from './const';
+import { createValidator } from '../services/validation';
 import { validateLogin, validatePassword } from './rules';
+import type { SignInForm } from './types';
+import type { ErrorMessages, ValidationRules } from '../services/validation';
 
 export type SignInRules = ValidationRules<SignInForm>;
 export type SignInErrors = ErrorMessages<SignInForm>;

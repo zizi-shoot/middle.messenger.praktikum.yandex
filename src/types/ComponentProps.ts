@@ -1,5 +1,5 @@
-import { EventCallback } from './EventCallback';
-import { ComponentChildren } from './ComponentChildren';
+import type { EventCallback } from './EventCallback';
+import type { ComponentChildren } from './ComponentChildren';
 
 export type ComponentProps = {
   events?: Record<string, EventCallback>,

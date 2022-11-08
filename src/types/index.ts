@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 export type { ComponentChildren } from './ComponentChildren';
 export type { ComponentProps } from './ComponentProps';
 export type { MessageItemProps } from './MessageItemProps';

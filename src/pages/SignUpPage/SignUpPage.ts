@@ -1,15 +1,15 @@
 import { Component } from '../../core';
-import { formsData } from '../../data/formsData';
 import { Button } from '../../components/base';
 import { FormField } from '../../components';
+import { SignUpPageController } from './SignUpPageController';
 import { template } from './SignUpPage.template';
 import { createChildrenComponents } from '../../utils';
-import '../entry.css';
-import { SignUpForm } from '../../utils/validation';
-import { SignUpErrors } from '../../utils/validation/app/signUpValidation';
-import { SignUpPageController } from './SignUpPageController';
 import { getFormData } from '../../utils/getFormData';
-import { ComponentProps } from '../../types';
+import { formsData } from '../../data/formsData';
+import type { SignUpForm } from '../../utils/validation';
+import type { SignUpErrors } from '../../utils/validation/app/signUpValidation';
+import type { ComponentProps } from '../../types';
+import '../entry.css';
 
 export class SignUpPage extends Component<ComponentProps> {
   protected init() {

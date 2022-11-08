@@ -1,7 +1,7 @@
 import { Component } from '../../../core';
 import { template } from './Input.template';
+import type { EventCallback, FormFieldProps } from '../../../types';
 import './input.css';
-import { EventCallback, FormFieldProps } from '../../../types';
 
 interface InputProps extends FormFieldProps {
   type?: 'text' | 'phone' | 'email',

@@ -1,10 +1,10 @@
 import { Component } from '../../../core';
-import { template } from './ChatBody.template';
 import { MessageList } from '../MessageList';
 import { MessageForm } from '../MessageForm';
-import './chat-body.css';
+import { template } from './ChatBody.template';
 import { messages } from '../../../data/messages';
-import { ComponentProps } from '../../../types';
+import type { ComponentProps } from '../../../types';
+import './chat-body.css';
 
 export class ChatBody extends Component<ComponentProps> {
   protected init() {

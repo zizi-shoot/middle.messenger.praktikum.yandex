@@ -1,9 +1,9 @@
 import { Component } from '../../../core';
-import { template } from './ProfileData.template';
-import { ComponentProps, ProfileItemProps } from '../../../types';
 import { ProfileItem } from '../ProfileItem';
-import './profile-data.css';
 import { createChildrenComponents } from '../../../utils';
+import { template } from './ProfileData.template';
+import type { ComponentProps, ProfileItemProps } from '../../../types';
+import './profile-data.css';
 
 interface ProfileDataProps extends ComponentProps {
   items: ProfileItemProps[],

@@ -1,4 +1,4 @@
-import { ComponentProps } from './ComponentProps';
+import type { ComponentProps } from './ComponentProps';
 
 export interface FormFieldProps extends ComponentProps {
   id: string

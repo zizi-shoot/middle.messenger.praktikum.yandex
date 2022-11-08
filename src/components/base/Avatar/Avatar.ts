@@ -1,7 +1,7 @@
 import { Component } from '../../../core';
 import { template } from './Avatar.template';
+import type { ComponentProps } from '../../../types';
 import './avatar.css';
-import { ComponentProps } from '../../../types';
 
 interface AvatarProps extends ComponentProps {
   class?: string,

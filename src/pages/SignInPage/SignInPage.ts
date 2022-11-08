@@ -1,15 +1,15 @@
 import { Component } from '../../core';
-import { template } from './SignInPage.template';
-import { formsData } from '../../data/formsData';
 import { Button } from '../../components/base';
 import { FormField } from '../../components';
-import { createChildrenComponents } from '../../utils';
-import { ComponentProps } from '../../types';
-import '../entry.css';
-import { getFormData } from '../../utils/getFormData';
 import { SignInPageController } from './SignInPageController';
-import { SignInForm } from '../../utils/validation';
-import { SignInErrors } from '../../utils/validation/app/signInValidation';
+import { createChildrenComponents } from '../../utils';
+import { getFormData } from '../../utils/getFormData';
+import { template } from './SignInPage.template';
+import { formsData } from '../../data/formsData';
+import type { ComponentProps } from '../../types';
+import type { SignInForm } from '../../utils/validation';
+import type { SignInErrors } from '../../utils/validation/app/signInValidation';
+import '../entry.css';
 
 export class SignInPage extends Component<ComponentProps> {
   protected init() {

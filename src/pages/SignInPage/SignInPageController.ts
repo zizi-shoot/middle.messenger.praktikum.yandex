@@ -1,5 +1,5 @@
 import { validateSignInField, validateSignInForm } from '../../utils/validation/app/signInValidation';
-import { SignInForm } from '../../utils/validation';
+import type { SignInForm } from '../../utils/validation';
 
 export class SignInPageController {
   public static validateForm(data: SignInForm) {

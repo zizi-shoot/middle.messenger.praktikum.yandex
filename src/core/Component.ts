@@ -1,8 +1,8 @@
-import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
-import { EventBus } from './EventBus';
+import { nanoid } from 'nanoid';
 import { isDeepEqual, isObject } from '../utils';
-import { ComponentChildren, ComponentProps } from '../types';
+import { EventBus } from './EventBus';
+import type { ComponentChildren, ComponentProps } from '../types';
 
 export abstract class Component<P extends ComponentProps = {}> {
   public static EVENT = {

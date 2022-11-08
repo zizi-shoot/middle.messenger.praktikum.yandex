@@ -1,7 +1,7 @@
 import { Component } from '../../../core';
 import { Avatar } from '../../base';
 import { template } from './ChatItem.template';
-import { ChatItemProps } from '../../../types';
+import type { ChatItemProps } from '../../../types';
 import './chat-item.css';
 
 export class ChatItem extends Component<ChatItemProps> {

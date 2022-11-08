@@ -1,7 +1,7 @@
 import { Component } from '../../../core';
 import { template } from './Button.template';
+import type { ComponentProps } from '../../../types';
 import './button.css';
-import { ComponentProps } from '../../../types';
 
 interface ButtonProps extends ComponentProps {
   text: string,

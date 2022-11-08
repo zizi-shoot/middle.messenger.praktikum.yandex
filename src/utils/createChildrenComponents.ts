@@ -1,5 +1,5 @@
-import { ComponentChildren } from '../types';
-import { Component } from '../core';
+import type { Component } from '../core';
+import type { ComponentChildren } from '../types';
 
 type Constructable<T = any> = new (...args: any[]) => T;
 

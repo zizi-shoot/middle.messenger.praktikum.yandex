@@ -1,7 +1,7 @@
 import { Component } from '../../../core';
 import { template } from './MessageItem.template';
+import type { MessageItemProps } from '../../../types';
 import './message-item.css';
-import { MessageItemProps } from '../../../types';
 
 export class MessageItem extends Component<MessageItemProps> {
   protected init() {

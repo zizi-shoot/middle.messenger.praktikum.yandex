@@ -1,8 +1,8 @@
 import { Component } from '../../core';
-import { template } from './IndexPage.template';
 import { ChatBody, ChatHead, ChatList, ChatSearch } from '../../components/chat';
-import './index-page.css';
 import { chatListItems } from '../../data/chatListItems';
+import { template } from './IndexPage.template';
+import './index-page.css';
 
 export class IndexPage extends Component {
   protected init() {

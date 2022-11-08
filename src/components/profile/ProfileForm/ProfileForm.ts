@@ -1,14 +1,14 @@
 import { Component } from '../../../core';
-import { template } from './ProfileForm.template';
 import { Button } from '../../base';
-import { ComponentProps, FormFieldProps } from '../../../types';
 import { ProfileFormField } from '../ProfileFormField';
-import './profile-form.css';
-import { createChildrenComponents } from '../../../utils';
-import { ProfileErrors } from '../../../utils/validation/app/profileDataValidation';
-import { ProfileDataForm, ProfilePasswordForm } from '../../../utils/validation';
 import { ProfileFormController } from './ProfileFormController';
+import { createChildrenComponents } from '../../../utils';
+import { template } from './ProfileForm.template';
 import { getFormData } from '../../../utils/getFormData';
+import type { ComponentProps, FormFieldProps } from '../../../types';
+import type { ProfileErrors } from '../../../utils/validation/app/profileDataValidation';
+import type { ProfileDataForm, ProfilePasswordForm } from '../../../utils/validation';
+import './profile-form.css';
 
 interface ProfileFormProps extends ComponentProps {
   fields: FormFieldProps[],
