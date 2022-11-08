@@ -110,10 +110,18 @@ export abstract class Component<P extends ComponentProps = {}> {
       return;
     }
 
-    Object.entries(events).forEach(([event, callback]) => {
+    Object.entries(events).forEach(([rawEventName, callback]) => {
       const { element } = this;
+
       if (element) {
-        element.addEventListener(event, callback);
+        // Костыль для исправления бага https://github.com/zizi-shoot/middle.messenger.praktikum.yandex/issues/2
+        const onceRegexp = /^[a-z]+(?=_once)/;
+        const isOnce = onceRegexp.test(rawEventName);
+        const event = isOnce ? rawEventName.match(onceRegexp) : [rawEventName];
+
+        if (event) {
+          element.addEventListener(event[0], callback, { once: isOnce });
+        }
       }
     });
   }
@@ -194,7 +202,6 @@ export abstract class Component<P extends ComponentProps = {}> {
   }
 
   protected init() {
-
   }
 
   protected componentDidMount() {
@@ -210,6 +217,12 @@ export abstract class Component<P extends ComponentProps = {}> {
 
   protected render(): string {
     return '';
+  }
+
+  // Костыль для исправления бага https://github.com/zizi-shoot/middle.messenger.praktikum.yandex/issues/2
+  protected restoreEvents() {
+    this.addEvents();
+    this.element?.focus();
   }
 
   public setProps(nextProps: Partial<P>) {

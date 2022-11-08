@@ -19,7 +19,7 @@ export class Input extends Component<InputProps> {
   protected init() {
     this.props.events = {
       focus: this.handleFocus.bind(this),
-      blur: this.handleBlur.bind(this),
+      blur_once: this.handleBlur.bind(this),
     };
   }
 
@@ -39,6 +39,8 @@ export class Input extends Component<InputProps> {
     if (onFocus) {
       onFocus(this.props.name);
     }
+
+    this.restoreEvents();
   }
 
   protected render(): string {

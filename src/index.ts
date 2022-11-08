@@ -1,5 +1,5 @@
 import { renderDOM } from './core';
-import { ProfilePage } from './pages/ProfilePage';
+import { SignInPage } from './pages/SignInPage';
 
 // renderDOM('#root', new PageHeader({}));
-renderDOM('#root', new ProfilePage({}));
+renderDOM('#root', new SignInPage({}));
