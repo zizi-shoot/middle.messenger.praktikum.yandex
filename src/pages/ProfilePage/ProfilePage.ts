@@ -1,7 +1,7 @@
 import { Component } from '../../core';
 import { Avatar } from '../../components/base';
 import { ProfileData } from '../../components/profile/ProfileData';
-import { ProfileForm } from '../../components/profile/ProfileDataForm';
+import { ProfileForm } from '../../components/profile/ProfileForm';
 import { profileItemList } from '../../data/profileItemList';
 import { template } from './ProfilePage.template';
 import { formsData } from '../../data/formsData';
@@ -27,9 +27,13 @@ export class ProfilePage extends Component {
   protected getContentComponent(contentType: string): Component {
     switch (contentType) {
       case 'edit-data':
-        return new ProfileForm({ fields: formsData.profile });
+        return new ProfileForm({
+          fields: formsData.profile,
+        });
       case 'edit-password':
-        return new ProfileForm({ fields: formsData.password });
+        return new ProfileForm({
+          fields: formsData.password,
+        });
       case 'data':
       default:
         return new ProfileData({ items: profileItemList });

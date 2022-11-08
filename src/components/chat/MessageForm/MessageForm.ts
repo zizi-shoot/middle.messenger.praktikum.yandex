@@ -11,6 +11,13 @@ interface MessageFormProps extends ComponentProps {
 export class MessageForm extends Component<MessageFormProps> {
   protected init() {
     const input = new Input({
+      hasError: false,
+      id: 'message',
+      label: 'message',
+      onBlur(): void {
+      },
+      onFocus(): void {
+      },
       class: 'message-form__input',
       name: 'message',
       placeholder: 'Введите сообщение...',

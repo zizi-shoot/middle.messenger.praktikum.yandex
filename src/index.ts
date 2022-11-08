@@ -1,6 +1,5 @@
 import { renderDOM } from './core';
-import { PageHeader } from './components';
-import { IndexPage } from './pages/IndexPage';
+import { ProfilePage } from './pages/ProfilePage';
 
-renderDOM('#root', new PageHeader({}));
-renderDOM('#root', new IndexPage({}));
+// renderDOM('#root', new PageHeader({}));
+renderDOM('#root', new ProfilePage({}));

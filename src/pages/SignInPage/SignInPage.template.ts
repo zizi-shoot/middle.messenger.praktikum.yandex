@@ -11,7 +11,7 @@ export const template = (fields: string[]) => `
                 Ещё нет аккаунта?
                 <a class="link" href="/signup">Зарегистрироваться</a>
             </p>
-            <form class="entry__form entry-form shadow">
+            <form class="entry__form entry-form shadow" id="login-form">
                 ${fields.map((fieldName) => `{{{${fieldName}}}}`).join('')}
                 {{{button}}}
             </form>

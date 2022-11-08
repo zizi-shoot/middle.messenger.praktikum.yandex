@@ -149,21 +149,11 @@ export abstract class Component<P extends ComponentProps = {}> {
     if (children) {
       Object.values(children).forEach((component) => {
         const stub = fragment.content.querySelector(`[data-id="${component.id}"]`);
-
         if (!stub) {
           return;
         }
 
-        const stubChildren = stub.childNodes.length > 0 ? stub.childNodes : [];
-        const content = component.getContent();
-
-        stub.replaceWith(content || '');
-
-        const layoutContent = content?.querySelector('[data-layout="1"]');
-
-        if (layoutContent && stubChildren.length) {
-          layoutContent.append(...stubChildren);
-        }
+        stub.replaceWith(component.getContent() || '');
       });
     }
 
