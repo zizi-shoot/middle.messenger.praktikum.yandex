@@ -6,7 +6,6 @@ import './input.css';
 interface InputProps extends FormFieldProps {
   type?: 'text' | 'phone' | 'email',
   class?: string,
-  halfWidth?: boolean,
   onBlur?: EventCallback,
   onFocus?: EventCallback,
 }

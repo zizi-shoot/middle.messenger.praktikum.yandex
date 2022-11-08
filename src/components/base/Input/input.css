@@ -24,8 +24,4 @@
   &--error {
     outline-color: var(--error-color);
   }
-
-  &--half-width {
-    width: 50%;
-  }
 }

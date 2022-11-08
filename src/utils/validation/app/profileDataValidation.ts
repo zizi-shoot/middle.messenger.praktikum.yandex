@@ -40,7 +40,7 @@ const dataErrors: ProfileErrors<ProfileDataForm> = {
   display_name: 'Имя в чате может состоять из минимум 2 латинских или кириллических букв без пробелов и цифр, первая бука — заглавная',
   email: 'Email может состоять из латинских букв, цифр, дефисов, точек. Обязательно должен быть знак "@"',
   phone: `Телефон может состоять из ${MIN_PHONE_LENGTH}-${MAX_PHONE_LENGTH} цифр и может начинаться с "+"`,
-  password: `Пароль должен содержать ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} символов и обязательно должны быть хотя бы одна заглавная буква и цифра`,
+  password: `Пароль должен содержать ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} символов. Обязательно должны быть хотя бы одна заглавная буква и цифра`,
 };
 
 export const validateProfileDataForm = createValidator(dataRules, dataErrors);
@@ -59,7 +59,7 @@ const passRules: ProfileRules<ProfilePasswordForm> = {
 
 const passErrors: ProfileErrors<ProfilePasswordForm> = {
   oldPassword: 'Введите старый пароль',
-  newPassword: `Пароль должен содержать ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} символов и обязательно должны быть хотя бы одна заглавная буква и цифра`,
+  newPassword: `Пароль должен содержать ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} символов. Обязательно должны быть хотя бы одна заглавная буква и цифра`,
   checkNewPassword: 'Пароли должны совпадать',
 };
 

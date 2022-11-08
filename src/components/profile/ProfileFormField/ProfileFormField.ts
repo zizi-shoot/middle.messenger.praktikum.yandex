@@ -6,7 +6,7 @@ import './profile-form-field.css';
 
 export class ProfileFormField extends Component<FormFieldProps> {
   protected init() {
-    this.children.input = new Input({ ...this.props, halfWidth: true });
+    this.children.input = new Input({ ...this.props });
   }
 
   protected render(): string {

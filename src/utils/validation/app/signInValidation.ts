@@ -14,7 +14,7 @@ const rules: SignInRules = {
 
 const errors: SignInErrors = {
   login: `Логин должен содержать ${MIN_LOGIN_LENGTH}-${MAX_LOGIN_LENGTH} символов (латинские буквы, цифры, дефис, подчёркивание)`,
-  password: `Пароль должен содержать ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} символов и обязательно должны быть хотя бы одна заглавная буква и цифра`,
+  password: `Пароль должен содержать ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} символов. Обязательно должны быть хотя бы одна заглавная буква и цифра`,
 };
 
 export const validateSignInForm = createValidator(rules, errors);
