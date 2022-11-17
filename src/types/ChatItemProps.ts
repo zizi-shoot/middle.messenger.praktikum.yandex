@@ -1,6 +1,6 @@
-import type { ComponentProps } from './ComponentProps';
+import type { Props } from './Component';
 
-export interface ChatItemProps extends ComponentProps {
+export interface ChatItemProps extends Props {
   id: string,
   userName: string
   userPic: string,

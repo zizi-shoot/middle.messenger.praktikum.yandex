@@ -1,10 +1,11 @@
-import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
-import { isDeepEqual, isObject } from '../utils';
+import * as Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
-import type { ComponentChildren, ComponentProps } from '../types';
+import { isDeepEqual, isObject } from '../utils';
+import type { Attributes, Children, Element, Props, PropsAndChildren } from '../types/Component';
+import type { EventCallback } from '../types/EventCallback';
 
-export abstract class Component<P extends ComponentProps = {}> {
+export abstract class Component<P extends Props = {}> {
   public static EVENT = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -12,46 +13,147 @@ export abstract class Component<P extends ComponentProps = {}> {
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  private readonly id: string;
+  private readonly id = nanoid();
 
-  private readonly tagName: string;
+  private readonly eventBus: EventBus = new EventBus();
 
-  private readonly eventBus: EventBus;
-
-  private element: HTMLElement | SVGElement | null = null;
+  private element: Element = document.createElement('template');
 
   private requireUpdate = false;
 
   protected props: P;
 
-  protected children: ComponentChildren;
+  protected children: Children;
 
-  public constructor(propsAndChildren: P, tagName: string = 'div') {
-    const props = this.getProps(propsAndChildren);
-    const { children } = propsAndChildren;
+  protected attributes: Attributes;
 
-    this.id = nanoid();
-    this.tagName = tagName || 'div';
-    this.eventBus = new EventBus();
-    this.props = this.makeProxy(props);
-    this.children = this.makeProxy(children || {});
+  constructor(allProps: P, private readonly tagName: string = 'div') {
+    const { children, props } = this.getPropsAndChildren(allProps);
 
+    this.children = this.makeProxy(children);
+    this.props = this.makeProxy({ ...props, id: this.id });
+    this.attributes = this.makeProxy(allProps.attributes || {});
     this.registerEvents(this.eventBus);
     this.eventBus.emit(Component.EVENT.INIT);
   }
 
   private _init() {
     this.element = this.createDocumentElement(this.tagName);
-
-    this.init();
     this.eventBus.emit(Component.EVENT.FLOW_RENDER);
   }
 
   private registerEvents(eventBus: EventBus) {
     eventBus.subscribe(Component.EVENT.INIT, this._init.bind(this));
     eventBus.subscribe(Component.EVENT.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.subscribe(Component.EVENT.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.subscribe(Component.EVENT.FLOW_CDU, this.componentDidUpdate.bind(this));
     eventBus.subscribe(Component.EVENT.FLOW_RENDER, this._render.bind(this));
+  }
+
+  private createDocumentElement(tagName: string): HTMLElement {
+    const element = document.createElement(tagName);
+
+    if (this.props.withInternalID) {
+      element.setAttribute('data-id', this.id);
+    }
+
+    return element;
+  }
+
+  private _render() {
+    const fragment = this.compile();
+    this.removeEvents();
+    this.element.innerHTML = '';
+    this.element.appendChild(fragment);
+    this.addEvents();
+    this.addAttributes();
+  }
+
+  private getEvents(): Record<string, EventCallback> {
+    return Object.entries(this.props).reduce((eventList: Record<string, EventCallback>, [key, value]) => {
+      const eventRegexp = /(?<=^on)[A-Z][a-z]+$/;
+
+      if (eventRegexp.test(key)) {
+        const match = key.match(eventRegexp);
+        const eventName = match ? match[0] : null;
+
+        if (eventName) {
+          eventList[eventName.toLowerCase()] = value as EventCallback;
+        }
+      }
+
+      return eventList;
+    }, {});
+  }
+
+  private addEvents() {
+    const events = this.getEvents();
+
+    Object.entries(events).forEach(([eventName, callback]) => {
+      this.element.addEventListener(eventName, callback);
+    });
+  }
+
+  private removeEvents() {
+    const events = this.getEvents();
+
+    Object.entries(events).forEach(([eventName, callback]) => {
+      this.element.removeEventListener(eventName, callback);
+    });
+  }
+
+  private addAttributes() {
+    Object.entries(this.attributes).forEach(([attrName, value]) => {
+      this.element.setAttribute(attrName, value.toString());
+    });
+  }
+
+  private getPropsAndChildren(allProps: P): PropsAndChildren<P> {
+    const props = {} as P;
+    const children: PropsAndChildren<P>['children'] = {};
+
+    Object.entries(allProps).forEach(([key, value]) => {
+      if (
+        (Array.isArray(value) && value.every((item) => item instanceof Component))
+        || value instanceof Component
+      ) {
+        children[key] = value;
+      }
+
+      if (key !== 'attributes') {
+        props[key as keyof P] = value;
+      }
+    });
+
+    return {
+      props,
+      children,
+    };
+  }
+
+  private _componentDidMount() {
+    this.componentDidMount();
+
+    if (this.children) {
+      Object.values(this.children).forEach((child) => {
+        if (Array.isArray(child)) {
+          child.forEach((innerChild) => innerChild.dispatchComponentDidMount());
+
+          return;
+        }
+
+        child.dispatchComponentDidMount();
+      });
+    }
+  }
+
+  private componentDidUpdate(prevProps: P, nextProps: P) {
+    const requireRender = this.shouldComponentUpdate(prevProps, nextProps);
+
+    if (!requireRender) {
+      return;
+    }
+
+    this.eventBus.emit(Component.EVENT.FLOW_RENDER);
   }
 
   private makeProxy<T extends object>(item: T): T {
@@ -66,6 +168,7 @@ export abstract class Component<P extends ComponentProps = {}> {
         if (target[prop as keyof T] !== value) {
           target[prop as keyof T] = value;
           this.requireUpdate = true;
+          console.log(this.requireUpdate);
         }
 
         return true;
@@ -77,152 +180,72 @@ export abstract class Component<P extends ComponentProps = {}> {
     }) as T;
   }
 
-  private getProps(propsAndChildren: P): P {
-    const props = { ...propsAndChildren };
-
-    delete props.children;
-
-    return props;
-  }
-
-  private getPartialProps(propsAndChildren: Partial<P>): Partial<P> {
-    const props = { ...propsAndChildren };
-
-    delete props.children;
-
-    return props;
-  }
-
-  private createDocumentElement(tagName: string): HTMLElement {
-    const element = document.createElement(tagName);
-
-    if (this.props.withInternalID) {
-      element.setAttribute('data-id', this.id);
+  protected shouldComponentUpdate(prevProps: P, nextProps: P) {
+    if (isObject(prevProps) && isObject(nextProps)) {
+      return !isDeepEqual(prevProps, nextProps);
     }
 
-    return element;
+    return prevProps !== nextProps;
   }
 
-  private addEvents() {
-    const { events } = this.props;
-
-    if (!events) {
-      return;
-    }
-
-    Object.entries(events).forEach(([rawEventName, callback]) => {
-      const { element } = this;
-
-      if (element) {
-        // Костыль для исправления бага https://github.com/zizi-shoot/middle.messenger.praktikum.yandex/issues/2
-        const onceRegexp = /^[a-z]+(?=_once)/;
-        const isOnce = onceRegexp.test(rawEventName);
-        const event = isOnce ? rawEventName.match(onceRegexp) : [rawEventName];
-
-        if (event) {
-          element.addEventListener(event[0], callback, { once: isOnce });
-        }
-      }
-    });
-  }
-
-  private removeEvents() {
-    const { events } = this.props;
-
-    if (!events || !this.element) {
-      return;
-    }
-
-    Object.entries(events).forEach(([event, callback]) => {
-      if (this.element) {
-        this.element.removeEventListener(event, callback);
-      }
-    });
-  }
-
-  private compile(): DocumentFragment {
+  protected compile() {
     const propsAndStubs = { ...this.props };
-    const { children } = this;
+    const { children = {} } = this;
+    const childrenLists: Record<string, HTMLTemplateElement> = {};
 
-    if (children) {
-      Object.entries(children).forEach(([key, component]) => {
-        Object.assign(propsAndStubs, { [key]: `<div data-id="${component.id}"></div>` });
-      });
-    }
+    Object.entries(children).forEach(([key, child]) => {
+      // Если передан массив чилдов, то собираем это в один template
+      if (Array.isArray(child)) {
+        const childrenFragment = document.createElement('template');
+
+        child.forEach((innerChild) => {
+          childrenFragment.appendChild(innerChild.getContent());
+        });
+
+        Object.assign(childrenLists, { [key]: childrenFragment });
+        Object.assign(propsAndStubs, { [key]: `<div data-id="${this.id}-${key}"></div>` });
+      }
+
+      if (child instanceof Component) {
+        Object.assign(propsAndStubs, { [key]: `<div data-id="${child.id}"></div>` });
+      }
+    });
 
     const fragment = document.createElement('template');
 
     fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
 
-    if (children) {
-      Object.values(children).forEach((component) => {
-        const stub = fragment.content.querySelector(`[data-id="${component.id}"]`);
-        if (!stub) {
-          return;
-        }
+    Object.entries(children).forEach(([key, child]) => {
+      if (Array.isArray(child)) {
+        const stub = fragment.content.querySelector(`[data-id="${this.id}-${key}"]`);
 
-        stub.replaceWith(component.getContent() || '');
-      });
-    }
+        if (stub) {
+          Array.from(childrenLists[key].children).forEach((childItem) => {
+            stub.before(childItem);
+          });
+          stub.remove();
+        }
+      }
+      if (child instanceof Component) {
+        const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
+
+        if (stub) {
+          stub.replaceWith(child.getContent());
+        }
+      }
+    });
 
     return fragment.content;
   }
 
-  private _componentDidMount() {
-    this.componentDidMount();
-    const { children } = this;
-
-    if (children) {
-      Object.values(children).forEach((child) => child.dispatchComponentDidMount());
-    }
-  }
-
-  private _componentDidUpdate(prevProps: P, nextProps: P) {
-    const requireReRender = !this.componentDidUpdate(prevProps, nextProps);
-
-    if (!requireReRender) {
-      return;
-    }
-
-    this.eventBus.emit(Component.EVENT.FLOW_RENDER);
-  }
-
-  private _render() {
-    const fragment = this.compile();
-
-    this.removeEvents();
-
-    const newElement = fragment.firstElementChild;
-
-    if (this.element && (newElement instanceof HTMLElement || newElement instanceof SVGElement)) {
-      this.element.replaceWith(newElement);
-      this.element = newElement;
-      this.addEvents();
-    }
-  }
-
-  protected init() {
+  protected render() {
   }
 
   protected componentDidMount() {
   }
 
-  protected componentDidUpdate(prevProps: P, nextProps: P) {
-    if (isObject(prevProps) && isObject(nextProps)) {
-      return isDeepEqual(prevProps, nextProps);
-    }
-
-    return prevProps === nextProps;
-  }
-
-  protected render(): string {
-    return '';
-  }
-
-  // Костыль для исправления бага https://github.com/zizi-shoot/middle.messenger.praktikum.yandex/issues/2
-  protected restoreEvents() {
-    this.addEvents();
-    this.element?.focus();
+  public getContent() {
+    return this.element;
   }
 
   public setProps(nextProps: Partial<P>) {
@@ -233,11 +256,11 @@ export abstract class Component<P extends ComponentProps = {}> {
     this.requireUpdate = false;
 
     const prevProps = { ...this.props };
-    const prevChildren = { ...this.children } as ComponentChildren;
-    const props = this.getPartialProps(nextProps);
-    const { children } = nextProps;
+    const { props = {} } = this.getPropsAndChildren(nextProps as P);
+    const { attributes = {} } = nextProps;
+    const { children = {} } = nextProps;
 
-    if (children && Object.keys(children).length > 0) {
+    if (Object.keys(children).length > 0 && this.children) {
       Object.assign(this.children, children);
     }
 
@@ -245,25 +268,13 @@ export abstract class Component<P extends ComponentProps = {}> {
       Object.assign(this.props, props);
     }
 
+    if (Object.values(attributes).length > 0) {
+      Object.assign(this.attributes, attributes);
+    }
+
     if (this.requireUpdate) {
-      this.eventBus.emit(Component.EVENT.FLOW_CDU, { ...prevProps, ...prevChildren }, { ...this.props, ...this.children });
+      this.eventBus.emit(Component.EVENT.FLOW_CDU, prevProps, { ...this.props, ...this.attributes });
       this.requireUpdate = false;
-    }
-  }
-
-  public show() {
-    const content = this.getContent();
-
-    if (content) {
-      content.style.display = 'block';
-    }
-  }
-
-  public hide() {
-    const content = this.getContent();
-
-    if (content) {
-      content.style.display = 'none';
     }
   }
 
@@ -274,9 +285,5 @@ export abstract class Component<P extends ComponentProps = {}> {
     if (children && Object.keys(children).length > 0) {
       this.eventBus.emit(Component.EVENT.FLOW_RENDER);
     }
-  }
-
-  public getContent(): HTMLElement | SVGElement | null {
-    return this.element;
   }
 }

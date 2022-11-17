@@ -1,6 +1,6 @@
-import type { ComponentProps } from './ComponentProps';
+import type { Props } from './Component';
 
-export interface MessageItemProps extends ComponentProps {
+export interface MessageItemProps extends Props {
   id: string,
   author: string,
   text: string,
