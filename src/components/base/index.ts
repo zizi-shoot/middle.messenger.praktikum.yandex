@@ -1,4 +1,4 @@
-export * from './Button';
-export * from './Input';
-export * from './Avatar';
-export * from './Icons';
+export { Button } from './Button';
+export { Input } from './Input';
+export { Avatar } from './Avatar';
+export { Icon } from './Icons';

@@ -6,8 +6,8 @@
   padding: 10px 16px;
   border: none;
   border-radius: 6px;
-  background-color: var(--btn-color);
   color: var(--font-light-color);
+  background-color: var(--btn-color);
   outline: 3px solid transparent;
   cursor: pointer;
   transition-duration: var(--transtition-duration);
@@ -28,16 +28,16 @@
   &:active {
     background-color: var(--btn-active-color);
   }
-
-  &--full-width {
-    width: 100%;
-  }
 }
 
-.button--alt {
+.buttonFullWidth {
+  width: 100%;
+}
+
+.buttonAlt {
   height: 40px;
-  background-color: var(--bg-content-color);
   color: var(--font-main-color);
+  background-color: var(--bg-content-color);
 
   svg {
     height: 20px;

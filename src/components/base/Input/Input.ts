@@ -1,48 +1,39 @@
+import classNames from 'classnames';
 import { Component } from '../../../core';
-import { template } from './Input.template';
-import type { EventCallback, FormFieldProps } from '../../../types';
-import './input.css';
+import type { Props } from '../../../types/Component';
+import * as styles from './input.module.css';
 
-interface InputProps extends FormFieldProps {
-  type?: 'text' | 'phone' | 'email',
+export interface InputProps extends Props {
+  type?: 'text' | 'tel' | 'email' | 'password',
+  hasError?: boolean,
+  name: string,
+  placeholder?: string,
   class?: string,
-  onBlur?: EventCallback,
-  onFocus?: EventCallback,
 }
 
 export class Input extends Component<InputProps> {
   constructor(props: InputProps) {
-    super(props);
+    const classList = classNames(
+      styles.input,
+      props.hasError && styles.inputError,
+      props.class,
+    );
+    super(
+      {
+        ...props,
+        attributes: {
+          id: `input-${props.name}`,
+          name: props.name,
+          placeholder: props.placeholder || '',
+          type: props.type || 'text',
+          class: classList,
+        },
+      },
+      'input',
+    );
   }
 
-  protected init() {
-    this.props.events = {
-      focus: this.handleFocus.bind(this),
-      blur_once: this.handleBlur.bind(this),
-    };
-  }
-
-  protected handleBlur(event: FocusEvent) {
-    const inputName = this.props.name;
-    const input = event.target as HTMLInputElement;
-    const { onBlur } = this.props;
-
-    if (onBlur) {
-      onBlur(inputName, { [inputName]: input.value });
-    }
-  }
-
-  protected handleFocus() {
-    const { onFocus } = this.props;
-
-    if (onFocus) {
-      onFocus(this.props.name);
-    }
-
-    this.restoreEvents();
-  }
-
-  protected render(): string {
-    return template;
+  protected render() {
+    return '';
   }
 }

@@ -21,7 +21,7 @@
   }
 
   &:invalid,
-  &--error {
+  &Error {
     outline-color: var(--error-color);
   }
 }

@@ -1,3 +1,3 @@
-export * from './Component';
-export * from './renderDOM';
-export * from './EventBus';
+export { Component } from './Component';
+export { renderDOM } from './renderDOM';
+export { EventBus } from './EventBus';

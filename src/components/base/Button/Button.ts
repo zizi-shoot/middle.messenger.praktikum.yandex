@@ -1,9 +1,9 @@
+import classNames from 'classnames';
 import { Component } from '../../../core';
-import { template } from './Button.template';
-import type { ComponentProps } from '../../../types';
-import './button.css';
+import * as styles from './Button.module.css';
+import type { Props } from '../../../types/Component';
 
-interface ButtonProps extends ComponentProps {
+interface ButtonProps extends Props {
   text: string,
   fullWidth?: boolean,
   type?: 'button' | 'submit',
@@ -13,10 +13,30 @@ interface ButtonProps extends ComponentProps {
 
 export class Button extends Component<ButtonProps> {
   constructor(props: ButtonProps) {
-    super({ type: 'button', ...props });
+    const classList = classNames(
+      styles.button,
+      props.mode === 'alt' && styles.buttonAlt,
+      props.fullWidth && styles.buttonFullWidth,
+    );
+
+    super(
+      {
+        ...props,
+        attributes: {
+          ...props.attributes,
+          type: props.type || 'button',
+          class: classList,
+        },
+      },
+      'button',
+    );
   }
 
   protected render(): string {
-    return template;
+    // language=hbs
+    return `
+        {{{ icon }}}
+        {{text}}
+    `;
   }
 }
