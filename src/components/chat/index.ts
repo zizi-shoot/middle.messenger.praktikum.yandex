@@ -1,8 +1,8 @@
-export * from './ChatBody';
-export * from './ChatHead';
-export * from './ChatItem';
-export * from './ChatList';
-export * from './ChatSearch';
-export * from './MessageForm';
-export * from './MessageItem';
-export * from './MessageList';
+export { ChatBody } from './ChatBody';
+export { ChatHead } from './ChatHead';
+export { ChatItem } from './ChatItem';
+export { ChatList } from './ChatList';
+export { ChatSearch } from './ChatSearch';
+export { MessageForm } from './MessageForm';
+export { MessageItem } from './MessageItem';
+export { MessageList } from './MessageList';

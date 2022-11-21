@@ -1,16 +1,30 @@
+import classNames from 'classnames';
 import { Component } from '../../../core';
-import { template } from './MessageItem.template';
 import type { MessageItemProps } from '../../../types';
-import './message-item.css';
+import * as styles from './message-item.module.css';
 
 export class MessageItem extends Component<MessageItemProps> {
-  protected init() {
-    if (this.props.author === 'me') {
-      this.props.class += ' message-list__item--me message-item--me';
-    }
+  constructor(props: MessageItemProps) {
+    const classList = classNames(
+      styles.item,
+      props.author === 'me' && styles.itemMe,
+      props.class,
+    );
+
+    super(
+      {
+        ...props,
+        attributes: { class: classList },
+      },
+      'li',
+    );
   }
 
   protected render(): string {
-    return template;
+    // language=hbs
+    return `
+        <p class="${styles.text}">{{text}}</p>
+        <span class="${styles.time}">{{time}}</span>
+    `;
   }
 }

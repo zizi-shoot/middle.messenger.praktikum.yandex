@@ -12,16 +12,11 @@
     color: var(--placeholder-color);
   }
 
-  &:hover {
-    outline-color: var(--border-hover-color);
-  }
-
   &:focus {
     outline-color: var(--border-focus-color);
   }
 
-  &:invalid,
-  &Error {
-    outline-color: var(--error-color);
+  &:hover {
+    outline-color: var(--border-hover-color);
   }
 }

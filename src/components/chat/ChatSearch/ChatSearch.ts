@@ -1,14 +1,33 @@
+import classNames from 'classnames';
 import { Component } from '../../../core';
 import { Icon } from '../../base';
-import { template } from './ChatSearch.template';
-import './chat-search.css';
+import * as styles from './chat-search.module.css';
+import type { Props } from '../../../types/Component';
 
-export class ChatSearch extends Component {
-  protected init() {
-    this.children.icon = new Icon({ type: 'search', class: 'chat-search__icon' });
+interface ChatSearchProps extends Props {
+  class?: string,
+}
+
+export class ChatSearch extends Component<ChatSearchProps> {
+  constructor(props: ChatSearchProps) {
+    const classList = classNames(styles.container, props.class);
+    const icon = new Icon({ type: 'search', class: styles.icon });
+
+    super(
+      {
+        attributes: { class: classList },
+        icon,
+      },
+      'form',
+    );
   }
 
   protected render(): string {
-    return template;
+    // language=hbs
+    return `
+        {{{icon}}}
+        <label for="chat-search"></label>
+        <input class="${styles.input}" type="text" name="chat-search" id="chat-search" placeholder="Поиск чата">
+    `;
   }
 }

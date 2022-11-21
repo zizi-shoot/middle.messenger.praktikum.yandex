@@ -1,0 +1,28 @@
+.item {
+  padding: 8px;
+  border-radius: 8px 8px 8px 0;
+  font-size: 12px;
+  line-height: 16px;
+  background-color: var(--border-color);
+}
+
+.itemMe {
+  border-radius: 8px 8px 0;
+  color: var(--font-light-color);
+  background-color: var(--accent-color);
+}
+
+.time {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+  color: var(--placeholder-color);
+}
+
+.itemMe .time {
+  color: var(--border-color);
+}
+
+.text {
+  margin: 0 0 8px;
+}

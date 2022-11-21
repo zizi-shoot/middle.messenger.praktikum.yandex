@@ -1,20 +1,41 @@
 import { Component } from '../../../core';
 import { Avatar } from '../../base';
-import { template } from './ChatItem.template';
 import type { ChatItemProps } from '../../../types';
-import './chat-item.css';
+import * as styles from './chat-item.module.css';
 
 export class ChatItem extends Component<ChatItemProps> {
-  protected init() {
-    this.children.avatar = new Avatar({
+  constructor(props: ChatItemProps) {
+    const avatar = new Avatar({
       size: 48,
       class: 'chat-item__avatar',
-      src: this.props.userPic,
-      altText: `аватар пользователя ${this.props.userName}`,
+      src: props.userPic,
+      altText: `аватар пользователя ${props.userName}`,
     });
+
+    super(
+      {
+        ...props,
+        attributes: { class: styles.container },
+        avatar,
+      },
+      'li',
+    );
   }
 
   protected render(): string {
-    return template;
+    // language=hbs
+    return `
+        {{{avatar}}}
+        <div class="${styles.messageWrapper}">
+            <span class="${styles.username}">{{userName}}</span>
+            <p class="${styles.message}">{{message}}</p>
+        </div>
+        <div class="${styles.meta}">
+            <span class="${styles.time}">{{time}}</span>
+            {{#if counter}}
+                <span class="${styles.counter}">{{counter}}</span>
+            {{/if}}
+        </div>
+    `;
   }
 }

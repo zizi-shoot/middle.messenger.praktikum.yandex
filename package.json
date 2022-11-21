@@ -57,5 +57,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "@parcel/transformer-css": {
+    "cssModules": {
+      "pattern": "[hash]-[name]__[local]"
+    }
   }
 }

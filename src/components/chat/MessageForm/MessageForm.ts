@@ -1,47 +1,50 @@
+import classNames from 'classnames';
 import { Component } from '../../../core';
 import { Button, Icon, Input } from '../../base';
-import { template } from './MessageForm.template';
-import type { ComponentProps } from '../../../types';
-import './message-form.css';
+import * as styles from './message-form.module.css';
+import type { Props } from '../../../types/Component';
 
-interface MessageFormProps extends ComponentProps {
+interface MessageFormProps extends Props {
   class?: string,
 }
 
 export class MessageForm extends Component<MessageFormProps> {
-  protected init() {
+  constructor(props: MessageFormProps) {
+    const clasList = classNames(styles.container, props.class);
     const input = new Input({
-      hasError: false,
-      id: 'message',
-      label: 'message',
-      onBlur(): void {
-      },
-      onFocus(): void {
-      },
-      class: 'message-form__input',
+      class: styles.input,
       name: 'message',
       placeholder: 'Введите сообщение...',
     });
-
     const attachIcon = new Icon({ type: 'attach' });
-
     const sentButton = new Button({
-      class: 'message-form__sent-btn',
+      class: styles.sentBtn,
       type: 'submit',
       text: '',
-      children: {
-        icon: new Icon({ type: 'sent' }),
-      },
+      icon: new Icon({ type: 'sent' }),
     });
 
-    this.children = {
-      input,
-      attachIcon,
-      sentButton,
-    };
+    super(
+      {
+        ...props,
+        attributes: { class: clasList },
+        input,
+        attachIcon,
+        sentButton,
+      },
+      'form',
+    );
   }
 
   protected render(): string {
-    return template;
+    // language=hbs
+    return `
+        <label class="${styles.label}" for="message">Введите сообщение</label>
+        {{{input}}}
+        <button class="${styles.attachBtn}" type="button">
+            {{{attachIcon}}}
+        </button>
+        {{{sentButton}}}
+    `;
   }
 }

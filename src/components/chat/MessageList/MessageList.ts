@@ -1,31 +1,38 @@
+import classNames from 'classnames';
 import { Component } from '../../../core';
 import { MessageItem } from '../MessageItem';
-import { createChildrenComponents } from '../../../utils';
-import { template } from './MessageList.template';
-import type { ComponentProps, MessageItemProps } from '../../../types';
-import './message-list.css';
+import * as styles from './message-list.module.css';
+import type { Props } from '../../../types/Component';
+import type { MessageItemProps } from '../../../types';
 
-interface MessageListProps extends ComponentProps {
+interface MessageListProps extends Props {
   messageList: MessageItemProps[],
+  class?: string,
 }
 
 export class MessageList extends Component<MessageListProps> {
-  protected init() {
-    const messageList = createChildrenComponents(
-      this.props.messageList,
-      MessageItem,
-      {
-        class: 'message-list__item',
-        withInternalID: true,
-      },
-    );
+  constructor(props: MessageListProps) {
+    const classList = classNames(styles.container, props.class);
+    const messages = props.messageList.map((messageProps) => new MessageItem({
+      ...messageProps,
+      class: classNames(styles.item, messageProps.author === 'me' && styles.itemMe),
+      withInternalID: true,
+    }));
 
-    this.children = {
-      ...messageList,
-    };
+    super(
+      {
+        ...props,
+        attributes: { class: classList },
+        messages,
+      },
+      'ul',
+    );
   }
 
   protected render(): string {
-    return template(this.props.messageList.map(({ id }) => id));
+    // language=hbs
+    return `
+        {{{messages}}}
+    `;
   }
 }

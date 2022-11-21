@@ -1,0 +1,15 @@
+.data {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 670px;
+  margin-bottom: 64px;
+  list-style: none;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 670px;
+}

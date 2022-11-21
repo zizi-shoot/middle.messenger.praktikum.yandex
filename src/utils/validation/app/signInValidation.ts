@@ -1,8 +1,8 @@
-import { MAX_LOGIN_LENGTH, MAX_PASSWORD_LENGTH, MIN_LOGIN_LENGTH, MIN_PASSWORD_LENGTH } from './const';
+import { MAX_LOGIN_LENGTH, MAX_PASSWORD_LENGTH, MIN_LOGIN_LENGTH, MIN_PASSWORD_LENGTH } from '../helpers/const';
 import { createValidator } from '../services/validation';
-import { validateLogin, validatePassword } from './rules';
-import type { SignInForm } from './types';
+import { validateLogin, validatePassword } from '../helpers/rules';
 import type { ErrorMessages, ValidationRules } from '../services/validation';
+import type { SignInForm } from '../types';
 
 export type SignInRules = ValidationRules<SignInForm>;
 export type SignInErrors = ErrorMessages<SignInForm>;
@@ -18,9 +18,3 @@ const errors: SignInErrors = {
 };
 
 export const validateSignInForm = createValidator(rules, errors);
-export const validateSignInField = (field: keyof SignInForm) => {
-  const fieldRules = { [field]: rules[field] } as ValidationRules<SignInForm>;
-  const fieldErrors = { [field]: errors[field] };
-
-  return createValidator(fieldRules, fieldErrors);
-};

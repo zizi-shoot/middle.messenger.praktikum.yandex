@@ -17,6 +17,7 @@ export class Button extends Component<ButtonProps> {
       styles.button,
       props.mode === 'alt' && styles.buttonAlt,
       props.fullWidth && styles.buttonFullWidth,
+      props.class,
     );
 
     super(

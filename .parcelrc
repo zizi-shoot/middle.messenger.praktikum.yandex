@@ -1,7 +1,7 @@
 {
   "extends": "@parcel/config-default",
   "validators": {
-    "*.ts": ["@parcel/validator-typescript"]
+      "*.{ts,tsx}": ["@parcel/validator-typescript"]
   },
   "reporters": [
     "...",
@@ -9,3 +9,5 @@
     "parcel-reporter-static-files-copy"
   ]
 }
+
+

@@ -1,15 +1,42 @@
+import classNames from 'classnames';
 import { Component } from '../../core';
 import { Input } from '../base';
-import { template } from './FormField.template';
+import * as styles from './form-field.module.css';
 import type { FormFieldProps } from '../../types';
-import './form-field.css';
 
 export class FormField extends Component<FormFieldProps> {
-  protected init() {
-    this.children.input = new Input({ ...this.props });
+  constructor(props: FormFieldProps) {
+    super({
+      ...props,
+      mode: props.mode || 'entry',
+      direction: props.direction || 'vertical',
+    });
+
+    this.children.input = new Input({
+      name: this.props.name,
+      placeholder: this.props.placeholder,
+      type: this.props.type,
+    });
   }
 
   protected render(): string {
-    return template;
+    const classList = classNames(
+      styles.container,
+      this.props.direction === 'vertical' && styles.containerVertical,
+      this.props.hasError && styles.containerError,
+    );
+
+    this.attributes = { class: classList };
+
+    // language=hbs
+    return `
+        <label for="input-{{name}}" class="${styles.label}">{{label}}</label>
+        <div class="${this.props.mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile}">
+            {{{input}}}
+            {{#if hasError}}
+                <span class="${styles.helperText}">{{helperText}}</span>
+            {{/if}}
+        </div>
+    `;
   }
 }

@@ -1,28 +1,32 @@
+import classNames from 'classnames';
 import { Component } from '../../../core';
 import { ChatItem } from '../ChatItem';
-import { template } from './ChatList.template';
-import { createChildrenComponents } from '../../../utils';
-import type { ChatItemProps, ComponentProps } from '../../../types';
-import './chat-list.css';
+import { chatListItems } from '../../../data/chatListItems';
+import * as styles from './chat-list.module.css';
+import type { Props } from '../../../types/Component';
 
-interface ChatListProps extends ComponentProps {
-  items: ChatItemProps[],
+interface ChatListProps extends Props {
+  class?: string,
 }
 
 export class ChatList extends Component<ChatListProps> {
-  protected init() {
-    const chatItems = createChildrenComponents(
-      this.props.items,
-      ChatItem,
-      { withInternalID: true },
-    );
+  constructor(props: ChatListProps) {
+    const classList = classNames(styles.container, props.class);
+    const items = chatListItems.map((itemProps) => new ChatItem({ ...itemProps, withInternalID: true }));
 
-    this.children = {
-      ...chatItems,
-    };
+    super(
+      {
+        attributes: { class: classList },
+        items,
+      },
+      'form',
+    );
   }
 
   protected render(): string {
-    return template(this.props.items.map(({ id }) => id));
+    // language=hbs
+    return `
+        {{{items}}}
+    `;
   }
 }

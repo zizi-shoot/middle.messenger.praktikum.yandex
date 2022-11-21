@@ -5,7 +5,7 @@ import {
   MIN_LOGIN_LENGTH,
   MIN_PASSWORD_LENGTH,
   MIN_PHONE_LENGTH,
-} from './const';
+} from '../helpers/const';
 import type { ErrorMessages, ValidationRules } from '../services/validation';
 import { createValidator } from '../services/validation';
 import {
@@ -16,8 +16,8 @@ import {
   validatePassword,
   validatePhone,
   validateSecondName,
-} from './rules';
-import type { SignUpForm } from './types';
+} from '../helpers/rules';
+import type { SignUpForm } from '../types';
 
 export type SignUpRules = ValidationRules<SignUpForm>;
 export type SignUpErrors = ErrorMessages<SignUpForm>;
@@ -43,9 +43,3 @@ const errors: SignUpErrors = {
 };
 
 export const validateSignUpForm = createValidator(rules, errors);
-export const validateSignUpField = (field: keyof SignUpForm) => {
-  const fieldRules = { [field]: rules[field] } as ValidationRules<SignUpForm>;
-  const fieldErrors = { [field]: errors[field] };
-
-  return createValidator(fieldRules, fieldErrors);
-};

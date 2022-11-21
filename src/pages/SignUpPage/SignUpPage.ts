@@ -1,85 +1,43 @@
 import { Component } from '../../core';
-import { Button } from '../../components/base';
-import { FormField } from '../../components';
-import { SignUpPageController } from './SignUpPageController';
-import { template } from './SignUpPage.template';
-import { createChildrenComponents } from '../../utils';
-import { getFormData } from '../../utils/getFormData';
-import { formsData } from '../../data/formsData';
+import { Form } from '../../components';
+import { validateSignUpForm } from '../../utils/validation/app/signUpValidation';
+import * as styles from '../entry.module.css';
 import type { SignUpForm } from '../../utils/validation';
-import type { SignUpErrors } from '../../utils/validation/app/signUpValidation';
-import type { ComponentProps } from '../../types';
-import '../entry.css';
 
-export class SignUpPage extends Component<ComponentProps> {
-  protected init() {
-    const button = new Button({ text: 'Зарегистрироваться', fullWidth: true, type: 'submit' });
-    const fields = createChildrenComponents(
-      formsData.signup,
-      FormField,
+export class SignUpPage extends Component {
+  constructor() {
+    const form = new Form<SignUpForm>({
+      name: 'signup',
+      buttonSubmitText: 'Зарегистрироваться',
+      handleValidateForm: validateSignUpForm,
+      mode: 'entry',
+    });
+
+    super(
       {
-        onBlur: this.validateField.bind(this),
-        onFocus: this.clearErrors.bind(this),
+        attributes: { class: styles.container },
+        form,
       },
+      'main',
     );
-
-    this.children = {
-      button,
-      ...fields,
-    };
-
-    this.props.events = {
-      submit: this.handleSubmit.bind(this),
-    };
-  }
-
-  protected handleSubmit(event: SubmitEvent) {
-    event.preventDefault();
-    const formData = getFormData(event.target as HTMLFormElement);
-
-    SignUpPageController
-      .handleSubmit(formData as SignUpForm)
-      .then(({ status, errors }) => {
-        if (status === 'success') {
-          // eslint-disable-next-line no-console
-          console.log(formData);
-        }
-
-        this.showErrors(errors);
-      })
-      // eslint-disable-next-line no-console
-      .catch(console.warn);
-  }
-
-  protected validateField(fieldName: keyof SignUpForm, data: SignUpForm) {
-    const { valid, errors } = SignUpPageController.validateField(fieldName, data);
-
-    if (!valid) {
-      this.showErrors(errors);
-    }
-  }
-
-  protected showErrors(errors: SignUpErrors) {
-    Object.entries(this.children).forEach(([name, component]) => {
-      if (name in errors && component instanceof FormField) {
-        component.setProps({
-          hasError: true,
-          helperText: errors[name as keyof SignUpErrors],
-        });
-      }
-    });
-  }
-
-  protected clearErrors(fieldName: keyof SignUpForm) {
-    Object.entries(this.children).forEach(([name, component]) => {
-      if (name === fieldName && component instanceof FormField) {
-        component.setProps({ hasError: false });
-      }
-    });
   }
 
   protected render(): string {
-    const fields = formsData.signup.map(({ id }) => id);
-    return template(fields);
+    // language=hbs
+    return `
+        <section class="${styles.section}">
+            <picture>
+                <source srcset="images/logo.webp" type="image/webp" />
+                <img src="images/logo.png" alt="логотип летчат" />
+            </picture>
+            <h1 class="${styles.title}">Регистрация</h1>
+            <p class"${styles.helperText}">
+                    Уже есть аккаунт?
+            <a class="link" href="/signin">Войти</a>
+            </p>
+            {{{form}}}
+        </section>
+        <a href="/" class="${styles.homeLink}">🏠</a>
+    `;
   }
 }

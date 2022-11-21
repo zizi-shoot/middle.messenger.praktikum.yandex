@@ -3,9 +3,9 @@ import * as Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
 import { isDeepEqual, isObject } from '../utils';
 import type { Attributes, Children, Element, Props, PropsAndChildren } from '../types/Component';
-import type { EventCallback } from '../types/EventCallback';
+import type { EventCallback } from '../types';
 
-export abstract class Component<P extends Props = {}> {
+export abstract class Component<P extends Props = any> {
   public static EVENT = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -45,44 +45,8 @@ export abstract class Component<P extends Props = {}> {
   private registerEvents(eventBus: EventBus) {
     eventBus.subscribe(Component.EVENT.INIT, this._init.bind(this));
     eventBus.subscribe(Component.EVENT.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.subscribe(Component.EVENT.FLOW_CDU, this.componentDidUpdate.bind(this));
+    eventBus.subscribe(Component.EVENT.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.subscribe(Component.EVENT.FLOW_RENDER, this._render.bind(this));
-  }
-
-  private createDocumentElement(tagName: string): HTMLElement {
-    const element = document.createElement(tagName);
-
-    if (this.props.withInternalID) {
-      element.setAttribute('data-id', this.id);
-    }
-
-    return element;
-  }
-
-  private _render() {
-    const fragment = this.compile();
-    this.removeEvents();
-    this.element.innerHTML = '';
-    this.element.appendChild(fragment);
-    this.addEvents();
-    this.addAttributes();
-  }
-
-  private getEvents(): Record<string, EventCallback> {
-    return Object.entries(this.props).reduce((eventList: Record<string, EventCallback>, [key, value]) => {
-      const eventRegexp = /(?<=^on)[A-Z][a-z]+$/;
-
-      if (eventRegexp.test(key)) {
-        const match = key.match(eventRegexp);
-        const eventName = match ? match[0] : null;
-
-        if (eventName) {
-          eventList[eventName.toLowerCase()] = value as EventCallback;
-        }
-      }
-
-      return eventList;
-    }, {});
   }
 
   private addEvents() {
@@ -103,8 +67,96 @@ export abstract class Component<P extends Props = {}> {
 
   private addAttributes() {
     Object.entries(this.attributes).forEach(([attrName, value]) => {
+      this.element.removeAttribute(attrName);
       this.element.setAttribute(attrName, value.toString());
     });
+  }
+
+  private _componentDidMount() {
+    this.componentDidMount();
+
+    if (this.children) {
+      Object.values(this.children).forEach((child) => {
+        if (Array.isArray(child)) {
+          child.forEach((innerChild) => innerChild.dispatchComponentDidMount());
+
+          return;
+        }
+
+        child.dispatchComponentDidMount();
+      });
+    }
+  }
+
+  private _render() {
+    const fragment = this.compile();
+
+    this.removeEvents();
+    this.element.innerHTML = '';
+    this.element.appendChild(fragment);
+    this.addEvents();
+    this.addAttributes();
+  }
+
+  private _componentDidUpdate(prevProps: P, nextProps: P) {
+    const requireRender = this.shouldComponentUpdate(prevProps, nextProps);
+
+    if (!requireRender) {
+      return;
+    }
+
+    this.componentDidUpdate();
+    this.eventBus.emit(Component.EVENT.FLOW_RENDER);
+  }
+
+  private makeProxy<T extends object>(item: T): T {
+    return new Proxy(item, {
+      get: (target, prop: string) => {
+        const value = target[prop as keyof T];
+
+        return typeof value === 'function' ? value.bind(target) : value;
+      },
+
+      set: (target, prop: string, value) => {
+        if (target[prop as keyof T] !== value) {
+          target[prop as keyof T] = value;
+          this.requireUpdate = true;
+        }
+
+        return true;
+      },
+
+      deleteProperty() {
+        throw new Error('Нет доступа');
+      },
+    }) as T;
+  }
+
+  private createDocumentElement(tagName: string): HTMLElement {
+    const element = document.createElement(tagName);
+
+    if (this.props.withInternalID) {
+      element.setAttribute('data-id', this.id);
+    }
+
+    return element;
+  }
+
+  private getEvents(): Record<string, EventCallback> {
+    return Object.entries(this.props).reduce((eventList: Record<string, EventCallback>, [key, value]) => {
+      const eventRegexp = /^on(?<event>[A-Z][A-Za-z]+)$/;
+
+      if (eventRegexp.test(key)) {
+        const match = key.match(eventRegexp);
+        const eventName = match ? match.groups?.event : null;
+
+        if (eventName) {
+          eventList[eventName.toLowerCase()] = value as EventCallback;
+        }
+      }
+
+      return eventList;
+    }, {});
   }
 
   private getPropsAndChildren(allProps: P): PropsAndChildren<P> {
@@ -130,65 +182,7 @@ export abstract class Component<P extends Props = {}> {
     };
   }
 
-  private _componentDidMount() {
-    this.componentDidMount();
-
-    if (this.children) {
-      Object.values(this.children).forEach((child) => {
-        if (Array.isArray(child)) {
-          child.forEach((innerChild) => innerChild.dispatchComponentDidMount());
-
-          return;
-        }
-
-        child.dispatchComponentDidMount();
-      });
-    }
-  }
-
-  private componentDidUpdate(prevProps: P, nextProps: P) {
-    const requireRender = this.shouldComponentUpdate(prevProps, nextProps);
-
-    if (!requireRender) {
-      return;
-    }
-
-    this.eventBus.emit(Component.EVENT.FLOW_RENDER);
-  }
-
-  private makeProxy<T extends object>(item: T): T {
-    return new Proxy(item, {
-      get: (target, prop: string) => {
-        const value = target[prop as keyof T];
-
-        return typeof value === 'function' ? value.bind(target) : value;
-      },
-
-      set: (target, prop: string, value) => {
-        if (target[prop as keyof T] !== value) {
-          target[prop as keyof T] = value;
-          this.requireUpdate = true;
-          console.log(this.requireUpdate);
-        }
-
-        return true;
-      },
-
-      deleteProperty() {
-        throw new Error('Нет доступа');
-      },
-    }) as T;
-  }
-
-  protected shouldComponentUpdate(prevProps: P, nextProps: P) {
-    if (isObject(prevProps) && isObject(nextProps)) {
-      return !isDeepEqual(prevProps, nextProps);
-    }
-
-    return prevProps !== nextProps;
-  }
-
-  protected compile() {
+  private compile() {
     const propsAndStubs = { ...this.props };
     const { children = {} } = this;
     const childrenLists: Record<string, HTMLTemplateElement> = {};
@@ -238,11 +232,21 @@ export abstract class Component<P extends Props = {}> {
     return fragment.content;
   }
 
-  protected render() {
-  }
-
   protected componentDidMount() {
   }
+
+  protected shouldComponentUpdate(prevProps: P, nextProps: P): boolean {
+    if (isObject(prevProps) && isObject(nextProps)) {
+      return !isDeepEqual(prevProps, nextProps);
+    }
+
+    return prevProps !== nextProps;
+  }
+
+  protected componentDidUpdate() {
+  }
+
+  protected abstract render(): string;
 
   public getContent() {
     return this.element;

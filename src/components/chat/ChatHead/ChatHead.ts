@@ -1,48 +1,55 @@
 import { Component } from '../../../core';
 import { Avatar, Button, Icon } from '../../base';
-import { template } from './ChatHead.template';
-import type { ComponentProps } from '../../../types';
-import './chat-head.css';
+import type { Props } from '../../../types/Component';
+import * as styles from './chat-head.module.css';
 
-interface ChatHeadProps extends ComponentProps {
+interface ChatHeadProps extends Props {
   userName: string,
   userPic: string,
 }
 
 export class ChatHead extends Component<ChatHeadProps> {
-  protected init() {
+  constructor(props: ChatHeadProps) {
     const avatar = new Avatar({
       size: 48,
-      src: this.props.userPic,
-      altText: `аватар пользователя ${this.props.userName}`,
+      src: props.userPic,
+      altText: `аватар пользователя ${props.userName}`,
     });
 
     const addUserButton = new Button({
       text: 'Добавить пользователя',
-      class: 'chat-head__btn',
       mode: 'alt',
-      children: {
-        icon: new Icon({ type: 'add' }),
-      },
+      icon: new Icon({ type: 'add' }),
     });
 
     const removeUserButton = new Button({
       text: 'Удалить пользователя',
-      class: 'chat-head__btn',
       mode: 'alt',
-      children: {
-        icon: new Icon({ type: 'remove' }),
-      },
+      icon: new Icon({ type: 'remove' }),
     });
 
-    this.children = {
-      avatar,
-      addUserButton,
-      removeUserButton,
-    };
+    super(
+      {
+        ...props,
+        attributes: { class: styles.container },
+        avatar,
+        addUserButton,
+        removeUserButton,
+      },
+    );
   }
 
   protected render(): string {
-    return template;
+    // language=hbs
+    return `
+        <div class="${styles.user}">
+            {{{avatar}}}
+            <span>{{userName}}</span>
+        </div>
+        <div class="${styles.controls}">
+            {{{addUserButton}}}
+            {{{removeUserButton}}}
+        </div>
+    `;
   }
 }

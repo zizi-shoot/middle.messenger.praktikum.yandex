@@ -10,7 +10,7 @@ export type ErrorMessage = string;
 export type ErrorMessages<T> = Partial<Record<keyof T, ErrorMessage>>;
 export type ValidationRules<T> = Partial<Record<keyof T, ValidationRule<T>>>;
 
-type ValidationResult<Data> = {
+export type ValidationResult<Data> = {
   valid: boolean;
   errors: ErrorMessages<Data>;
 };

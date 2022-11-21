@@ -1,10 +1,8 @@
-import type { ComponentProps } from './ComponentProps';
+import type { InputProps } from '../components/base/Input/Input';
 
-export interface FormFieldProps extends ComponentProps {
-  id: string
-  name: string,
+export interface FormFieldProps extends InputProps {
   label: string,
-  placeholder?: string,
   helperText?: string,
-  hasError: boolean,
+  direction?: 'horizontal' | 'vertical',
+  mode?: 'entry' | 'profile',
 }

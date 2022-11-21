@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  flex-grow: 1;
+  grid-template-areas:
+    "chat-search chat-head"
+    "chat-list chat";
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 320px 1fr;
+  gap: 16px 32px;
+  max-height: calc(100vh - 96px); /* 96 - высота header */
+  padding: 16px 32px 32px;
+}
+
+.search {
+  grid-area: chat-search;
+}
+
+.head {
+  grid-area: chat-head;
+}
+
+.list {
+  grid-area: chat-list;
+}
+
+.body {
+  grid-area: chat;
+}

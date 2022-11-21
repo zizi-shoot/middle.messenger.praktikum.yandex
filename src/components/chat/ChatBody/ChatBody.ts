@@ -1,26 +1,47 @@
+import classNames from 'classnames';
 import { Component } from '../../../core';
 import { MessageList } from '../MessageList';
 import { MessageForm } from '../MessageForm';
-import { template } from './ChatBody.template';
 import { messages } from '../../../data/messages';
-import type { ComponentProps } from '../../../types';
-import './chat-body.css';
+import * as styles from './chat-body.module.css';
+import type { Props } from '../../../types/Component';
 
-export class ChatBody extends Component<ComponentProps> {
-  protected init() {
-    if (messages) {
-      const messageList = new MessageList({ messageList: messages });
-      const messageForm = new MessageForm({ class: 'chat__message-form' });
+interface ChatBodyProps extends Props {
+  class?: string,
+}
 
-      this.props.hasMessages = true;
-      this.children = {
+export class ChatBody extends Component<ChatBodyProps> {
+  constructor(props: ChatBodyProps) {
+    const classList = classNames(
+      styles.container,
+      props.class,
+      messages.length === 0 && styles.containerEmpty,
+    );
+    const messageList = new MessageList({ messageList: messages, class: styles.messageList });
+    const messageForm = new MessageForm({});
+
+    super(
+      {
+        ...props,
+        attributes: { class: classList },
         messageList,
         messageForm,
-      };
-    }
+      },
+    );
+
+    this.props.hasMessages = messages.length > 0;
   }
 
   protected render(): string {
-    return template;
+    // language=hbs
+    return `
+        {{#if hasMessages}}
+            {{{messageList}}}
+            <div class="${styles.divider}"></div>
+            {{{messageForm}}}
+        {{else}}
+            <span class="${styles.emptyMessage}">Выберите чат, чтобы отправить сообщение</span>
+        {{/if}}
+    `;
   }
 }

@@ -1,7 +1,6 @@
 import type { Props } from './Component';
 
 export interface ChatItemProps extends Props {
-  id: string,
   userName: string
   userPic: string,
   message: string,

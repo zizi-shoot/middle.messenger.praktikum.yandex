@@ -1,6 +1,6 @@
-import { createValidator } from '../services/validation';
 import type { ErrorMessages, ValidationRules } from '../services/validation';
-import type { ProfileDataForm, ProfilePasswordForm } from './types';
+import { createValidator } from '../services/validation';
+import type { ProfileDataForm, ProfilePasswordForm } from '../types';
 import {
   MAX_LOGIN_LENGTH,
   MAX_PASSWORD_LENGTH,
@@ -8,17 +8,18 @@ import {
   MIN_LOGIN_LENGTH,
   MIN_PASSWORD_LENGTH,
   MIN_PHONE_LENGTH,
-} from './const';
+} from '../helpers/const';
 import {
   validateCheckNewPassword,
   validateDisplayName,
   validateEmail,
   validateFirstName,
-  validateLogin, validateNewPassword, validateOldPassword,
-  validatePassword,
+  validateLogin,
+  validateNewPassword,
+  validateOldPassword,
   validatePhone,
   validateSecondName,
-} from './rules';
+} from '../helpers/rules';
 
 export type ProfileRules<FormType> = ValidationRules<FormType>;
 export type ProfileErrors<FormType> = ErrorMessages<FormType>;
@@ -30,7 +31,6 @@ const dataRules: ProfileRules<ProfileDataForm> = {
   display_name: validateDisplayName,
   email: validateEmail,
   phone: validatePhone,
-  password: validatePassword,
 };
 
 const dataErrors: ProfileErrors<ProfileDataForm> = {
@@ -40,16 +40,9 @@ const dataErrors: ProfileErrors<ProfileDataForm> = {
   display_name: 'Имя в чате может состоять из минимум 2 латинских или кириллических букв без пробелов и цифр, первая бука — заглавная',
   email: 'Email может состоять из латинских букв, цифр, дефисов, точек. Обязательно должен быть знак "@"',
   phone: `Телефон может состоять из ${MIN_PHONE_LENGTH}-${MAX_PHONE_LENGTH} цифр и может начинаться с "+"`,
-  password: `Пароль должен содержать ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} символов. Обязательно должны быть хотя бы одна заглавная буква и цифра`,
 };
 
 export const validateProfileDataForm = createValidator(dataRules, dataErrors);
-export const validateProfileDataField = (field: keyof ProfileDataForm) => {
-  const fieldRules = { [field]: dataRules[field] } as ValidationRules<ProfileDataForm>;
-  const fieldErrors = { [field]: dataErrors[field] };
-
-  return createValidator(fieldRules, fieldErrors);
-};
 
 const passRules: ProfileRules<ProfilePasswordForm> = {
   oldPassword: validateOldPassword,
@@ -64,9 +57,3 @@ const passErrors: ProfileErrors<ProfilePasswordForm> = {
 };
 
 export const validateProfilePasswordForm = createValidator(passRules, passErrors);
-export const validateProfilePasswordField = (field: keyof ProfilePasswordForm) => {
-  const fieldRules = { [field]: passRules[field] } as ValidationRules<ProfilePasswordForm>;
-  const fieldErrors = { [field]: passErrors[field] };
-
-  return createValidator(fieldRules, fieldErrors);
-};
