@@ -9,7 +9,7 @@
   display: none;
 }
 
-.input {
+.input.input {
   flex-grow: 1;
   background-color: var(--bg-page-color);
   border: none;
