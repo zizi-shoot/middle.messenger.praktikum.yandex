@@ -1,0 +1,6 @@
+.container {
+  list-style: none;
+  background-color: var(--bg-content-color);
+  overflow-y: scroll;
+  border-radius: 16px;
+}

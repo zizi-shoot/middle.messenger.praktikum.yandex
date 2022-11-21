@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  width: 100%;
+  padding: 32px;
+  border-radius: 12px;
+  background-color: var(--bg-content-color);
+}
+
+.fixWidth {
+  width: 670px;
+}
