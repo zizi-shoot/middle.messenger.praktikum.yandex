@@ -1,7 +1,7 @@
 {
   "name": "messenger",
   "version": "1.0.0",
-  "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main.  ### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).",
+  "description": "messenger app",
   "source": "src/index.html",
   "scripts": {
     "start": "npm run build && node src/server.js",
@@ -22,29 +22,29 @@
   },
   "homepage": "https://github.com/yandex-praktikum/middle.messenger.praktikum.yandex#readme",
   "dependencies": {
-    "classnames": "^2.3.2",
-    "express": "^4.18.1",
-    "handlebars": "^4.7.7",
-    "nanoid": "^4.0.0"
+    "classnames": "2.3.2",
+    "express": "4.18.2",
+    "handlebars": "4.7.7",
+    "nanoid": "4.0.0"
   },
   "devDependencies": {
-    "@parcel/validator-typescript": "^2.7.0",
-    "@typescript-eslint/eslint-plugin": "^5.39.0",
-    "@typescript-eslint/parser": "^5.39.0",
-    "autoprefixer": "^10.4.12",
-    "cssnano": "^5.1.13",
-    "eslint": "^8.24.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "parcel": "^2.7.0",
-    "parcel-reporter-clean-dist": "^1.0.4",
-    "parcel-reporter-static-files-copy": "^1.4.0",
-    "postcss": "^8.4.17",
-    "postcss-nested": "^6.0.0",
-    "stylelint": "^14.14.1",
-    "stylelint-config-standard": "^29.0.0",
-    "typescript": "^4.8.4"
+    "@parcel/validator-typescript": "2.8.0",
+    "@typescript-eslint/eslint-plugin": "5.44.0",
+    "@typescript-eslint/parser": "5.44.0",
+    "autoprefixer": "10.4.13",
+    "cssnano": "5.1.14",
+    "eslint": "8.28.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "eslint-plugin-import": "2.26.0",
+    "parcel": "2.8.0",
+    "parcel-reporter-clean-dist": "1.0.4",
+    "parcel-reporter-static-files-copy": "1.4.0",
+    "postcss": "8.4.19",
+    "postcss-nested": "6.0.0",
+    "stylelint": "14.15.0",
+    "stylelint-config-standard": "29.0.0",
+    "typescript": "4.9.3"
   },
   "browserslist": {
     "production": [
