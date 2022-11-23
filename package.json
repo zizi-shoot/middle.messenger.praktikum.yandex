@@ -8,7 +8,7 @@
     "build": "parcel build",
     "dev": "parcel -p 3000",
     "eslint": "eslint \"src/**/*.ts\" --ignore-path .gitignore",
-    "stylelint": "stylelint \"src/**/*.css\" --ignore-path .gitignore",
+    "stylelint": "stylelint \"src/**/*.css\"",
     "lint": "npm run eslint && npm run stylelint"
   },
   "repository": {

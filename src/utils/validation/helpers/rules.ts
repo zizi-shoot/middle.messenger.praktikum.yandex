@@ -12,6 +12,7 @@ import {
   MIN_NAME_LENGTH,
   MIN_PASSWORD_LENGTH,
   MIN_PHONE_LENGTH,
+  NAME_PATTERN,
   PASSWORD_PATTERN,
   PHONE_PATTERN,
 } from './const';
@@ -47,19 +48,19 @@ const isValidFirstNameLength: Rule<CommonData> = ({ first_name }) => inRange(
   MIN_NAME_LENGTH,
   MAX_NAME_LENGTH,
 );
-const isValidFirstName: Rule<CommonData> = ({ first_name }) => contains(first_name, /[a-zа-я]/i);
+const isValidFirstName: Rule<CommonData> = ({ first_name }) => contains(first_name, NAME_PATTERN);
 const isValidSecondNameLength: Rule<CommonData> = ({ second_name }) => inRange(
   second_name.length,
   MIN_NAME_LENGTH,
   MAX_NAME_LENGTH,
 );
-const isValidSecondName: Rule<CommonData> = ({ second_name }) => contains(second_name, /[a-zа-я]/i);
+const isValidSecondName: Rule<CommonData> = ({ second_name }) => contains(second_name, NAME_PATTERN);
 const isValidDisplayNameLength: Rule<ProfileDataForm> = ({ display_name }) => inRange(
   display_name.length,
   MIN_NAME_LENGTH,
   MAX_NAME_LENGTH,
 );
-const isValidDisplayName: Rule<ProfileDataForm> = ({ display_name }) => contains(display_name, /[a-zа-я]/i);
+const isValidDisplayName: Rule<ProfileDataForm> = ({ display_name }) => contains(display_name, /[a-zа-я_]/i);
 
 // Правила для проверки email
 const isValidEmail: Rule<CommonData> = ({ email }) => contains(email, EMAIL_PATTERN);

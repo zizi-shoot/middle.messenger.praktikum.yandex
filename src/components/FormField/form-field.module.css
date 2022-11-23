@@ -10,7 +10,7 @@
   flex-direction: column;
 }
 
-.containerError input {
+.containerError .input {
   outline-color: var(--error-color);
 }
 

@@ -43,15 +43,11 @@ export class Form<T> extends Component<FormProps<T>> {
     );
 
     this.props.onSubmit = this.handleSubmit.bind(this);
-    this.props.onFocusIn = this.handleFocusIn.bind(this);
     this.props.onFocusOut = this.handleFocusOut.bind(this);
   }
 
-  protected toggleErrors(isFocusIn: boolean, target: EventTarget, errors: ValidationResult<T>['errors'] = {}) {
-    if (
-      target instanceof HTMLInputElement
-      && (isFocusIn || target.name in errors)
-    ) {
+  protected toggleErrors(target: EventTarget, errors: ValidationResult<T>['errors'] = {}) {
+    if (target instanceof HTMLInputElement) {
       const inputName = target.name as keyof T;
 
       if (inputName) {
@@ -68,13 +64,7 @@ export class Form<T> extends Component<FormProps<T>> {
             return false;
           });
 
-          const newProps = { hasError: !isFocusIn };
-
-          if (!isFocusIn) {
-            Object.assign(newProps, { helperText: errors[inputName] });
-          }
-
-          field?.setProps(newProps);
+          field?.setProps({ hasError: target.name in errors, helperText: errors[inputName] });
         }
       }
     }
@@ -106,24 +96,12 @@ export class Form<T> extends Component<FormProps<T>> {
     }
   }
 
-  protected handleFocusIn(event: FocusEvent) {
-    const { target } = event;
-
-    if (target instanceof HTMLInputElement) {
-      this.toggleErrors(true, target);
-    }
-  }
-
   protected handleFocusOut(event: FocusEvent) {
     const { currentTarget, target } = event;
     const data = getFormData(currentTarget as HTMLFormElement) as T;
-    const { valid, errors } = this.props.handleValidateForm(data as T);
+    const { errors } = this.props.handleValidateForm(data as T);
 
-    if (valid) {
-      return;
-    }
-
-    this.toggleErrors(false, target!, errors);
+    this.toggleErrors(target!, errors);
   }
 
   protected render() {
