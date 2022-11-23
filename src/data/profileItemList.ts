@@ -23,6 +23,6 @@ export const profileItemList: ProfileItemProps[] = [
   },
   {
     label: 'Телефон',
-    value: '+7 (123) 456-78-90',
+    value: '+71234567890',
   },
 ];
