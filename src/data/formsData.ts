@@ -45,7 +45,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
     {
       name: 'phone',
       hasError: false,
-      placeholder: '+7 (123) 456-78-89',
+      placeholder: '+71234567889',
       label: 'Телефон',
       type: 'tel',
     },
@@ -111,7 +111,7 @@ export const formsData: Record<string, FormFieldProps[]> = {
       name: 'phone',
       hasError: false,
       label: 'Телефон',
-      placeholder: '+7 (123) 456-78-90',
+      placeholder: '+71234567890',
       type: 'tel',
     },
   ],
