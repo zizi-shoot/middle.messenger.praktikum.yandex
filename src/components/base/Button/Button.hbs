@@ -1,9 +1,0 @@
-<button
-  type="{{#if type}}{{type}}{{else}}button{{/if}}"
-  class="{{class}} button {{#if full-width}}button--full-width{{/if}} button--{{mode}}"
->
-  {{#if icon}}
-    {{> (lookup . 'icon')}}
-  {{/if}}
-  {{text}}
-</button>

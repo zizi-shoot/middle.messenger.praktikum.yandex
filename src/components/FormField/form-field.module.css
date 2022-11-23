@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+
+.containerVertical {
+  flex-direction: column;
+}
+
+.containerError .input {
+  outline-color: var(--error-color);
+}
+
+.wrapperProfile {
+  width: 70%;
+}
+
+.wrapperEntry {
+  width: 100%;
+}
+
+.label {
+  font-size: 14px;
+}
+
+.helperText {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--error-color);
+}

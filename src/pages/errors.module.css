@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0 0 32px;
+  font-weight: 700;
+  font-size: 72px;
+  color: var(--accent-color);
+}
+
+.descr {
+  margin-bottom: 128px;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.returnLink {
+  padding: 10px 16px;
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 18px;
+  text-decoration: none;
+  color: var(--accent-color);
+}

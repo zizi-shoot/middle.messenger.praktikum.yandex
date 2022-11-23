@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: scroll;
+  height: 100%;
+  padding-top: 16px;
+  border-radius: 16px;
+  background-color: var(--bg-content-color);
+}
+
+.containerEmpty {
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.emptyMessage {
+  color: var(--font-alt-color);
+  font-size: 20px;
+}
+
+.messageList {
+  flex-grow: 1;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0 16px;
+}

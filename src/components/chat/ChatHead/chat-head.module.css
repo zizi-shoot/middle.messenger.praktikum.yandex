@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  height: 100%;
+  align-items: center;
+  font-size: 14px;
+}
