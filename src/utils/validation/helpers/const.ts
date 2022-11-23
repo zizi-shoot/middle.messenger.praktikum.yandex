@@ -5,7 +5,7 @@ export const MAX_LOGIN_LENGTH = 20;
  * начинается и заканчивается буквами или цифрами
  * может содержать не более одного подряд дефиса или подчёркивания
  */
-export const LOGIN_PATTERN = /^[a-z\d]+([-_]?[a-z0-9]+)+$/;
+export const LOGIN_PATTERN = /^[a-z\d]+([-_]?[a-z0-9]+)+$/i;
 
 export const MIN_PASSWORD_LENGTH = 8;
 export const MAX_PASSWORD_LENGTH = 40;
@@ -33,4 +33,4 @@ export const EMAIL_PATTERN = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$
 
 export const MIN_PHONE_LENGTH = 10;
 export const MAX_PHONE_LENGTH = 15;
-export const PHONE_PATTERN = /^\+?\d+$/;
+export const PHONE_PATTERN = /^(\+\d{1,3}|\d|)(?=\d{10,15}$)/;

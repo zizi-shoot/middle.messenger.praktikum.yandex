@@ -16,6 +16,7 @@ export class FormField extends Component<FormFieldProps> {
       name: this.props.name,
       placeholder: this.props.placeholder,
       type: this.props.type,
+      class: styles.input,
     });
   }
 
