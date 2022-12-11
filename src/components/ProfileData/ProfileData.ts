@@ -19,14 +19,16 @@ export class ProfileData extends Component<ProfileDataProps> {
 
     // language=hbs
     return `
-        <ul class="${styles.data}">
-            {{{items}}}
-        </ul>
-        <nav class="${styles.nav}">
-            <a href="/profile/edit-data" class="link">Изменить данные</a>
-            <a href="/profile/edit-password" class="link">Изменить пароль</a>
-            <a href="/signin" class="link link--warning">Выйти</a>
-        </nav>
+        <div>
+            <ul class="${styles.data}">
+                {{{items}}}
+            </ul>
+            <nav class="${styles.nav}">
+                <a href="/profile/edit-data" class="link">Изменить данные</a>
+                <a href="/profile/edit-password" class="link">Изменить пароль</a>
+                <a href="/signin" class="link link--warning">Выйти</a>
+            </nav>
+        </div>
     `;
   }
 }

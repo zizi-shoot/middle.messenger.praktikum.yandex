@@ -7,10 +7,6 @@ interface IconProps extends Props {
 }
 
 export class Icon extends Component<IconProps> {
-  constructor(props: IconProps) {
-    super(props, 'span');
-  }
-
   protected render(): string {
     return template[this.props.type];
   }

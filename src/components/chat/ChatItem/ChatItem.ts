@@ -15,27 +15,27 @@ export class ChatItem extends Component<ChatItemProps> {
     super(
       {
         ...props,
-        attributes: { class: styles.container },
         avatar,
       },
-      'li',
     );
   }
 
   protected render(): string {
     // language=hbs
     return `
-        {{{avatar}}}
-        <div class="${styles.messageWrapper}">
-            <span class="${styles.username}">{{userName}}</span>
-            <p class="${styles.message}">{{message}}</p>
-        </div>
-        <div class="${styles.meta}">
-            <span class="${styles.time}">{{time}}</span>
-            {{#if counter}}
-                <span class="${styles.counter}">{{counter}}</span>
-            {{/if}}
-        </div>
+        <li class="${styles.container}">
+            {{{avatar}}}
+            <div class="${styles.messageWrapper}">
+                <span class="${styles.username}">{{userName}}</span>
+                <p class="${styles.message}">{{message}}</p>
+            </div>
+            <div class="${styles.meta}">
+                <span class="${styles.time}">{{time}}</span>
+                {{#if counter}}
+                    <span class="${styles.counter}">{{counter}}</span>
+                {{/if}}
+            </div>
+        </li>
     `;
   }
 }

@@ -10,7 +10,6 @@ interface MessageFormProps extends Props {
 
 export class MessageForm extends Component<MessageFormProps> {
   constructor(props: MessageFormProps) {
-    const clasList = classNames(styles.container, props.class);
     const input = new Input({
       class: styles.input,
       name: 'message',
@@ -27,24 +26,26 @@ export class MessageForm extends Component<MessageFormProps> {
     super(
       {
         ...props,
-        attributes: { class: clasList },
         input,
         attachIcon,
         sentButton,
       },
-      'form',
     );
   }
 
   protected render(): string {
+    const clasList = classNames(styles.container, this.props.class);
+
     // language=hbs
     return `
-        <label class="${styles.label}" for="message">Введите сообщение</label>
-        {{{input}}}
-        <button class="${styles.attachBtn}" type="button">
-            {{{attachIcon}}}
-        </button>
-        {{{sentButton}}}
+        <form class="${clasList}">
+            <label class="${styles.label}" for="message">Введите сообщение</label>
+            {{{input}}}
+            <button class="${styles.attachBtn}" type="button">
+                {{{attachIcon}}}
+            </button>
+            {{{sentButton}}}
+        </form>
     `;
   }
 }

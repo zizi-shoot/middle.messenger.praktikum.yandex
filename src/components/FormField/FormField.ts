@@ -14,7 +14,7 @@ export class FormField extends Component<FormFieldProps> {
 
     this.children.input = new Input({
       name: this.props.name,
-      placeholder: this.props.placeholder,
+      placeholder: this.props.placeholder || '',
       type: this.props.type,
       class: styles.input,
     });
@@ -27,16 +27,16 @@ export class FormField extends Component<FormFieldProps> {
       this.props.hasError && styles.containerError,
     );
 
-    this.attributes = { class: classList };
-
     // language=hbs
     return `
-        <label for="input-{{name}}" class="${styles.label}">{{label}}</label>
-        <div class="${this.props.mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile}">
-            {{{input}}}
-            {{#if hasError}}
-                <span class="${styles.helperText}">{{helperText}}</span>
-            {{/if}}
+        <div class="${classList}">
+            <label for="input-{{name}}" class="${styles.label}">{{label}}</label>
+            <div class="${this.props.mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile}">
+                {{{input}}}
+                {{#if hasError}}
+                    <span class="${styles.helperText}">{{helperText}}</span>
+                {{/if}}
+            </div>
         </div>
     `;
   }

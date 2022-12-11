@@ -12,18 +12,12 @@ interface ChatBodyProps extends Props {
 
 export class ChatBody extends Component<ChatBodyProps> {
   constructor(props: ChatBodyProps) {
-    const classList = classNames(
-      styles.container,
-      props.class,
-      messages.length === 0 && styles.containerEmpty,
-    );
     const messageList = new MessageList({ messageList: messages, class: styles.messageList });
     const messageForm = new MessageForm({});
 
     super(
       {
         ...props,
-        attributes: { class: classList },
         messageList,
         messageForm,
       },
@@ -33,15 +27,23 @@ export class ChatBody extends Component<ChatBodyProps> {
   }
 
   protected render(): string {
+    const classList = classNames(
+      styles.container,
+      this.props.class,
+      messages.length === 0 && styles.containerEmpty,
+    );
+
     // language=hbs
     return `
-        {{#if hasMessages}}
-            {{{messageList}}}
-            <div class="${styles.divider}"></div>
-            {{{messageForm}}}
-        {{else}}
-            <span class="${styles.emptyMessage}">Выберите чат, чтобы отправить сообщение</span>
-        {{/if}}
+        <div class="${classList}">
+            {{#if hasMessages}}
+                {{{messageList}}}
+                <div class="${styles.divider}"></div>
+                {{{messageForm}}}
+            {{else}}
+                <span class="${styles.emptyMessage}">Выберите чат, чтобы отправить сообщение</span>
+            {{/if}}
+        </div>
     `;
   }
 }

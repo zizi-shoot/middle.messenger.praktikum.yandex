@@ -10,24 +10,26 @@ interface ChatSearchProps extends Props {
 
 export class ChatSearch extends Component<ChatSearchProps> {
   constructor(props: ChatSearchProps) {
-    const classList = classNames(styles.container, props.class);
     const icon = new Icon({ type: 'search', class: styles.icon });
 
     super(
       {
-        attributes: { class: classList },
+        ...props,
         icon,
       },
-      'form',
     );
   }
 
   protected render(): string {
+    const classList = classNames(styles.container, this.props.class);
+
     // language=hbs
     return `
-        {{{icon}}}
-        <label for="chat-search"></label>
-        <input class="${styles.input}" type="text" name="chat-search" id="chat-search" placeholder="Поиск чата">
+        <form class="${classList}">
+            {{{icon}}}
+            <label for="chat-search"></label>
+            <input class="${styles.input}" type="text" name="chat-search" id="chat-search" placeholder="Поиск чата">
+        </form>
     `;
   }
 }

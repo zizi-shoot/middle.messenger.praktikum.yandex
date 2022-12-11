@@ -31,7 +31,6 @@ export class ChatHead extends Component<ChatHeadProps> {
     super(
       {
         ...props,
-        attributes: { class: styles.container },
         avatar,
         addUserButton,
         removeUserButton,
@@ -42,13 +41,15 @@ export class ChatHead extends Component<ChatHeadProps> {
   protected render(): string {
     // language=hbs
     return `
-        <div class="${styles.user}">
-            {{{avatar}}}
-            <span>{{userName}}</span>
-        </div>
-        <div class="${styles.controls}">
-            {{{addUserButton}}}
-            {{{removeUserButton}}}
+        <div class="${styles.container}">
+            <div class="${styles.user}">
+                {{{avatar}}}
+                <span>{{userName}}</span>
+            </div>
+            <div class="${styles.controls}">
+                {{{addUserButton}}}
+                {{{removeUserButton}}}
+            </div>
         </div>
     `;
   }

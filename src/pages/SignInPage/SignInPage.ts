@@ -13,31 +13,27 @@ export class SignInPage extends Component {
       mode: 'entry',
     });
 
-    super(
-      {
-        attributes: { class: styles.container },
-        form,
-      },
-      'main',
-    );
+    super({ form });
   }
 
   protected render(): string {
     // language=hbs
     return `
-        <section class="${styles.section}">
-            <picture>
-                <source srcset="images/logo.webp" type="image/webp" />
-                <img src="images/logo.png" alt="логотип летчат" />
-            </picture>
-            <h1 class="${styles.title}">Вход в аккаунт</h1>
-            <p class="${styles.helperText}">
-                Ещё нет аккаунта?
-                <a class="link" href="/signup">Зарегистрироваться</a>
-            </p>
-            {{{form}}}
-        </section>
-        <a href="/" class="${styles.homeLink}">🏠</a>
+        <main class="${styles.container}">
+            <section class="${styles.section}">
+                <picture>
+                    <source srcset="images/logo.webp" type="image/webp" />
+                    <img src="images/logo.png" alt="логотип летчат" />
+                </picture>
+                <h1 class="${styles.title}">Вход в аккаунт</h1>
+                <p class="${styles.helperText}">
+                    Ещё нет аккаунта?
+                    <a class="link" href="/signup">Зарегистрироваться</a>
+                </p>
+                {{{form}}}
+            </section>
+            <a href="/" class="${styles.homeLink}">🏠</a>
+        </main>
     `;
   }
 }

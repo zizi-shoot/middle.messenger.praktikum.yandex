@@ -15,23 +15,22 @@ export class IndexPage extends Component {
 
     super(
       {
-        attributes: { class: styles.container },
         chatSearch,
         chatHead,
         chatList,
         chatBody,
       },
-      'main',
     );
   }
 
   protected render(): string {
     // language=hbs
     return `
-        {{{chatSearch}}}
-        {{{chatHead}}}
-        {{{chatList}}}
-        {{{chatBody}}}
-    `;
+        <main class="${styles.container}">
+            {{{chatSearch}}}
+            {{{chatHead}}}
+            {{{chatList}}}
+            {{{chatBody}}}
+        </main>`;
   }
 }

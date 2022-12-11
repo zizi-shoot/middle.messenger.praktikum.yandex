@@ -1,6 +1,6 @@
 import { Component } from '../../core';
 import { Avatar } from '../../components/base';
-import { ProfileData, Form } from '../../components';
+import { Form, ProfileData } from '../../components';
 import { profileItemList } from '../../data/profileItemList';
 import { validateProfileDataForm, validateProfilePasswordForm } from '../../utils/validation/app/profileDataValidation';
 import * as styles from './profile-page.module.css';
@@ -15,13 +15,7 @@ export class ProfilePage extends Component {
       class: styles.avatar,
     });
 
-    super(
-      {
-        attributes: { class: styles.container },
-        avatar,
-      },
-      'main',
-    );
+    super({ avatar });
   }
 
   protected getContentComponent(contentType: string): Component {
@@ -60,13 +54,15 @@ export class ProfilePage extends Component {
 
     // language=hbs
     return `
-        <h1 class="visually-hidden">Страница профиля</h1>
-        <div class="${styles.profile}">
-            <a class="${styles.avatar}" href="#">{{{avatar}}}</a>
-            <h2 class="${styles.username}">Артур Флек</h2>
-            {{{button}}}
-            {{{content}}}
-        </div>
+        <main class="${styles.container}">
+            <h1 class="visually-hidden">Страница профиля</h1>
+            <div class="${styles.profile}">
+                <a class="${styles.avatar}" href="#">{{{avatar}}}</a>
+                <h2 class="${styles.username}">Артур Флек</h2>
+                {{{button}}}
+                {{{content}}}
+            </div>
+        </main>
     `;
   }
 }

@@ -11,10 +11,6 @@ export interface InputProps extends Props {
 }
 
 export class Input extends Component<InputProps> {
-  constructor(props: InputProps) {
-    super(props, 'input');
-  }
-
   protected render() {
     const { props } = this;
     const classList = classNames(
@@ -22,14 +18,15 @@ export class Input extends Component<InputProps> {
       props.class,
     );
 
-    this.attributes = {
-      id: `input-${props.name}`,
-      name: props.name,
-      placeholder: props.placeholder || '',
-      type: props.type || 'text',
-      class: classList,
-    };
-
-    return '';
+    // language=hbs
+    return `
+        <input
+                id="input-${props.name}"
+                name="${props.name}"
+                type="${props.type}"
+                class="${classList}"
+                placeholder="${props.placeholder}"
+        />
+    `;
   }
 }

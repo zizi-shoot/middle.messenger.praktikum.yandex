@@ -11,27 +11,13 @@ interface AvatarProps extends Props {
 }
 
 export class Avatar extends Component<AvatarProps> {
-  constructor(props: AvatarProps) {
-    const { src, class: className, altText, size } = props;
+  protected render(): string {
+    const { src, class: className, altText, size } = this.props;
     const classList = classNames(styles.avatar, className);
     const defaultSize = 48;
 
-    super(
-      {
-        ...props,
-        attributes: {
-          src,
-          altText,
-          class: classList,
-          width: size || defaultSize,
-          height: size || defaultSize,
-        },
-      },
-      'img',
-    );
-  }
-
-  protected render(): string {
-    return '';
+    return `
+      <img src="${src}" alt="${altText}" class="${classList}" width="${size || defaultSize}" height="${size || defaultSize}" />
+    `;
   }
 }

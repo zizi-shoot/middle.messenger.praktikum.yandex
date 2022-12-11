@@ -17,11 +17,6 @@ interface FormProps<T> extends Props {
 
 export class Form<T> extends Component<FormProps<T>> {
   constructor(props: FormProps<T>) {
-    const classList = classNames(
-      styles.form,
-      props.mode === 'entry' && 'shadow',
-      props.mode === 'profile' && styles.fixWidth,
-    );
     const formFields = formsData[props.name].map((fieldProps) => new FormField(fieldProps));
     const button = new Button({
       type: 'submit',
@@ -32,14 +27,9 @@ export class Form<T> extends Component<FormProps<T>> {
     super(
       {
         ...props,
-        attributes: {
-          id: `${props.name}-form`,
-          class: classList,
-        },
         formFields,
         button,
       },
-      'form',
     );
 
     this.props.onSubmit = this.handleSubmit.bind(this);
@@ -105,10 +95,17 @@ export class Form<T> extends Component<FormProps<T>> {
   }
 
   protected render() {
+    const classList = classNames(
+      styles.form,
+      this.props.mode === 'entry' && 'shadow',
+      this.props.mode === 'profile' && styles.fixWidth,
+    );
     // language=hbs
     return `
-        {{{formFields}}}
-        {{{button}}}
+        <form class="${classList}" id="${this.props.name}-form">
+            {{{formFields}}}
+            {{{button}}}
+        </form>
     `;
   }
 }

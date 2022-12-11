@@ -11,22 +11,24 @@ interface ChatListProps extends Props {
 
 export class ChatList extends Component<ChatListProps> {
   constructor(props: ChatListProps) {
-    const classList = classNames(styles.container, props.class);
     const items = chatListItems.map((itemProps) => new ChatItem({ ...itemProps, withInternalID: true }));
 
     super(
       {
-        attributes: { class: classList },
+        ...props,
         items,
       },
-      'form',
     );
   }
 
   protected render(): string {
+    const classList = classNames(styles.container, this.props.class);
+
     // language=hbs
     return `
-        {{{items}}}
+        <form class="${classList}">
+            {{{items}}}
+        </form>
     `;
   }
 }

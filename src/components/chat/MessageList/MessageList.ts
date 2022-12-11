@@ -12,7 +12,6 @@ interface MessageListProps extends Props {
 
 export class MessageList extends Component<MessageListProps> {
   constructor(props: MessageListProps) {
-    const classList = classNames(styles.container, props.class);
     const messages = props.messageList.map((messageProps) => new MessageItem({
       ...messageProps,
       class: classNames(styles.item, messageProps.author === 'me' && styles.itemMe),
@@ -22,17 +21,19 @@ export class MessageList extends Component<MessageListProps> {
     super(
       {
         ...props,
-        attributes: { class: classList },
         messages,
       },
-      'ul',
     );
   }
 
   protected render(): string {
+    const classList = classNames(styles.container, this.props.class);
+
     // language=hbs
     return `
-        {{{messages}}}
+        <ul class="${classList}">
+            {{{messages}}}
+        </ul>
     `;
   }
 }
