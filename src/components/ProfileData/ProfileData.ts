@@ -1,19 +1,33 @@
 import { Component } from '../../core';
 import { ProfileItem } from '../ProfileItem';
-import * as styles from './profile-data.module.css';
-
+import { Link } from '../base';
 import type { Props } from '../../types/Component';
 import type { ProfileItemProps } from '../../types';
+import * as styles from './profile-data.module.css';
 
 interface ProfileDataProps extends Props {
   items: ProfileItemProps[],
 }
 
 export class ProfileData extends Component<ProfileDataProps> {
+  constructor(props: ProfileDataProps) {
+    const editDataLink = new Link({ to: '/profile/edit-data', label: 'Изменить данные', class: 'link' });
+    const editPasswordLink = new Link({ to: '/profile/edit-password', label: 'Изменить пароль', class: 'link' });
+    const logoutLink = new Link({ to: '/signin', label: 'Выйти', class: 'link link--warning' });
+
+    super({
+      ...props,
+      editDataLink,
+      editPasswordLink,
+      logoutLink,
+    });
+  }
+
   protected render(): string {
     const items = this.props.items.map((props) => new ProfileItem(props));
 
     this.children = {
+      ...this.children,
       items,
     };
 
@@ -24,9 +38,9 @@ export class ProfileData extends Component<ProfileDataProps> {
                 {{{items}}}
             </ul>
             <nav class="${styles.nav}">
-                <a href="/profile/edit-data" class="link">Изменить данные</a>
-                <a href="/profile/edit-password" class="link">Изменить пароль</a>
-                <a href="/signin" class="link link--warning">Выйти</a>
+                {{{editDataLink}}}
+                {{{editPasswordLink}}}
+                {{{logoutLink}}}
             </nav>
         </div>
     `;

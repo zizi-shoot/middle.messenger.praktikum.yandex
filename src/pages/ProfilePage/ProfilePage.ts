@@ -1,5 +1,5 @@
 import { Component } from '../../core';
-import { Avatar } from '../../components/base';
+import { Avatar, Link } from '../../components/base';
 import { Form, ProfileData } from '../../components';
 import { profileItemList } from '../../data/profileItemList';
 import { validateProfileDataForm, validateProfilePasswordForm } from '../../utils/validation/app/profileDataValidation';
@@ -14,8 +14,9 @@ export class ProfilePage extends Component {
       altText: 'аватар пользователя Артур Флек',
       class: styles.avatar,
     });
+    const userLink = new Link({ to: '#', label: '', class: styles.avatar, children: avatar });
 
-    super({ avatar });
+    super({ avatar, userLink });
   }
 
   protected getContentComponent(contentType: string): Component {
@@ -57,7 +58,7 @@ export class ProfilePage extends Component {
         <main class="${styles.container}">
             <h1 class="visually-hidden">Страница профиля</h1>
             <div class="${styles.profile}">
-                <a class="${styles.avatar}" href="#">{{{avatar}}}</a>
+                {{{userLink}}}
                 <h2 class="${styles.username}">Артур Флек</h2>
                 {{{button}}}
                 {{{content}}}

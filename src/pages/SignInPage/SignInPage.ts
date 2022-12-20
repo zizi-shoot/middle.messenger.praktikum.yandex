@@ -1,8 +1,9 @@
 import { Component } from '../../core';
 import { Form } from '../../components';
 import { validateSignInForm } from '../../utils/validation/app/signInValidation';
-import * as styles from '../entry.module.css';
+import { Link } from '../../components/base';
 import type { SignInForm } from '../../utils/validation';
+import * as styles from '../entry.module.css';
 
 export class SignInPage extends Component {
   constructor() {
@@ -12,8 +13,9 @@ export class SignInPage extends Component {
       handleValidateForm: validateSignInForm,
       mode: 'entry',
     });
+    const signUpLink = new Link({ to: '/signup', label: 'Зарегистрироваться', class: 'link' });
 
-    super({ form });
+    super({ form, signUpLink });
   }
 
   protected render(): string {
@@ -26,13 +28,12 @@ export class SignInPage extends Component {
                     <img src="images/logo.png" alt="логотип летчат" />
                 </picture>
                 <h1 class="${styles.title}">Вход в аккаунт</h1>
-                <p class="${styles.helperText}">
+                <div class="${styles.helperText}">
                     Ещё нет аккаунта?
-                    <a class="link" href="/signup">Зарегистрироваться</a>
-                </p>
+                    {{{signUpLink}}}
+                </div>
                 {{{form}}}
             </section>
-            <a href="/" class="${styles.homeLink}">🏠</a>
         </main>
     `;
   }

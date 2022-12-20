@@ -10,3 +10,5 @@ export type PropsAndChildren<P> = {
   props: P,
   children: Children,
 };
+
+export type PageComponent = new () => Component;

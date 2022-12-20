@@ -244,7 +244,9 @@ export abstract class Component<P extends Props = any> {
   protected componentDidUpdate() {
   }
 
-  protected abstract render(): string;
+  protected render(): string {
+    return '';
+  }
 
   public getContent() {
     return this.element;
@@ -281,6 +283,22 @@ export abstract class Component<P extends Props = any> {
 
     if (children && Object.keys(children).length > 0) {
       this.eventBus.emit(Component.EVENT.FLOW_RENDER);
+    }
+  }
+
+  public show() {
+    const content = this.getContent();
+
+    if (content) {
+      content.style.display = '';
+    }
+  }
+
+  public hide() {
+    const content = this.getContent();
+
+    if (content) {
+      content.style.display = 'none';
     }
   }
 }

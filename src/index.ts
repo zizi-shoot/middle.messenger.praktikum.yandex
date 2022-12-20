@@ -1,30 +1,26 @@
-import { renderDOM } from './core';
 import { IndexPage, NotFoundPage, ProfilePage, ServerErrorPage, SignInPage, SignUpPage } from './pages';
-import { PageHeader } from './components';
+import { router } from './core';
 
-// eslint-disable-next-line no-restricted-globals
-const { pathname } = location;
+const ROUTES = {
+  index: '/',
+  signin: '/signin',
+  signup: '/signup',
+  profile: '/profile',
+  profileEditData: '/profile/edit-data',
+  profileEditPassword: '/profile/edit-password',
+  error: '/error',
+  notFound: '/404',
+};
 
-switch (pathname) {
-  case '/signin':
-    renderDOM('#root', new SignInPage());
-    break;
-  case '/signup':
-    renderDOM('#root', new SignUpPage());
-    break;
-  case '/profile':
-  case '/profile/edit-data':
-  case '/profile/edit-password':
-    renderDOM('#root', new PageHeader());
-    renderDOM('#root', new ProfilePage());
-    break;
-  case '/':
-    renderDOM('#root', new PageHeader());
-    renderDOM('#root', new IndexPage());
-    break;
-  case '/error':
-    renderDOM('#root', new ServerErrorPage());
-    break;
-  default:
-    renderDOM('#root', new NotFoundPage());
-}
+window.addEventListener('DOMContentLoaded', async () => {
+  router
+    .use(ROUTES.index, IndexPage)
+    .use(ROUTES.signin, SignInPage)
+    .use(ROUTES.signup, SignUpPage)
+    .use(ROUTES.profile, ProfilePage)
+    .use(ROUTES.profileEditData, ProfilePage)
+    .use(ROUTES.profileEditPassword, ProfilePage)
+    .use(ROUTES.error, ServerErrorPage)
+    .use(ROUTES.notFound, NotFoundPage)
+    .start();
+});

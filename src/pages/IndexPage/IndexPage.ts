@@ -1,5 +1,6 @@
 import { Component } from '../../core';
 import { ChatBody, ChatHead, ChatList, ChatSearch } from '../../components/chat';
+import { PageHeader } from '../../components';
 import * as styles from './index-page.module.css';
 
 export class IndexPage extends Component {
@@ -12,9 +13,11 @@ export class IndexPage extends Component {
     });
     const chatList = new ChatList({ class: styles.list });
     const chatBody = new ChatBody({ class: styles.body });
+    const header = new PageHeader();
 
     super(
       {
+        header,
         chatSearch,
         chatHead,
         chatList,
@@ -26,11 +29,16 @@ export class IndexPage extends Component {
   protected render(): string {
     // language=hbs
     return `
-        <main class="${styles.container}">
-            {{{chatSearch}}}
-            {{{chatHead}}}
-            {{{chatList}}}
-            {{{chatBody}}}
-        </main>`;
+        <div>
+            {{{header}}}
+            <main class="${styles.container}">
+                {{{chatSearch}}}
+                {{{chatHead}}}
+                {{{chatList}}}
+                {{{chatBody}}}
+            </main>
+        </div>
+
+    `;
   }
 }
