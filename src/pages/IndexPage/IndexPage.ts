@@ -2,28 +2,19 @@ import { Component } from '../../core';
 import { ChatBody, ChatHead, ChatList, ChatSearch } from '../../components/chat';
 import { PageHeader } from '../../components';
 import * as styles from './index-page.module.css';
+import { withUser } from '../../hocs/withStore';
 
-export class IndexPage extends Component {
-  constructor() {
-    const chatSearch = new ChatSearch({ class: styles.search });
-    const chatHead = new ChatHead({
+export class IndexPageBase extends Component {
+  protected init() {
+    this.children.chatSearch = new ChatSearch({ class: styles.search });
+    this.children.chatHead = new ChatHead({
       userName: 'Артур Флек',
       userPic: 'https://i.pinimg.com/736x/05/21/31/052131c411b8aa376dc38d43cff7f333.jpg',
       class: styles.head,
     });
-    const chatList = new ChatList({ class: styles.list });
-    const chatBody = new ChatBody({ class: styles.body });
-    const header = new PageHeader();
-
-    super(
-      {
-        header,
-        chatSearch,
-        chatHead,
-        chatList,
-        chatBody,
-      },
-    );
+    this.children.chatList = new ChatList({ class: styles.list });
+    this.children.chatBody = new ChatBody({ class: styles.body });
+    this.children.header = new PageHeader();
   }
 
   protected render(): string {
@@ -42,3 +33,5 @@ export class IndexPage extends Component {
     `;
   }
 }
+
+export const IndexPage = withUser(IndexPageBase);

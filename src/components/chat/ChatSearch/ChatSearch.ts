@@ -2,22 +2,15 @@ import classNames from 'classnames';
 import { Component } from '../../../core';
 import { Icon } from '../../base';
 import * as styles from './chat-search.module.css';
-import type { Props } from '../../../types/Component';
+import type { Props } from '../../../types/component';
 
 interface ChatSearchProps extends Props {
   class?: string,
 }
 
 export class ChatSearch extends Component<ChatSearchProps> {
-  constructor(props: ChatSearchProps) {
-    const icon = new Icon({ type: 'search', class: styles.icon });
-
-    super(
-      {
-        ...props,
-        icon,
-      },
-    );
+  protected init() {
+    this.children.icon = new Icon({ type: 'search', class: styles.icon });
   }
 
   protected render(): string {

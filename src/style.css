@@ -21,14 +21,19 @@ ul {
 }
 
 #root {
+  height: 100vh;
+}
+
+.page-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 }
 
 .link {
   color: var(--font-link-color);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .link--warning {

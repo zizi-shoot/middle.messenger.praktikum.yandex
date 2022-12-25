@@ -1,26 +1,43 @@
 import { IndexPage, NotFoundPage, ProfilePage, ServerErrorPage, SignInPage, SignUpPage } from './pages';
-import { router } from './core';
-
-const ROUTES = {
-  index: '/',
-  signin: '/signin',
-  signup: '/signup',
-  profile: '/profile',
-  profileEditData: '/profile/edit-data',
-  profileEditPassword: '/profile/edit-password',
-  error: '/error',
-  notFound: '/404',
-};
+import { router } from './core/Router';
+import { authController } from './controllers/AuthController';
+import { ROUTES } from './utils/const';
 
 window.addEventListener('DOMContentLoaded', async () => {
   router
-    .use(ROUTES.index, IndexPage)
-    .use(ROUTES.signin, SignInPage)
-    .use(ROUTES.signup, SignUpPage)
-    .use(ROUTES.profile, ProfilePage)
-    .use(ROUTES.profileEditData, ProfilePage)
-    .use(ROUTES.profileEditPassword, ProfilePage)
-    .use(ROUTES.error, ServerErrorPage)
-    .use(ROUTES.notFound, NotFoundPage)
-    .start();
+    .use(ROUTES.INDEX, IndexPage)
+    .use(ROUTES.SIGNIN, SignInPage)
+    .use(ROUTES.SIGNUP, SignUpPage)
+    .use(ROUTES.PROFILE, ProfilePage)
+    .use(ROUTES.PROFILE_EDIT_DATA, ProfilePage)
+    .use(ROUTES.PROFILE_EDIT_PASSWORD, ProfilePage)
+    .use(ROUTES.ERROR, ServerErrorPage)
+    .use(ROUTES.NOT_FOUND, NotFoundPage);
+
+  let isProtectedRoute = true;
+
+  switch (window.location.pathname) {
+    case ROUTES.SIGNIN:
+    case ROUTES.SIGNUP:
+      isProtectedRoute = false;
+      break;
+    default:
+      break;
+  }
+
+  try {
+    await authController.fetchUser();
+
+    router.start();
+
+    if (!isProtectedRoute) {
+      router.go(ROUTES.PROFILE);
+    }
+  } catch (e) {
+    router.start();
+
+    if (isProtectedRoute) {
+      router.go(ROUTES.SIGNIN);
+    }
+  }
 });

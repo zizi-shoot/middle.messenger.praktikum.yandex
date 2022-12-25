@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Component } from '../../../core';
-import type { Props } from '../../../types/Component';
+import type { Props } from '../../../types/component';
 import * as styles from './input.module.css';
 
 export interface InputProps extends Props {

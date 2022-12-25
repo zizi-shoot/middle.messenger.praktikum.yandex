@@ -4,25 +4,16 @@ import { MessageList } from '../MessageList';
 import { MessageForm } from '../MessageForm';
 import { messages } from '../../../data/messages';
 import * as styles from './chat-body.module.css';
-import type { Props } from '../../../types/Component';
+import type { Props } from '../../../types/component';
 
 interface ChatBodyProps extends Props {
   class?: string,
 }
 
 export class ChatBody extends Component<ChatBodyProps> {
-  constructor(props: ChatBodyProps) {
-    const messageList = new MessageList({ messageList: messages, class: styles.messageList });
-    const messageForm = new MessageForm({});
-
-    super(
-      {
-        ...props,
-        messageList,
-        messageForm,
-      },
-    );
-
+  protected init() {
+    this.children.messageList = new MessageList({ messageList: messages, class: styles.messageList });
+    this.children.messageForm = new MessageForm({});
     this.props.hasMessages = messages.length > 0;
   }
 

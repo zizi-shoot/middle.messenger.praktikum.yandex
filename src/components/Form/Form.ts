@@ -5,35 +5,32 @@ import { Button } from '../base';
 import { FormField } from '../FormField';
 import { formsData } from '../../data/formsData';
 import * as styles from './form.module.css';
-import type { Props } from '../../types/Component';
+import type { Props } from '../../types/component';
 import type { ValidationResult } from '../../utils/validation/services/validation';
 
 interface FormProps<T> extends Props {
   name: string,
   buttonSubmitText: string,
-  handleValidateForm: (data: T) => ValidationResult<T>;
-  mode: 'entry' | 'profile';
+  validateForm: (data: T) => ValidationResult<T>,
+  mode: 'entry' | 'profile',
+  sentData: (data: T) => void,
 }
 
 export class Form<T> extends Component<FormProps<T>> {
   constructor(props: FormProps<T>) {
-    const formFields = formsData[props.name].map((fieldProps) => new FormField(fieldProps));
-    const button = new Button({
-      type: 'submit',
-      text: props.buttonSubmitText,
-      fullWidth: true,
-    });
-
-    super(
-      {
-        ...props,
-        formFields,
-        button,
-      },
-    );
+    super(props);
 
     this.props.onSubmit = this.handleSubmit.bind(this);
     this.props.onFocusOut = this.handleFocusOut.bind(this);
+  }
+
+  protected init() {
+    this.children.formFields = formsData[this.props.name].map((fieldProps) => new FormField(fieldProps));
+    this.children.button = new Button({
+      type: 'submit',
+      text: this.props.buttonSubmitText,
+      fullWidth: true,
+    });
   }
 
   protected toggleErrors(target: EventTarget, errors: ValidationResult<T>['errors'] = {}) {
@@ -64,11 +61,10 @@ export class Form<T> extends Component<FormProps<T>> {
     event.preventDefault();
     const data = getFormData(event.target as HTMLFormElement) as T;
 
-    const { valid, errors } = this.props.handleValidateForm(data);
+    const { valid, errors } = this.props.validateForm(data);
 
     if (valid) {
-      // eslint-disable-next-line no-console
-      console.log(data);
+      this.props.sentData(data);
     }
 
     if (!valid) {
@@ -89,7 +85,7 @@ export class Form<T> extends Component<FormProps<T>> {
   protected handleFocusOut(event: FocusEvent) {
     const { currentTarget, target } = event;
     const data = getFormData(currentTarget as HTMLFormElement) as T;
-    const { errors } = this.props.handleValidateForm(data as T);
+    const { errors } = this.props.validateForm(data as T);
 
     this.toggleErrors(target!, errors);
   }

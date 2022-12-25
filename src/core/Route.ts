@@ -1,12 +1,8 @@
 import { renderDOM } from './renderDOM';
-import { isEqual } from '../utils/IsEqual';
+import { isEqual } from '../utils';
 import type { Component } from './Component';
-import type { Pathname } from '../types/Router';
-import type { PageComponent } from '../types/Component';
-
-interface Props {
-  rootQuery: string,
-}
+import type { Pathname, Query } from '../types/router';
+import type { PageComponent } from '../types/component';
 
 export class Route {
   private component: Component | null = null;
@@ -14,7 +10,7 @@ export class Route {
   constructor(
     private pathname: Pathname,
     private readonly PageComponent: PageComponent,
-    private readonly props: Props,
+    private readonly query: Query,
   ) {
   }
 
@@ -37,8 +33,8 @@ export class Route {
 
   public render() {
     if (!this.component) {
-      this.component = new this.PageComponent();
-      renderDOM(this.props.rootQuery, this.component);
+      this.component = new this.PageComponent({});
+      renderDOM(this.query, this.component);
       return;
     }
 

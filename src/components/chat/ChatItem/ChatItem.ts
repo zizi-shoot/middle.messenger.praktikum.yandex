@@ -4,20 +4,13 @@ import type { ChatItemProps } from '../../../types';
 import * as styles from './chat-item.module.css';
 
 export class ChatItem extends Component<ChatItemProps> {
-  constructor(props: ChatItemProps) {
-    const avatar = new Avatar({
+  protected init() {
+    this.children.avatar = new Avatar({
       size: 48,
       class: 'chat-item__avatar',
-      src: props.userPic,
-      altText: `аватар пользователя ${props.userName}`,
+      src: this.props.userPic,
+      altText: `аватар пользователя ${this.props.userName}`,
     });
-
-    super(
-      {
-        ...props,
-        avatar,
-      },
-    );
   }
 
   protected render(): string {

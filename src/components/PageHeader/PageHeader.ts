@@ -5,21 +5,16 @@ import * as styles from './page-header.module.css';
 
 export class PageHeader extends Component {
   constructor() {
-    const chatLink = new Link({ to: '/', label: 'Чаты', class: styles.link });
-    const profileLink = new Link({ to: '/profile', label: 'Профиль', class: styles.link });
-    const signinLink = new Link({ to: '/signin', label: 'Вход', class: styles.link });
-    const notLink = new Link({ to: '/404', label: '404', class: styles.link });
-    const errorLink = new Link({ to: '/error', label: '500', class: styles.link });
-    const logoLink = new Link({ to: '/', label: '', children: new Logo() });
+    super({});
+  }
 
-    super({
-      logoLink,
-      chatLink,
-      profileLink,
-      signinLink,
-      notLink,
-      errorLink,
-    });
+  protected init() {
+    this.children.chatLink = new Link({ to: '/', label: 'Чаты', class: styles.link });
+    this.children.profileLink = new Link({ to: '/profile', label: 'Профиль', class: styles.link });
+    this.children.signinLink = new Link({ to: '/signin', label: 'Вход', class: styles.link });
+    this.children.notLink = new Link({ to: '/404', label: '404', class: styles.link });
+    this.children.errorLink = new Link({ to: '/error', label: '500', class: styles.link });
+    this.children.logoLink = new Link({ to: '/', label: '', children: new Logo() });
   }
 
   protected render(): string {

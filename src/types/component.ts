@@ -11,4 +11,4 @@ export type PropsAndChildren<P> = {
   children: Children,
 };
 
-export type PageComponent = new () => Component;
+export type PageComponent = typeof Component;

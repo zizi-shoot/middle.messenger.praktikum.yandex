@@ -1,6 +1,6 @@
 import { Route } from './Route';
-import { Pathname } from '../types/Router';
-import { PageComponent } from '../types/Component';
+import { Pathname } from '../types/router';
+import { PageComponent } from '../types/component';
 
 export class Router {
   private static instance: Router;
@@ -40,7 +40,7 @@ export class Router {
   }
 
   public use(pathname: Pathname, component: PageComponent) {
-    const route = new Route(pathname, component, { rootQuery: this.rootQuery });
+    const route = new Route(pathname, component, this.rootQuery);
 
     this.routes.push(route);
 

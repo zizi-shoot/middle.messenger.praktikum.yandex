@@ -11,7 +11,9 @@ export class FormField extends Component<FormFieldProps> {
       mode: props.mode || 'entry',
       direction: props.direction || 'vertical',
     });
+  }
 
+  protected init() {
     this.children.input = new Input({
       name: this.props.name,
       placeholder: this.props.placeholder || '',

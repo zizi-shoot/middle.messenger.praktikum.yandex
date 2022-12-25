@@ -2,10 +2,10 @@ import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
 import { isDeepEqual, isObject } from '../utils';
-import type { Children, Element, Props, PropsAndChildren } from '../types/Component';
+import type { Children, Element, Props, PropsAndChildren } from '../types/component';
 import type { EventCallback } from '../types';
 
-export abstract class Component<P extends Props = any> {
+export class Component<P extends Props = any> {
   public static EVENT = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -25,7 +25,7 @@ export abstract class Component<P extends Props = any> {
 
   protected children: Children = {};
 
-  constructor(allProps?: P) {
+  constructor(allProps: P) {
     if (allProps) {
       const { children, props } = this.getPropsAndChildren(allProps);
 
@@ -38,6 +38,7 @@ export abstract class Component<P extends Props = any> {
   }
 
   private _init() {
+    this.init();
     this.element = this.createDocumentElement('template');
     this.eventBus.emit(Component.EVENT.FLOW_RENDER);
   }
@@ -232,6 +233,8 @@ export abstract class Component<P extends Props = any> {
 
   protected componentDidMount() {
   }
+
+  protected init() {}
 
   protected shouldComponentUpdate(prevProps: P, nextProps: P): boolean {
     if (isObject(prevProps) && isObject(nextProps)) {

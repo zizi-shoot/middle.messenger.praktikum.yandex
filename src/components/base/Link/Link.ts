@@ -1,9 +1,7 @@
-import classNames from 'classnames';
 import { Component } from '../../../core';
-import { PropsWithRouter } from '../../../types/Router';
-import { withRouter } from '../../../hocs/withRouter';
-import type { Children } from '../../../types';
-import * as styles from './link.module.css';
+import { PropsWithRouter } from '../../../types/router';
+import { withRouter } from '../../../hocs';
+import type { Children } from '../../../types/component';
 
 interface LinkProps extends PropsWithRouter {
   to: string,
@@ -11,27 +9,26 @@ interface LinkProps extends PropsWithRouter {
   children?: Children,
   class?: string,
   onClick?: () => void,
+  extraClickHandler?: () => void,
 }
 
 class BaseLink extends Component<LinkProps> {
   constructor(props: LinkProps) {
     super({
-      ...props,
       onClick: () => this.navigate(),
+      ...props,
     });
   }
 
   protected navigate() {
-    this.props.router!.go(this.props.to);
+    this.props.router.go(this.props.to);
   }
 
   protected render(): string {
-    const classList = classNames(this.props.class, styles.item);
-
     // language=hbs
     return `
-        <a class="${classList}">
-            {{ label }}
+        <a class="${this.props.class}">
+            {{label}}
             {{{children}}}
         </a>
     `;

@@ -12,11 +12,13 @@ export class NotFoundPage extends Component {
   protected render(): string {
     // language=hbs
     return `
-        <main class="${styles.container}">
-            <h1 class="${styles.title}">404</h1>
-            <p class="${styles.descr}">Сожалеем, но такой страницы не существует</p>
-            {{{returnLink}}}
-        </main>
+        <div class="page-container">
+            <main class="${styles.container}">
+                <h1 class="${styles.title}">404</h1>
+                <p class="${styles.descr}">Сожалеем, но такой страницы не существует</p>
+                {{{returnLink}}}
+            </main>
+        </div>
     `;
   }
 }

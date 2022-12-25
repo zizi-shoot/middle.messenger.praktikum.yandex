@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Component } from '../../../core';
 import * as styles from './Button.module.css';
-import type { Props } from '../../../types/Component';
+import type { Props } from '../../../types/component';
 
 interface ButtonProps extends Props {
   text: string,

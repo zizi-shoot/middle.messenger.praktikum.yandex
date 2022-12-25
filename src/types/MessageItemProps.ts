@@ -1,4 +1,4 @@
-import type { Props } from './Component';
+import type { Props } from './component';
 
 export interface MessageItemProps extends Props {
   author: string,

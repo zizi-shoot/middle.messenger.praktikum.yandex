@@ -1,44 +1,48 @@
 import { Component } from '../../core';
 import { Avatar, Link } from '../../components/base';
-import { Form, ProfileData } from '../../components';
+import { Form, PageHeader, ProfileDataList } from '../../components';
 import { profileItemList } from '../../data/profileItemList';
 import { validateProfileDataForm, validateProfilePasswordForm } from '../../utils/validation/app/profileDataValidation';
 import * as styles from './profile-page.module.css';
-import type { ProfileDataForm, ProfilePasswordForm } from '../../utils/validation';
+import type { ProfileData, ProfilePasswordData } from '../../types/forms';
+import { withUser } from '../../hocs/withStore';
 
-export class ProfilePage extends Component {
-  constructor() {
+export class ProfilePageBase extends Component {
+  protected init() {
     const avatar = new Avatar({
       size: 128,
       src: 'https://i.pinimg.com/736x/05/21/31/052131c411b8aa376dc38d43cff7f333.jpg',
       altText: 'аватар пользователя Артур Флек',
       class: styles.avatar,
     });
-    const userLink = new Link({ to: '#', label: '', class: styles.avatar, children: avatar });
 
-    super({ avatar, userLink });
+    this.children.userLink = new Link({ to: '#', label: '', class: styles.avatar, children: avatar });
+    this.children.pageHeader = new PageHeader();
   }
 
   protected getContentComponent(contentType: string): Component {
     switch (contentType) {
       case '/profile/edit-data':
-        return new Form<ProfileDataForm>({
+        return new Form<ProfileData>({
           name: 'profile',
-          handleValidateForm: validateProfileDataForm,
+          validateForm: validateProfileDataForm,
           buttonSubmitText: 'Сохранить',
           mode: 'profile',
+          sentData: () => {
+          },
         });
       case '/profile/edit-password':
-        return new Form<ProfilePasswordForm>({
+        return new Form<ProfilePasswordData>({
           name: 'password',
-          handleValidateForm: validateProfilePasswordForm,
+          validateForm: validateProfilePasswordForm,
           buttonSubmitText: 'Сохранить',
           mode: 'profile',
-
+          sentData: () => {
+          },
         });
       case '/profile/data':
       default:
-        return new ProfileData({ items: profileItemList });
+        return new ProfileDataList({ items: profileItemList });
     }
   }
 
@@ -55,15 +59,20 @@ export class ProfilePage extends Component {
 
     // language=hbs
     return `
-        <main class="${styles.container}">
-            <h1 class="visually-hidden">Страница профиля</h1>
-            <div class="${styles.profile}">
-                {{{userLink}}}
-                <h2 class="${styles.username}">Артур Флек</h2>
-                {{{button}}}
-                {{{content}}}
-            </div>
-        </main>
+        <div class="page-container">
+            {{{pageHeader}}}
+            <main class="${styles.container}">
+                <h1 class="visually-hidden">Страница профиля</h1>
+                <div class="${styles.profile}">
+                    {{{userLink}}}
+                    <h2 class="${styles.username}">Артур Флек</h2>
+                    {{{button}}}
+                    {{{content}}}
+                </div>
+            </main>
+        </div>
     `;
   }
 }
+
+export const ProfilePage = withUser(ProfilePageBase);
