@@ -288,20 +288,4 @@ export class Component<P extends Props = any> {
       this.eventBus.emit(Component.EVENT.FLOW_RENDER);
     }
   }
-
-  public show() {
-    const content = this.getContent();
-
-    if (content) {
-      content.style.display = '';
-    }
-  }
-
-  public hide() {
-    const content = this.getContent();
-
-    if (content) {
-      content.style.display = 'none';
-    }
-  }
 }

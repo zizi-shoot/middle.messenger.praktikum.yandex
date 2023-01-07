@@ -2,27 +2,33 @@ import type { ProfileItemProps } from '../types';
 
 export const profileItemList: ProfileItemProps[] = [
   {
+    key: 'email',
     label: 'Почта',
-    value: 'example@email.com',
+    value: '',
   },
   {
+    key: 'login',
     label: 'Логин',
-    value: 'joker',
+    value: '',
   },
   {
+    key: 'first_name',
     label: 'Имя',
-    value: 'Артур',
+    value: '',
   },
   {
+    key: 'second_name',
     label: 'Фамилия',
-    value: 'Флек',
+    value: '',
   },
   {
+    key: 'display_name',
     label: 'Имя в чате',
-    value: 'Джокер',
+    value: '',
   },
   {
+    key: 'phone',
     label: 'Телефон',
-    value: '+71234567890',
+    value: '',
   },
 ];

@@ -4,12 +4,11 @@ import type { Props } from '../types/component';
 
 // eslint-disable-next-line arrow-body-style
 const withStore = <P extends Props>(mapStateToProps: (state: any) => any) => {
+  // eslint-disable-next-line arrow-body-style
   return (ComponentClass: typeof Component) => {
-    let previousState: any;
-
     return class WithStore extends ComponentClass {
       constructor(props: P) {
-        previousState = mapStateToProps(store.getState());
+        let previousState = mapStateToProps(store.getState());
 
         super({ ...props, ...previousState });
 
@@ -25,4 +24,4 @@ const withStore = <P extends Props>(mapStateToProps: (state: any) => any) => {
   };
 };
 
-export const withUser = withStore((state) => ({ user: state.user }));
+export const withUser = withStore((state) => ({ user: { ...state.user } }));

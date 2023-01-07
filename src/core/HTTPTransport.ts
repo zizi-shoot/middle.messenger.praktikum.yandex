@@ -60,6 +60,8 @@ export class HTTPTransport {
 
       if (method === HTTPTransport.METHOD.GET || !data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
         xhr.send(JSON.stringify(data));
       }

@@ -28,18 +28,22 @@ export class AuthController {
     }
   }
 
-  public async signup(data: SignUpData) {
+  public async signup(data: FormData) {
+    const objectData = Object.fromEntries(data) as SignUpData;
+
     await this.request(async () => {
-      await this.api.signup(data);
+      await this.api.signup(objectData);
       await this.fetchUser();
 
       this.router.go(ROUTES.PROFILE);
     });
   }
 
-  public async signin(data: SignInData) {
+  public async signin(data: FormData) {
+    const objectData = Object.fromEntries(data) as SignInData;
+
     await this.request(async () => {
-      await this.api.signin(data);
+      await this.api.signin(objectData);
       await this.fetchUser();
 
       this.router.go(ROUTES.INDEX);

@@ -22,3 +22,7 @@ export type ProfilePasswordData = {
   newPassword: Password,
   checkNewPassword: Password,
 };
+
+export type AvatarData = {
+  avatar: File,
+};

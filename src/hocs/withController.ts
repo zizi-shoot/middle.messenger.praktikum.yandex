@@ -1,7 +1,8 @@
 import { Props } from '../types/component';
 import { Component } from '../core';
-import { PropsWithController } from '../types/controller';
 import { authController } from '../controllers/AuthController';
+import { userController } from '../controllers/UserController';
+import type { PropsWithController } from '../types/controller';
 
 // eslint-disable-next-line arrow-body-style
 const withController = <T>(controller: T) => {
@@ -17,3 +18,4 @@ const withController = <T>(controller: T) => {
 };
 
 export const withAuthController = withController(authController);
+export const withUserController = withController(userController);

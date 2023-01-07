@@ -1,6 +1,6 @@
 import { Component } from '../../core';
-import type { ProfileItemProps } from '../../types';
 import * as styles from './profile-item.module.css';
+import type { ProfileItemProps } from '../../types';
 
 export class ProfileItem extends Component<ProfileItemProps> {
   protected render(): string {

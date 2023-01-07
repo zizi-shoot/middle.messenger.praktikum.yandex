@@ -19,14 +19,14 @@ export class SignUpPageBase extends Component<SignUpPageBaseProps> {
     this.signUpUser = this.signUpUser.bind(this);
   }
 
-  protected async signUpUser(data: SignUpData) {
+  protected async signUpUser(data: FormData) {
     await this.props.controller.signup(data);
   }
 
   protected init() {
     this.children.form = new Form<SignUpData>({
       name: 'signup',
-      buttonSubmitText: 'Зарегистрироваться',
+      submitButtonText: 'Зарегистрироваться',
       validateForm: validateSignUpForm,
       mode: 'entry',
       sentData: this.signUpUser.bind(this),

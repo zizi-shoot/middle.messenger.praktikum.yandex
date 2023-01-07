@@ -1,6 +1,6 @@
 import { all, ValidationRule } from '../services/validation';
-import type { ProfileData, ProfilePasswordData, SignInData, SignUpData } from '../../../types/forms';
-import { contains, inRange, notEmpty } from './utils';
+import type { AvatarData, ProfileData, ProfilePasswordData, SignInData, SignUpData } from '../../../types/forms';
+import { contains, inRange, notEmpty, notEmptyFile } from './utils';
 import {
   EMAIL_PATTERN,
   LOGIN_PATTERN,
@@ -85,6 +85,8 @@ const isValidCheckNewPassword: Rule<ProfilePasswordData> = ({
   checkNewPassword,
 }) => newPassword === checkNewPassword;
 
+const notEmptyAvatar: Rule<AvatarData> = ({ avatar }) => notEmptyFile(avatar);
+
 // сбор правил в комбинации
 const loginRules = [
   notEmpty,
@@ -149,6 +151,10 @@ const checkNewPasswordRules = [
   isValidCheckNewPassword,
 ];
 
+const avatarUploadRules = [
+  notEmptyAvatar,
+];
+
 export const validateLogin = all(loginRules);
 export const validatePassword = all(passwordRules);
 export const validateCheckPassword = all(checkPasswordRules);
@@ -160,3 +166,4 @@ export const validatePhone = all(phoneRules);
 export const validateOldPassword = all(oldPasswordRules);
 export const validateNewPassword = all(newPasswordRules);
 export const validateCheckNewPassword = all(checkNewPasswordRules);
+export const validateAvatar = all(avatarUploadRules);

@@ -20,7 +20,7 @@ class SignInPageBase extends Component<SignInPageBaseProps> {
     this.signInUser = this.signInUser.bind(this);
   }
 
-  protected async signInUser(data: SignInData) {
+  protected async signInUser(data: FormData) {
     await this.props.controller.signin(data);
 
     if (this.props.user.error) {
@@ -31,7 +31,7 @@ class SignInPageBase extends Component<SignInPageBaseProps> {
   protected init() {
     this.children.form = new Form<SignInData>({
       name: 'signin',
-      buttonSubmitText: 'Войти',
+      submitButtonText: 'Войти',
       validateForm: validateSignInForm,
       mode: 'entry',
       sentData: this.signInUser.bind(this),

@@ -1,23 +1,116 @@
 import { Component } from '../../core';
-import { Avatar, Link } from '../../components/base';
+import { UserController } from '../../controllers/UserController';
+import { Avatar, Button, Modal } from '../../components/base';
 import { Form, PageHeader, ProfileDataList } from '../../components';
-import { profileItemList } from '../../data/profileItemList';
 import { validateProfileDataForm, validateProfilePasswordForm } from '../../utils/validation/app/profileDataValidation';
-import * as styles from './profile-page.module.css';
-import type { ProfileData, ProfilePasswordData } from '../../types/forms';
+import { validateAvatarForm } from '../../utils/validation/app/avatarDataValidation';
 import { withUser } from '../../hocs/withStore';
+import { withUserController } from '../../hocs/withController';
+import { profileItemList } from '../../data/profileItemList';
+import { removePortal, renderPortal } from '../../core/DOM';
+import * as styles from './profile-page.module.css';
+import type { User } from '../../types';
+import type { AvatarData, ProfileData, ProfilePasswordData } from '../../types/forms';
+import type { PropsWithController } from '../../types/controller';
+import type { State } from '../../types/store';
 
-export class ProfilePageBase extends Component {
+interface ProfilePageBaseProps extends PropsWithController<UserController>, Pick<State, 'user'> {
+  username: string,
+}
+
+export class ProfilePageBase extends Component<ProfilePageBaseProps> {
+  constructor(props: ProfilePageBaseProps) {
+    super({
+      ...props,
+      username: `${props.user.data.first_name} ${props.user.data.second_name}`,
+    });
+
+    this.updateProfile = this.updateProfile.bind(this);
+    this.updatePassword = this.updatePassword.bind(this);
+    this.updateAvatar = this.updateAvatar.bind(this);
+  }
+
+  protected componentDidMount() {
+    this
+      .props
+      .controller
+      .fetchUser()
+      .catch(() => {
+        alert('Не удалось получить данные пользователя!');
+      });
+  }
+
+  protected componentDidUpdate() {
+    const { avatarBtn } = this.children;
+
+    if (avatarBtn && !Array.isArray(avatarBtn)) {
+      avatarBtn.setProps({
+        icon: new Avatar({
+          size: 128,
+          src: this.props.user.data.avatar,
+          altText: `аватар пользователя ${this.props.user.data.login}`,
+        }),
+      });
+    }
+  }
+
   protected init() {
     const avatar = new Avatar({
       size: 128,
-      src: 'https://i.pinimg.com/736x/05/21/31/052131c411b8aa376dc38d43cff7f333.jpg',
-      altText: 'аватар пользователя Артур Флек',
-      class: styles.avatar,
+      src: this.props.user.data.avatar,
+      altText: `аватар пользователя ${this.props.user.data.login}`,
     });
 
-    this.children.userLink = new Link({ to: '#', label: '', class: styles.avatar, children: avatar });
+    const form = new Form<AvatarData>({
+      name: 'avatar',
+      validateForm: validateAvatarForm,
+      submitButtonText: 'Сохранить',
+      cancelButtonText: 'Отменить',
+      mode: 'profile',
+      sentData: this.updateAvatar.bind(this),
+      handleCancel: removePortal,
+    });
+
+    this.children.avatarBtn = new Button({
+      text: '',
+      class: styles.avatarBtn,
+      mode: 'alt',
+      icon: avatar,
+      onClick: () => renderPortal(new Modal({ content: form })),
+    });
+
     this.children.pageHeader = new PageHeader();
+  }
+
+  protected async updateProfile(data: FormData) {
+    await this.props.controller.updateProfile(data);
+
+    if (this.props.user.error) {
+      alert(this.props.user.error);
+    } else {
+      alert('Данные пользователя успешно обновлены!');
+    }
+  }
+
+  protected async updatePassword(data: FormData) {
+    await this.props.controller.updatePassword(data);
+
+    if (this.props.user.error) {
+      alert(this.props.user.error);
+    } else {
+      alert('Пароль пользователя успешно обновлён!');
+    }
+  }
+
+  protected async updateAvatar(data: FormData) {
+    await this.props.controller.updateAvatar(data);
+
+    if (this.props.user.error) {
+      alert(this.props.user.error);
+    } else {
+      alert('Аватар пользователя успешно обновлён!');
+      removePortal();
+    }
   }
 
   protected getContentComponent(contentType: string): Component {
@@ -26,30 +119,38 @@ export class ProfilePageBase extends Component {
         return new Form<ProfileData>({
           name: 'profile',
           validateForm: validateProfileDataForm,
-          buttonSubmitText: 'Сохранить',
+          submitButtonText: 'Сохранить',
           mode: 'profile',
-          sentData: () => {
-          },
+          sentData: this.updateProfile.bind(this),
+          values: this.props.user.data,
         });
       case '/profile/edit-password':
         return new Form<ProfilePasswordData>({
           name: 'password',
           validateForm: validateProfilePasswordForm,
-          buttonSubmitText: 'Сохранить',
+          submitButtonText: 'Сохранить',
           mode: 'profile',
-          sentData: () => {
-          },
+          sentData: this.updatePassword.bind(this),
         });
       case '/profile/data':
       default:
-        return new ProfileDataList({ items: profileItemList });
+        // eslint-disable-next-line no-case-declarations
+        const items = profileItemList.map((item) => {
+          const value = this.props.user.data[item.key as keyof User];
+
+          return {
+            ...item,
+            value,
+          };
+        });
+
+        return new ProfileDataList({ items });
     }
   }
 
   protected render(): string {
     // eslint-disable-next-line no-restricted-globals
     const { pathname } = location;
-
     const content = this.getContentComponent(pathname);
 
     this.children = {
@@ -64,8 +165,8 @@ export class ProfilePageBase extends Component {
             <main class="${styles.container}">
                 <h1 class="visually-hidden">Страница профиля</h1>
                 <div class="${styles.profile}">
-                    {{{userLink}}}
-                    <h2 class="${styles.username}">Артур Флек</h2>
+                    {{{avatarBtn}}}
+                    <h2 class="${styles.username}">{{username}}</h2>
                     {{{button}}}
                     {{{content}}}
                 </div>
@@ -75,4 +176,4 @@ export class ProfilePageBase extends Component {
   }
 }
 
-export const ProfilePage = withUser(ProfilePageBase);
+export const ProfilePage = withUser(withUserController(ProfilePageBase));

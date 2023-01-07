@@ -135,4 +135,13 @@ export const formsData: Record<string, FormFieldProps[]> = {
       type: 'password',
     },
   ],
+  avatar: [
+    {
+      name: 'avatar',
+      hasError: false,
+      label: 'Загрузить новый аватар',
+      type: 'file',
+      placeholder: '*.jpg, *.png',
+    },
+  ],
 };

@@ -10,27 +10,42 @@ import type { ValidationResult } from '../../utils/validation/services/validatio
 
 interface FormProps<T> extends Props {
   name: string,
-  buttonSubmitText: string,
+  submitButtonText: string,
+  cancelButtonText?: string,
   validateForm: (data: T) => ValidationResult<T>,
   mode: 'entry' | 'profile',
-  sentData: (data: T) => void,
+  sentData: (data: FormData) => void,
+  handleCancel?: () => void,
+  values?: Record<string, string>,
 }
 
 export class Form<T> extends Component<FormProps<T>> {
-  constructor(props: FormProps<T>) {
-    super(props);
-
+  protected init() {
     this.props.onSubmit = this.handleSubmit.bind(this);
     this.props.onFocusOut = this.handleFocusOut.bind(this);
-  }
+    this.children.formFields = formsData[this.props.name].map((fieldProps) => {
+      const props = fieldProps;
 
-  protected init() {
-    this.children.formFields = formsData[this.props.name].map((fieldProps) => new FormField(fieldProps));
-    this.children.button = new Button({
-      type: 'submit',
-      text: this.props.buttonSubmitText,
-      fullWidth: true,
+      if (this.props.values) {
+        props.value = this.props.values[fieldProps.name];
+      }
+
+      return new FormField(props);
     });
+
+    this.children.submitButton = new Button({
+      type: 'submit',
+      text: this.props.submitButtonText,
+      fullWidth: !this.props.cancelButtonText,
+    });
+
+    if (this.props.cancelButtonText) {
+      this.children.cancelButton = new Button({
+        text: this.props.cancelButtonText,
+        mode: 'alt',
+        onClick: this.props.handleCancel,
+      });
+    }
   }
 
   protected toggleErrors(target: EventTarget, errors: ValidationResult<T>['errors'] = {}) {
@@ -64,7 +79,7 @@ export class Form<T> extends Component<FormProps<T>> {
     const { valid, errors } = this.props.validateForm(data);
 
     if (valid) {
-      this.props.sentData(data);
+      this.props.sentData(new FormData(event.target as HTMLFormElement));
     }
 
     if (!valid) {
@@ -98,9 +113,12 @@ export class Form<T> extends Component<FormProps<T>> {
     );
     // language=hbs
     return `
-        <form class="${classList}" id="${this.props.name}-form">
+        <form class="${classList}" id="{{name}}-form">
             {{{formFields}}}
-            {{{button}}}
+            <div class="${styles.buttonContainer}">
+                {{{cancelButton}}}
+                {{{submitButton}}}
+            </div>
         </form>
     `;
   }

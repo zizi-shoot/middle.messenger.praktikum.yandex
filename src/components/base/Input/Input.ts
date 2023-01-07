@@ -1,13 +1,14 @@
 import classNames from 'classnames';
 import { Component } from '../../../core';
-import type { Props } from '../../../types/component';
 import * as styles from './input.module.css';
+import type { Props } from '../../../types/component';
 
 export interface InputProps extends Props {
-  type?: 'text' | 'tel' | 'email' | 'password',
+  type?: 'text' | 'tel' | 'email' | 'password' | 'file',
   name: string,
   placeholder?: string,
   class?: string,
+  value?: string,
 }
 
 export class Input extends Component<InputProps> {
@@ -21,11 +22,12 @@ export class Input extends Component<InputProps> {
     // language=hbs
     return `
         <input
-                id="input-${props.name}"
-                name="${props.name}"
-                type="${props.type}"
+                id="input-{{name}}"
+                name="{{name}}"
+                type="{{type}}"
                 class="${classList}"
-                placeholder="${props.placeholder}"
+                placeholder="{{placeholder}}"
+                value="{{value}}"
         />
     `;
   }

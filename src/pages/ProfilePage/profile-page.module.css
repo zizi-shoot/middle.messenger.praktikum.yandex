@@ -15,9 +15,11 @@
   background-color: var(--bg-content-color);
 }
 
-.avatar {
+.avatarBtn.avatarBtn {
   position: relative;
+  height: unset;
   line-height: 0;
+  padding: 0;
 
   &::after {
     content: "Поменять аватар";
@@ -41,6 +43,8 @@
   }
 
   &:hover {
+    background-color: transparent;
+
     &::after {
       opacity: 1;
     }

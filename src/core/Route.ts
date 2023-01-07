@@ -1,4 +1,4 @@
-import { renderDOM } from './renderDOM';
+import { renderDOM } from './DOM';
 import { isEqual } from '../utils';
 import type { Component } from './Component';
 import type { Pathname, Query } from '../types/router';
@@ -23,7 +23,7 @@ export class Route {
 
   public leave() {
     if (this.component) {
-      this.component.hide();
+      this.component = null;
     }
   }
 
@@ -35,9 +35,6 @@ export class Route {
     if (!this.component) {
       this.component = new this.PageComponent({});
       renderDOM(this.query, this.component);
-      return;
     }
-
-    this.component.show();
   }
 }
