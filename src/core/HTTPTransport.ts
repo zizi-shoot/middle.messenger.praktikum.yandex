@@ -38,6 +38,22 @@ export class HTTPTransport {
     this.endpoint = `${this.apiURL}${endpoint}`;
   }
 
+  private escapingHTML(data: Record<string, string>) {
+    const htmlEscapes = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      '\'': '&#146;',
+    } as const;
+
+    return Object.entries(data).reduce((newData: Record<string, string>, [key, value]) => {
+      newData[key] = value.replace(/[&<>"']/g, (match) => htmlEscapes[match as keyof typeof htmlEscapes]);
+
+      return newData;
+    }, {});
+  }
+
   private request<Response>(url: string, options: Options): Promise<Response> {
     const { headers, data, method, timeout = 5000 } = options;
 
@@ -63,7 +79,9 @@ export class HTTPTransport {
       } else if (data instanceof FormData) {
         xhr.send(data);
       } else {
-        xhr.send(JSON.stringify(data));
+        const escapedData = this.escapingHTML(data);
+
+        xhr.send(JSON.stringify(escapedData));
       }
 
       xhr.onreadystatechange = () => {

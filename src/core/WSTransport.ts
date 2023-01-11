@@ -49,6 +49,22 @@ export class WSTransport extends EventBus {
     }, PING_INTERVAL);
   }
 
+  private escapingHTML(data: Record<string, string>) {
+    const htmlEscapes = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      '\'': '&#146;',
+    } as const;
+
+    return Object.entries(data).reduce((newData: Record<string, string>, [key, value]) => {
+      newData[key] = value.replace(/[&<>"']/g, (match) => htmlEscapes[match as keyof typeof htmlEscapes]);
+
+      return newData;
+    }, {});
+  }
+
   public connect(): Promise<void> {
     this.socket = new WebSocket(this.wsURL + this.params);
     this.listen(this.socket);
@@ -63,12 +79,14 @@ export class WSTransport extends EventBus {
     });
   }
 
-  public send(data: unknown) {
+  public send(data: Record<string, string>) {
     if (!this.socket) {
       throw new Error('Socket is not established yet!');
     }
 
-    this.socket.send(JSON.stringify(data));
+    const escapedData = this.escapingHTML(data);
+
+    this.socket.send(JSON.stringify(escapedData));
   }
 
   public close() {

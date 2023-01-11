@@ -45,6 +45,7 @@ export class MessageFormBase extends Component<MessageFormBaseProps> {
 
         (this.children.input as Component).setProps({ value: '' });
       } catch (e) {
+        // eslint-disable-next-line no-alert
         alert('Не удалось отправить сообщение!');
       }
     }

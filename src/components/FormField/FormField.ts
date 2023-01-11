@@ -21,14 +21,6 @@ export class FormField extends Component<FormFieldProps> {
       class: styles.input,
       value: this.props.value,
     });
-
-    // this.children.input = new InputFile({
-    //   name: this.props.name,
-    //   placeholder: this.props.placeholder || '',
-    //   type: this.props.type,
-    //   class: styles.input,
-    //   value: this.props.value,
-    // });
   }
 
   protected render(): string {

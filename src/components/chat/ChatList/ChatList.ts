@@ -24,6 +24,7 @@ export class ChatListBase extends Component<ChatListBaseProps> {
       ...chat,
       onClick: async () => {
         this.props.controller.selectChat(chat.id);
+        // eslint-disable-next-line no-alert
         this.props.controller.fetchChatUsers(chat.id).catch(() => alert('Не удалось получить данные пользователей!'));
       },
     }));

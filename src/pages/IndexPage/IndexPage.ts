@@ -17,6 +17,7 @@ export class IndexPageBase extends Component<IndexPageBaseProps> {
     this.children.chatHead = new ChatHead({ class: styles.head });
     this.children.header = new PageHeader();
 
+    // eslint-disable-next-line no-alert
     this.props.controller.fetchChats().catch(() => alert('Не удалось получить список чатов!'));
   }
 

@@ -36,6 +36,7 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
       .controller
       .fetchUser()
       .catch(() => {
+        // eslint-disable-next-line no-alert
         alert('Не удалось получить данные пользователя!');
       });
   }
@@ -77,8 +78,10 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
     await this.props.controller.updateProfile(data);
 
     if (this.props.user.error) {
+      // eslint-disable-next-line no-alert
       alert(this.props.user.error);
     } else {
+      // eslint-disable-next-line no-alert
       alert('Данные пользователя успешно обновлены!');
     }
   }
@@ -87,8 +90,10 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
     await this.props.controller.updatePassword(data);
 
     if (this.props.user.error) {
+      // eslint-disable-next-line no-alert
       alert(this.props.user.error);
     } else {
+      // eslint-disable-next-line no-alert
       alert('Пароль пользователя успешно обновлён!');
     }
   }
@@ -97,8 +102,10 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
     await this.props.controller.updateAvatar(data);
 
     if (this.props.user.error) {
+      // eslint-disable-next-line no-alert
       alert(this.props.user.error);
     } else {
+      // eslint-disable-next-line no-alert
       alert('Аватар пользователя успешно обновлён!');
       removePortal();
     }

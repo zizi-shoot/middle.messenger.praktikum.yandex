@@ -24,6 +24,7 @@ class SignInPageBase extends Component<SignInPageBaseProps> {
     await this.props.controller.signin(data);
 
     if (this.props.user.error) {
+      // eslint-disable-next-line no-alert
       alert(this.props.user.error);
     }
   }

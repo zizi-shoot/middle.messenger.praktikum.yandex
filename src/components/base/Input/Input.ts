@@ -18,10 +18,6 @@ export class Input extends Component<InputProps> {
     super.setProps(nextProps);
   }
 
-  protected shouldComponentUpdate(prevProps: InputProps, nextProps: InputProps): boolean {
-    return super.shouldComponentUpdate(prevProps, nextProps);
-  }
-
   protected render() {
     const { props } = this;
     const classList = classNames(

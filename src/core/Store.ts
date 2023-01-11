@@ -49,6 +49,3 @@ export class Store extends EventBus {
 }
 
 export const store = new Store();
-// TODO Убрать перед PR
-// @ts-ignore
-window.store = store;

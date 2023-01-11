@@ -77,8 +77,10 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
       await this.props.controller.addUserToChat(selectedChatId, data);
 
       if (this.props.chats.error) {
+        // eslint-disable-next-line no-alert
         alert(this.props.chats.error);
       } else {
+        // eslint-disable-next-line no-alert
         alert('Пользователь успешно добавлен в чат!');
         removePortal();
       }
@@ -92,8 +94,10 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
       await this.props.controller.deleteUserFromChat(selectedChatId, data);
 
       if (this.props.chats.error) {
+        // eslint-disable-next-line no-alert
         alert(this.props.chats.error);
       } else {
+        // eslint-disable-next-line no-alert
         alert('Пользователь успешно удалён из чата!');
         removePortal();
       }

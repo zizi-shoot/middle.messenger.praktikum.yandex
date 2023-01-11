@@ -45,8 +45,10 @@ export class ChatSearchBase extends Component<ChatSearchProps> {
     await this.props.controller.create(data);
 
     if (this.props.chatsError) {
+      // eslint-disable-next-line no-alert
       alert(this.props.chatsError);
     } else {
+      // eslint-disable-next-line no-alert
       alert('Новый чат успешно создан!');
       removePortal();
     }
