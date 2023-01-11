@@ -1,6 +1,8 @@
 import { Route } from './Route';
 import { Pathname } from '../types/router';
 import { PageComponent } from '../types/component';
+import { ROUTES } from '../utils/const';
+import { store } from './Store';
 
 export class Router {
   private static instance: Router;
@@ -58,8 +60,27 @@ export class Router {
   }
 
   public go(pathname: Pathname) {
-    this.history.pushState({}, '', pathname);
-    this.onRoute(pathname);
+    let isProtectedRoute = true;
+    let processedPathname = pathname;
+
+    switch (processedPathname) {
+      case ROUTES.SIGNIN:
+      case ROUTES.SIGNUP:
+        isProtectedRoute = false;
+        break;
+      default:
+        break;
+    }
+
+    if (store.getState().isAuth && !isProtectedRoute) {
+      processedPathname = ROUTES.PROFILE;
+    }
+
+    if (!store.getState().isAuth && isProtectedRoute) {
+      processedPathname = ROUTES.SIGNIN;
+    }
+    this.history.pushState({}, '', processedPathname);
+    this.onRoute(processedPathname);
   }
 
   public back() {

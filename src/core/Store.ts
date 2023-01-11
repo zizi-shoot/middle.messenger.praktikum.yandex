@@ -8,6 +8,7 @@ export class Store extends EventBus {
   };
 
   private state: State = {
+    isAuth: false,
     user: {
       data: {
         avatar: '',

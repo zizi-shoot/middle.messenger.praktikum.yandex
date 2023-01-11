@@ -36,6 +36,7 @@ export class AuthController {
       await this.api.signup(objectData);
       await this.fetchUser();
 
+      this.store.set('isAuth', true);
       this.router.go(ROUTES.PROFILE);
     });
   }
@@ -47,6 +48,7 @@ export class AuthController {
       await this.api.signin(objectData);
       await this.fetchUser();
 
+      this.store.set('isAuth', true);
       this.router.go(ROUTES.INDEX);
     });
   }
@@ -56,6 +58,7 @@ export class AuthController {
       const user = await this.api.read();
 
       this.store.set('user.data', user);
+      this.store.set('isAuth', true);
     });
   }
 
@@ -65,6 +68,7 @@ export class AuthController {
 
       messagesController.closeAll();
 
+      this.store.set('isAuth', false);
       this.router.go(ROUTES.SIGNIN);
     });
   }

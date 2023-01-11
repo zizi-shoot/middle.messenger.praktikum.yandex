@@ -4,6 +4,7 @@ import { authController } from './controllers/AuthController';
 import { ROUTES } from './utils/const';
 import { messagesController } from './controllers/MessagesController';
 import { chatController } from './controllers/ChatController';
+import { store } from './core/Store';
 
 window.addEventListener('DOMContentLoaded', async () => {
   // TODO удалить перед PR
@@ -18,14 +19,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(ROUTES.PROFILE, ProfilePage)
     .use(ROUTES.PROFILE_EDIT_DATA, ProfilePage)
     .use(ROUTES.PROFILE_EDIT_PASSWORD, ProfilePage)
-    .use(ROUTES.ERROR, ServerErrorPage)
-    .use(ROUTES.NOT_FOUND, NotFoundPage);
+    .use(ROUTES.NOT_FOUND, NotFoundPage)
+    .use(ROUTES.ERROR, ServerErrorPage);
 
   let isProtectedRoute = true;
 
   switch (window.location.pathname) {
     case ROUTES.SIGNIN:
     case ROUTES.SIGNUP:
+    case ROUTES.NOT_FOUND:
       isProtectedRoute = false;
       break;
     default:
@@ -37,14 +39,20 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     router.start();
 
-    if (!isProtectedRoute) {
+    if (!Object.values(ROUTES).includes(window.location.pathname)) {
+      router.go(ROUTES.NOT_FOUND);
+    }
+
+    if (store.getState().isAuth && !isProtectedRoute) {
       router.go(ROUTES.PROFILE);
+    }
+
+    if (!store.getState().isAuth && isProtectedRoute) {
+      router.go(ROUTES.SIGNIN);
     }
   } catch (e) {
     router.start();
 
-    if (isProtectedRoute) {
-      router.go(ROUTES.SIGNIN);
-    }
+    router.go(ROUTES.ERROR);
   }
 });

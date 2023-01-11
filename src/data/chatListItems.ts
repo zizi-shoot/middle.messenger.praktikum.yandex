@@ -1,6 +1,4 @@
-import type { ChatItemProps } from '../types';
-
-export const chatListItems: ChatItemProps[] = [
+export const chatListItems = [
   {
     userPic: 'https://i.pravatar.cc/300?1',
 
