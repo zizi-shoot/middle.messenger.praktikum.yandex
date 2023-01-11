@@ -1,9 +1,10 @@
 import { AuthAPI } from '../api';
 import { ROUTES } from '../utils/const';
-import { store as _store } from '../core/Store';
-import { router as _router } from '../core/Router';
-import type { Router } from '../core/Router';
 import type { Store } from '../core/Store';
+import { store as _store } from '../core/Store';
+import type { Router } from '../core/Router';
+import { router as _router } from '../core/Router';
+import { messagesController } from './MessagesController';
 import type { SignInData, SignUpData } from '../types/forms';
 
 export class AuthController {
@@ -61,6 +62,8 @@ export class AuthController {
   public async logout() {
     await this.request(async () => {
       await this.api.logout();
+
+      messagesController.closeAll();
 
       this.router.go(ROUTES.SIGNIN);
     });

@@ -28,4 +28,8 @@ export class UserAPI extends BaseAPI {
   public updateAvatar(data: FormData) {
     return this.http.put('/profile/avatar', { data });
   }
+
+  public findUserByLogin(login: Login): Promise<User[]> {
+    return this.http.post('/search', { data: { login } });
+  }
 }

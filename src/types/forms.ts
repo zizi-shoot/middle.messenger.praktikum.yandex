@@ -26,3 +26,15 @@ export type ProfilePasswordData = {
 export type AvatarData = {
   avatar: File,
 };
+
+export type NewChatData = {
+  title: ChatTitle,
+};
+
+export type ChatUserData = {
+  login: Login,
+};
+
+export type MessageData = {
+  message: MessageContent,
+};

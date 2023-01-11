@@ -6,5 +6,5 @@ export type User = {
   login: Login;
   email: EmailAddress;
   phone: PhoneNumber;
-  avatar: Avatar;
+  avatar: AvatarType;
 };

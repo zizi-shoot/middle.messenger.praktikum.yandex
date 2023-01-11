@@ -41,21 +41,11 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
   }
 
   protected componentDidUpdate() {
-    const { avatarBtn } = this.children;
-
-    if (avatarBtn && !Array.isArray(avatarBtn)) {
-      avatarBtn.setProps({
-        icon: new Avatar({
-          size: 128,
-          src: this.props.user.data.avatar,
-          altText: `аватар пользователя ${this.props.user.data.login}`,
-        }),
-      });
-    }
+    (this.children.avatar as Component).setProps({ src: this.props.user.data.avatar });
   }
 
   protected init() {
-    const avatar = new Avatar({
+    this.children.avatar = new Avatar({
       size: 128,
       src: this.props.user.data.avatar,
       altText: `аватар пользователя ${this.props.user.data.login}`,
@@ -63,6 +53,7 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
 
     const form = new Form<AvatarData>({
       name: 'avatar',
+      title: 'Загрузить новый аватар',
       validateForm: validateAvatarForm,
       submitButtonText: 'Сохранить',
       cancelButtonText: 'Отменить',
@@ -75,7 +66,7 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
       text: '',
       class: styles.avatarBtn,
       mode: 'alt',
-      icon: avatar,
+      icon: this.children.avatar,
       onClick: () => renderPortal(new Modal({ content: form })),
     });
 

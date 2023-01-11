@@ -10,13 +10,14 @@ import type { ValidationResult } from '../../utils/validation/services/validatio
 
 interface FormProps<T> extends Props {
   name: string,
+  title?: string,
   submitButtonText: string,
   cancelButtonText?: string,
   validateForm: (data: T) => ValidationResult<T>,
   mode: 'entry' | 'profile',
   sentData: (data: FormData) => void,
   handleCancel?: () => void,
-  values?: Record<string, string>,
+  values?: Record<string, string | number>,
 }
 
 export class Form<T> extends Component<FormProps<T>> {
@@ -114,6 +115,9 @@ export class Form<T> extends Component<FormProps<T>> {
     // language=hbs
     return `
         <form class="${classList}" id="{{name}}-form">
+            {{#if title}}
+                <h3>{{title}}</h3>
+            {{/if}}
             {{{formFields}}}
             <div class="${styles.buttonContainer}">
                 {{{cancelButton}}}

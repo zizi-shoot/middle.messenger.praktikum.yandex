@@ -8,3 +8,5 @@ export const ROUTES = {
   ERROR: '/error',
   NOT_FOUND: '/404',
 };
+
+export const PING_INTERVAL = 5000;

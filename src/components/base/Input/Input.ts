@@ -8,10 +8,19 @@ export interface InputProps extends Props {
   name: string,
   placeholder?: string,
   class?: string,
-  value?: string,
+  value?: string | number,
 }
 
 export class Input extends Component<InputProps> {
+  public setProps(nextProps: Partial<InputProps>) {
+    this.props.value = ' ';
+    super.setProps(nextProps);
+  }
+
+  protected shouldComponentUpdate(prevProps: InputProps, nextProps: InputProps): boolean {
+    return super.shouldComponentUpdate(prevProps, nextProps);
+  }
+
   protected render() {
     const { props } = this;
     const classList = classNames(

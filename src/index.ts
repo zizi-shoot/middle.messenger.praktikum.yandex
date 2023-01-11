@@ -2,8 +2,15 @@ import { IndexPage, NotFoundPage, ProfilePage, ServerErrorPage, SignInPage, Sign
 import { router } from './core/Router';
 import { authController } from './controllers/AuthController';
 import { ROUTES } from './utils/const';
+import { messagesController } from './controllers/MessagesController';
+import { chatController } from './controllers/ChatController';
 
 window.addEventListener('DOMContentLoaded', async () => {
+  // TODO удалить перед PR
+  // @ts-ignore
+  window.messageController = messagesController;
+  // @ts-ignore
+  window.chatController = chatController;
   router
     .use(ROUTES.INDEX, IndexPage)
     .use(ROUTES.SIGNIN, SignInPage)

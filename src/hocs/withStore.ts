@@ -3,9 +3,9 @@ import { store, Store } from '../core/Store';
 import type { Props } from '../types/component';
 
 // eslint-disable-next-line arrow-body-style
-const withStore = <P extends Props>(mapStateToProps: (state: any) => any) => {
+export const withStore = <P extends Props>(mapStateToProps: (state: any) => any) => {
   // eslint-disable-next-line arrow-body-style
-  return (ComponentClass: typeof Component) => {
+  return (ComponentClass: typeof Component<any>) => {
     return class WithStore extends ComponentClass {
       constructor(props: P) {
         let previousState = mapStateToProps(store.getState());
@@ -25,3 +25,5 @@ const withStore = <P extends Props>(mapStateToProps: (state: any) => any) => {
 };
 
 export const withUser = withStore((state) => ({ user: { ...state.user } }));
+export const withChats = withStore((state) => ({ chats: { ...state.chats } }));
+export const withMessages = withStore((state) => ({ messages: { ...state.messages } }));

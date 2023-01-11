@@ -14,3 +14,9 @@
 .itemMe {
   align-self: flex-end;
 }
+
+.emptyMessage {
+  color: var(--font-alt-color);
+  font-size: 20px;
+  margin: auto;
+}

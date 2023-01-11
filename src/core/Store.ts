@@ -14,11 +14,22 @@ export class Store extends EventBus {
         email: '',
         first_name: '',
         display_name: '',
-        id: '',
+        id: 0,
         login: '',
         phone: '',
         second_name: '',
       },
+      error: null,
+      isLoading: false,
+    },
+    chats: {
+      data: [],
+      error: null,
+      isLoading: false,
+      selectedChatId: null,
+    },
+    messages: {
+      data: {},
       error: null,
       isLoading: false,
     },
@@ -36,3 +47,6 @@ export class Store extends EventBus {
 }
 
 export const store = new Store();
+// TODO Убрать перед PR
+// @ts-ignore
+window.store = store;

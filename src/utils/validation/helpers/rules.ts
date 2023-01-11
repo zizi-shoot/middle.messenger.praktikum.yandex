@@ -1,13 +1,23 @@
 import { all, ValidationRule } from '../services/validation';
-import type { AvatarData, ProfileData, ProfilePasswordData, SignInData, SignUpData } from '../../../types/forms';
+import type {
+  ChatUserData,
+  AvatarData,
+  NewChatData,
+  ProfileData,
+  ProfilePasswordData,
+  SignInData,
+  SignUpData,
+} from '../../../types/forms';
 import { contains, inRange, notEmpty, notEmptyFile } from './utils';
 import {
   EMAIL_PATTERN,
   LOGIN_PATTERN,
+  MAX_CHAT_TITLE_LENGTH,
   MAX_LOGIN_LENGTH,
   MAX_NAME_LENGTH,
   MAX_PASSWORD_LENGTH,
   MAX_PHONE_LENGTH,
+  MIN_CHAT_TITLE_LENGTH,
   MIN_LOGIN_LENGTH,
   MIN_NAME_LENGTH,
   MIN_PASSWORD_LENGTH,
@@ -21,13 +31,13 @@ type Rule<FormType> = ValidationRule<FormType>;
 type CommonData = ProfileData | SignUpData;
 
 // Правила для проверки логина
-const isValidLoginLength: Rule<CommonData | SignInData> = ({ login }) => inRange(
+const isValidLoginLength: Rule<CommonData | SignInData | ChatUserData> = ({ login }) => inRange(
   login.length,
   MIN_LOGIN_LENGTH,
   MAX_LOGIN_LENGTH,
 );
-const hasAtLeastOneLetter: Rule<CommonData | SignInData> = ({ login }) => contains(login, /[a-z]/i);
-const isValidLogin: Rule<CommonData | SignInData> = ({ login }) => contains(login, LOGIN_PATTERN);
+const hasAtLeastOneLetter: Rule<CommonData | SignInData | ChatUserData> = ({ login }) => contains(login, /[a-z]/i);
+const isValidLogin: Rule<CommonData | SignInData | ChatUserData> = ({ login }) => contains(login, LOGIN_PATTERN);
 
 // Правила для проверки пароля
 const isValidPasswordLength: Rule<CommonData | SignInData> = ({ password }) => inRange(
@@ -85,7 +95,15 @@ const isValidCheckNewPassword: Rule<ProfilePasswordData> = ({
   checkNewPassword,
 }) => newPassword === checkNewPassword;
 
+// Правила для проверки аватара
 const notEmptyAvatar: Rule<AvatarData> = ({ avatar }) => notEmptyFile(avatar);
+
+// Правила для проверки названия нового чата
+const isValidNewChatTitleLength: Rule<NewChatData> = ({ title }) => inRange(
+  title.length,
+  MIN_CHAT_TITLE_LENGTH,
+  MAX_CHAT_TITLE_LENGTH,
+);
 
 // сбор правил в комбинации
 const loginRules = [
@@ -155,6 +173,17 @@ const avatarUploadRules = [
   notEmptyAvatar,
 ];
 
+const newChatRules = [
+  isValidNewChatTitleLength,
+];
+
+const chatUserRules = [
+  notEmpty,
+  isValidLoginLength,
+  hasAtLeastOneLetter,
+  isValidLogin,
+];
+
 export const validateLogin = all(loginRules);
 export const validatePassword = all(passwordRules);
 export const validateCheckPassword = all(checkPasswordRules);
@@ -167,3 +196,5 @@ export const validateOldPassword = all(oldPasswordRules);
 export const validateNewPassword = all(newPasswordRules);
 export const validateCheckNewPassword = all(checkNewPasswordRules);
 export const validateAvatar = all(avatarUploadRules);
+export const validateNewChat = all(newChatRules);
+export const validateChatUser = all(chatUserRules);

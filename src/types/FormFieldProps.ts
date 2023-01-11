@@ -5,5 +5,4 @@ export interface FormFieldProps extends InputProps {
   helperText?: string,
   direction?: 'horizontal' | 'vertical',
   mode?: 'entry' | 'profile',
-  value?: string,
 }

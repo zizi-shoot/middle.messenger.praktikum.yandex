@@ -4,6 +4,8 @@
   font-size: 14px;
   line-height: 16px;
   background-color: var(--border-color);
+  display: flex;
+  gap: 12px;
 }
 
 .itemMe {
@@ -13,10 +15,8 @@
 }
 
 .time {
-  display: inline-block;
-  width: 100%;
-  text-align: right;
   color: var(--placeholder-color);
+  align-self: end;
 }
 
 .itemMe .time {
@@ -24,5 +24,7 @@
 }
 
 .text {
-  margin: 0 0 8px;
+  margin: 0;
+  flex-grow: 1;
+  word-break: break-all;
 }

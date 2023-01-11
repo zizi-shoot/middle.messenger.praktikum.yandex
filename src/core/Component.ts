@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
-import { isDeepEqual, isObject } from '../utils';
+import { isEqual, isObject } from '../utils';
 import type { Children, Element, Props, PropsAndChildren } from '../types/component';
 import type { EventCallback } from '../types';
 
@@ -234,11 +234,12 @@ export class Component<P extends Props = any> {
   protected componentDidMount() {
   }
 
-  protected init() {}
+  protected init() {
+  }
 
   protected shouldComponentUpdate(prevProps: P, nextProps: P): boolean {
     if (isObject(prevProps) && isObject(nextProps)) {
-      return !isDeepEqual(prevProps, nextProps);
+      return !isEqual(prevProps, nextProps);
     }
 
     return prevProps !== nextProps;
@@ -270,7 +271,7 @@ export class Component<P extends Props = any> {
       Object.assign(this.children, children);
     }
 
-    if (Object.values(props).length > 0) {
+    if (Object.keys(props).length > 0) {
       Object.assign(this.props, props);
     }
 

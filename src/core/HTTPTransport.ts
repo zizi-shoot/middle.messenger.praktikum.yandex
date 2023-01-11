@@ -23,8 +23,6 @@ type Options = {
 type NoMethodOptions = Omit<Options, 'method'>;
 
 export class HTTPTransport {
-  public static API_URL = 'https://ya-praktikum.tech/api/v2';
-
   public static METHOD = {
     GET: 'GET',
     POST: 'POST',
@@ -32,10 +30,12 @@ export class HTTPTransport {
     DELETE: 'DELETE',
   } as const;
 
+  private readonly apiURL = 'https://ya-praktikum.tech/api/v2';
+
   protected endpoint: string;
 
   constructor(endpoint: string) {
-    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+    this.endpoint = `${this.apiURL}${endpoint}`;
   }
 
   private request<Response>(url: string, options: Options): Promise<Response> {

@@ -1,5 +1,5 @@
 import { renderDOM } from './DOM';
-import { isEqual } from '../utils';
+import { isPlainEqual } from '../utils';
 import type { Component } from './Component';
 import type { Pathname, Query } from '../types/router';
 import type { PageComponent } from '../types/component';
@@ -28,7 +28,7 @@ export class Route {
   }
 
   public match(pathname: Pathname) {
-    return isEqual(pathname, this.pathname);
+    return isPlainEqual(pathname, this.pathname);
   }
 
   public render() {
