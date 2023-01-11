@@ -28,6 +28,7 @@ export class Store extends EventBus {
       error: null,
       isLoading: false,
       selectedChatId: null,
+      selectedChatUsers: {},
     },
     messages: {
       data: {},

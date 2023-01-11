@@ -11,6 +11,9 @@ export type PartStore<T> = {
 export type State = {
   isAuth: boolean,
   user: PartStore<User>,
-  chats: PartStore<ChatInfo[]> & { selectedChatId: ChatID | null },
+  chats: PartStore<ChatInfo[]> & {
+    selectedChatId: ChatID | null,
+    selectedChatUsers: Record<UserID, User>,
+  },
   messages: PartStore<Record<ChatID, OldMessage[]>>,
 };

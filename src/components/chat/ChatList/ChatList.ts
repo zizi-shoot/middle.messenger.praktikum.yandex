@@ -22,8 +22,9 @@ export class ChatListBase extends Component<ChatListBaseProps> {
   private createChats(chats: ChatInfo[]) {
     return chats.map((chat) => new ChatItem({
       ...chat,
-      onClick: () => {
+      onClick: async () => {
         this.props.controller.selectChat(chat.id);
+        this.props.controller.fetchChatUsers(chat.id).catch(() => alert('Не удалось получить данные пользователей!'));
       },
     }));
   }

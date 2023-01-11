@@ -4,6 +4,7 @@ import { store as _store } from '../core/Store';
 // eslint-disable-next-line import/no-cycle
 import { messagesController } from './MessagesController';
 import { userController } from './UserController';
+import { User } from '../types';
 
 export class ChatController {
   constructor(
@@ -84,6 +85,19 @@ export class ChatController {
 
   public selectChat(chatId: ChatID) {
     this.store.set('chats.selectedChatId', chatId);
+  }
+
+  public async fetchChatUsers(chatId: ChatID) {
+    await this.request(async () => {
+      const users = await this.api.getUsers(chatId);
+      const usersById = users.reduce((acc, user) => {
+        acc[user.id] = user;
+
+        return acc;
+      }, {} as Record<UserID, User>);
+
+      this.store.set('chats.selectedChatUsers', usersById);
+    });
   }
 }
 

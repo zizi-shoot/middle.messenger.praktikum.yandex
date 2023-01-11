@@ -7,13 +7,14 @@ import { withStore } from '../../../hocs/withStore';
 import { MessageItem } from '../MessageItem';
 
 type MessagesData = State['messages']['data'];
-
+type SelectedChatUsers = State['chats']['selectedChatUsers'];
 interface MessageListBaseProps extends Props {
   class?: string,
   hasMessages?: boolean,
   chatId: ChatID,
   userId: UserID,
   messages: MessagesData,
+  chatUsers: SelectedChatUsers,
 }
 
 export class MessageListBase extends Component<MessageListBaseProps> {
@@ -25,6 +26,7 @@ export class MessageListBase extends Component<MessageListBaseProps> {
         this.props.hasMessages = true;
         this.children.messages = targetChatMessages.map((message, index, list) => new MessageItem({
           message,
+          user: this.props.chatUsers[message.user_id],
           class: classNames(styles.item, message.user_id === this.props.userId && styles.itemMe),
           isMine: message.user_id === this.props.userId,
           isLast: index === list.length - 1,
@@ -50,5 +52,9 @@ export class MessageListBase extends Component<MessageListBaseProps> {
   }
 }
 
-const withMessagesData = withStore((state) => ({ messages: { ...state.messages.data } }));
+const withMessagesData = withStore((state) => ({
+  messages: { ...state.messages.data },
+  chatUsers: { ...state.chats.selectedChatUsers },
+}));
+
 export const MessageList = withMessagesData(MessageListBase);
