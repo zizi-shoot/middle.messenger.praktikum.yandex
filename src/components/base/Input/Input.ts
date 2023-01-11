@@ -9,6 +9,7 @@ export interface InputProps extends Props {
   placeholder?: string,
   class?: string,
   value?: string | number,
+  autocompleteOff?: boolean,
 }
 
 export class Input extends Component<InputProps> {
@@ -37,6 +38,9 @@ export class Input extends Component<InputProps> {
                 class="${classList}"
                 placeholder="{{placeholder}}"
                 value="{{value}}"
+            {{#if autocompleteOff}}
+                autocomplete="off"
+            {{/if}}
         />
     `;
   }

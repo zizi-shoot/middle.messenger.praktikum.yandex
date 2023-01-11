@@ -21,6 +21,7 @@ export class MessageFormBase extends Component<MessageFormBaseProps> {
       class: styles.input,
       name: 'message',
       placeholder: 'Введите сообщение...',
+      autocompleteOff: true,
     });
     this.children.attachIcon = new Icon({ type: 'attach' });
     this.children.sentButton = new Button({

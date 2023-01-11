@@ -8,6 +8,7 @@ import { MessageItem } from '../MessageItem';
 
 type MessagesData = State['messages']['data'];
 type SelectedChatUsers = State['chats']['selectedChatUsers'];
+
 interface MessageListBaseProps extends Props {
   class?: string,
   hasMessages?: boolean,
@@ -32,6 +33,12 @@ export class MessageListBase extends Component<MessageListBaseProps> {
           isLast: index === list.length - 1,
           withInternalID: true,
         }));
+
+        setTimeout(() => {
+          const element = this.getContent();
+
+          element.scrollTo(0, element.clientHeight);
+        }, 100);
       }
     }
   }

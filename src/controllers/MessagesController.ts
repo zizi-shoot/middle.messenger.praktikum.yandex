@@ -27,6 +27,7 @@ export class MessagesController {
     switch (type) {
       case 'message':
         this.store.set(`messages.data.${chatId}`, [...oldMessages, message]);
+        chatController.fetchChats();
 
         break;
       case 'messages':
