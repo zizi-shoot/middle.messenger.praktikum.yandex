@@ -1,5 +1,7 @@
 .container {
   position: relative;
+  display: flex;
+  gap: 8px;
 }
 
 .input {
@@ -7,8 +9,8 @@
   padding: 14px 16px 14px 48px;
   border: none;
   border-radius: 16px;
-  outline: 2px solid transparent;
   font-size: 18px;
+  outline: 2px solid transparent;
   transition: outline-color var(--transtition-duration);
 
   &::placeholder {
@@ -26,7 +28,14 @@
 
 .icon {
   position: absolute;
-  left: 16px;
   top: 50%;
+  left: 16px;
   transform: translateY(-50%);
+}
+
+.createBtn.createBtn {
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 16px;
+  padding: 0;
 }

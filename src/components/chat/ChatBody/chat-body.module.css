@@ -10,9 +10,13 @@
 }
 
 .containerEmpty {
-  align-items: center;
   justify-content: center;
   background-color: transparent;
+  align-items: center;
+}
+
+.containerEmptyMessages {
+  justify-content: center;
 }
 
 .emptyMessage {

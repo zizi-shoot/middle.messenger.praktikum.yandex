@@ -1,43 +1,60 @@
 import { Component } from '../../core';
 import { Form } from '../../components';
+import { AuthController } from '../../controllers/AuthController';
 import { validateSignUpForm } from '../../utils/validation/app/signUpValidation';
+import { Link } from '../../components/base';
+import { withUser } from '../../hocs/withStore';
+import { withAuthController } from '../../hocs/withController';
 import * as styles from '../entry.module.css';
-import type { SignUpForm } from '../../utils/validation';
+import type { SignUpData } from '../../types/forms';
+import type { PropsWithController } from '../../types/controller';
 
-export class SignUpPage extends Component {
-  constructor() {
-    const form = new Form<SignUpForm>({
+interface SignUpPageBaseProps extends PropsWithController<AuthController> {
+}
+
+export class SignUpPageBase extends Component<SignUpPageBaseProps> {
+  constructor(props: SignUpPageBaseProps) {
+    super(props);
+
+    this.signUpUser = this.signUpUser.bind(this);
+  }
+
+  protected async signUpUser(data: FormData) {
+    await this.props.controller.signup(data);
+  }
+
+  protected init() {
+    this.children.form = new Form<SignUpData>({
       name: 'signup',
-      buttonSubmitText: 'Зарегистрироваться',
-      handleValidateForm: validateSignUpForm,
+      submitButtonText: 'Зарегистрироваться',
+      validateForm: validateSignUpForm,
       mode: 'entry',
+      sentData: this.signUpUser.bind(this),
     });
-
-    super(
-      {
-        attributes: { class: styles.container },
-        form,
-      },
-      'main',
-    );
+    this.children.signInLink = new Link({ to: '/signin', label: 'Войти', class: 'link' });
   }
 
   protected render(): string {
     // language=hbs
     return `
-        <section class="${styles.section}">
-            <picture>
-                <source srcset="images/logo.webp" type="image/webp" />
-                <img src="images/logo.png" alt="логотип летчат" />
-            </picture>
-            <h1 class="${styles.title}">Регистрация</h1>
-            <p class"${styles.helperText}">
-                    Уже есть аккаунт?
-            <a class="link" href="/signin">Войти</a>
-            </p>
-            {{{form}}}
-        </section>
-        <a href="/" class="${styles.homeLink}">🏠</a>
+        <div class="page-container">
+            <main class="${styles.container}">
+                <section class="${styles.section}">
+                    <picture>
+                        <source srcset="images/logo.webp" type="image/webp" />
+                        <img src="images/logo.png" alt="логотип летчат" />
+                    </picture>
+                    <h1 class="${styles.title}">Регистрация</h1>
+                    <div class="${styles.helperText}">
+                        Уже есть аккаунт?
+                        {{{signInLink}}}
+                    </div>
+                    {{{form}}}
+                </section>
+            </main>
+        </div>
     `;
   }
 }
+
+export const SignUpPage = withUser(withAuthController(SignUpPageBase));

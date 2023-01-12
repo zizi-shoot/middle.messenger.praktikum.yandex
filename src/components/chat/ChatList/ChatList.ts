@@ -1,32 +1,59 @@
 import classNames from 'classnames';
 import { Component } from '../../../core';
+import { withChatController } from '../../../hocs/withController';
+import { withStore } from '../../../hocs/withStore';
 import { ChatItem } from '../ChatItem';
-import { chatListItems } from '../../../data/chatListItems';
 import * as styles from './chat-list.module.css';
-import type { Props } from '../../../types/Component';
+import type { PropsWithController } from '../../../types/controller';
+import type { State } from '../../../types/store';
+import type { ChatController } from '../../../controllers/ChatController';
+import type { ChatInfo } from '../../../types/chats';
 
-interface ChatListProps extends Props {
+type ChatsData = State['chats']['data'];
+
+interface ChatListBaseProps extends PropsWithController<ChatController> {
   class?: string,
+  chats: {
+    data: ChatsData,
+  },
 }
 
-export class ChatList extends Component<ChatListProps> {
-  constructor(props: ChatListProps) {
-    const classList = classNames(styles.container, props.class);
-    const items = chatListItems.map((itemProps) => new ChatItem({ ...itemProps, withInternalID: true }));
-
-    super(
-      {
-        attributes: { class: classList },
-        items,
+export class ChatListBase extends Component<ChatListBaseProps> {
+  private createChats(chats: ChatInfo[]) {
+    return chats.map((chat) => new ChatItem({
+      ...chat,
+      onClick: async () => {
+        this.props.controller.selectChat(chat.id);
+        // eslint-disable-next-line no-alert
+        this.props.controller.fetchChatUsers(chat.id).catch(() => alert('Не удалось получить данные пользователей!'));
       },
-      'form',
-    );
+    }));
+  }
+
+  protected componentDidUpdate() {
+    this.children.chats = this.createChats(this.props.chats.data);
+  }
+
+  protected init() {
+    this.children.chats = this.createChats(this.props.chats.data);
   }
 
   protected render(): string {
+    const classList = classNames(styles.container, this.props.class);
+
     // language=hbs
     return `
-        {{{items}}}
+        <ul class="${classList}">
+            {{{chats}}}
+        </ul>
     `;
   }
 }
+
+const withChatsData = withStore((state) => ({
+  chats: {
+    data: [...state.chats.data],
+  },
+}));
+
+export const ChatList = withChatsData(withChatController(ChatListBase));

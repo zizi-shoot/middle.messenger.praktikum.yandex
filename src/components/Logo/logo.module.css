@@ -1,0 +1,18 @@
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--font-main-color);
+}
+
+.logo {
+  width: 48px;
+  line-height: 0;
+  aspect-ratio: 1/1;
+}
+
+.name {
+  font-size: 36px;
+  font-weight: 700;
+}

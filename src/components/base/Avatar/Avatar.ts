@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Component } from '../../../core';
-import type { Props } from '../../../types/Component';
 import * as styles from './avatar.module.css';
+import type { Props } from '../../../types/component';
 
 interface AvatarProps extends Props {
   class?: string,
@@ -11,27 +11,21 @@ interface AvatarProps extends Props {
 }
 
 export class Avatar extends Component<AvatarProps> {
-  constructor(props: AvatarProps) {
-    const { src, class: className, altText, size } = props;
+  protected render(): string {
+    const srcURL = 'https://ya-praktikum.tech/api/v2/resources';
+    const { src, class: className, altText, size } = this.props;
     const classList = classNames(styles.avatar, className);
     const defaultSize = 48;
 
-    super(
-      {
-        ...props,
-        attributes: {
-          src,
-          altText,
-          class: classList,
-          width: size || defaultSize,
-          height: size || defaultSize,
-        },
-      },
-      'img',
-    );
-  }
-
-  protected render(): string {
-    return '';
+    // language=hbs
+    return `
+        <img
+                src="${src ? srcURL + src : '/images/default_avatar.png'}"
+                alt="${altText}"
+                class="${classList}"
+                width="${size || defaultSize}"
+                height="${size || defaultSize}"
+        />
+    `;
   }
 }

@@ -1,11 +1,11 @@
 import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';
 import { EventBus } from './EventBus';
-import { isDeepEqual, isObject } from '../utils';
-import type { Attributes, Children, Element, Props, PropsAndChildren } from '../types/Component';
+import { isEqual, isObject } from '../utils';
+import type { Children, Element, Props, PropsAndChildren } from '../types/component';
 import type { EventCallback } from '../types';
 
-export abstract class Component<P extends Props = any> {
+export class Component<P extends Props = any> {
   public static EVENT = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -21,24 +21,25 @@ export abstract class Component<P extends Props = any> {
 
   private requireUpdate = false;
 
-  protected props: P;
+  protected props: P = {} as P;
 
-  protected children: Children;
+  protected children: Children = {};
 
-  protected attributes: Attributes;
+  constructor(allProps: P) {
+    if (allProps) {
+      const { children, props } = this.getPropsAndChildren(allProps);
 
-  constructor(allProps: P, private readonly tagName: string = 'div') {
-    const { children, props } = this.getPropsAndChildren(allProps);
+      this.children = this.makeProxy(children);
+      this.props = this.makeProxy({ ...props, id: this.id });
+    }
 
-    this.children = this.makeProxy(children);
-    this.props = this.makeProxy({ ...props, id: this.id });
-    this.attributes = this.makeProxy(allProps.attributes || {});
     this.registerEvents(this.eventBus);
     this.eventBus.emit(Component.EVENT.INIT);
   }
 
   private _init() {
-    this.element = this.createDocumentElement(this.tagName);
+    this.init();
+    this.element = this.createDocumentElement('template');
     this.eventBus.emit(Component.EVENT.FLOW_RENDER);
   }
 
@@ -65,13 +66,6 @@ export abstract class Component<P extends Props = any> {
     });
   }
 
-  private addAttributes() {
-    Object.entries(this.attributes).forEach(([attrName, value]) => {
-      this.element.removeAttribute(attrName);
-      this.element.setAttribute(attrName, value.toString());
-    });
-  }
-
   private _componentDidMount() {
     this.componentDidMount();
 
@@ -92,10 +86,15 @@ export abstract class Component<P extends Props = any> {
     const fragment = this.compile();
 
     this.removeEvents();
-    this.element.innerHTML = '';
-    this.element.appendChild(fragment);
+
+    const newElement = fragment.firstElementChild as HTMLElement;
+
+    if (this.element && newElement) {
+      this.element.replaceWith(newElement);
+    }
+
+    this.element = newElement;
     this.addEvents();
-    this.addAttributes();
   }
 
   private _componentDidUpdate(prevProps: P, nextProps: P) {
@@ -169,11 +168,11 @@ export abstract class Component<P extends Props = any> {
         || value instanceof Component
       ) {
         children[key] = value;
+
+        return;
       }
 
-      if (key !== 'attributes') {
-        props[key as keyof P] = value;
-      }
+      props[key as keyof P] = value;
     });
 
     return {
@@ -235,9 +234,12 @@ export abstract class Component<P extends Props = any> {
   protected componentDidMount() {
   }
 
+  protected init() {
+  }
+
   protected shouldComponentUpdate(prevProps: P, nextProps: P): boolean {
     if (isObject(prevProps) && isObject(nextProps)) {
-      return !isDeepEqual(prevProps, nextProps);
+      return !isEqual(prevProps, nextProps);
     }
 
     return prevProps !== nextProps;
@@ -246,7 +248,9 @@ export abstract class Component<P extends Props = any> {
   protected componentDidUpdate() {
   }
 
-  protected abstract render(): string;
+  protected render(): string {
+    return '';
+  }
 
   public getContent() {
     return this.element;
@@ -261,23 +265,18 @@ export abstract class Component<P extends Props = any> {
 
     const prevProps = { ...this.props };
     const { props = {} } = this.getPropsAndChildren(nextProps as P);
-    const { attributes = {} } = nextProps;
     const { children = {} } = nextProps;
 
     if (Object.keys(children).length > 0 && this.children) {
       Object.assign(this.children, children);
     }
 
-    if (Object.values(props).length > 0) {
+    if (Object.keys(props).length > 0) {
       Object.assign(this.props, props);
     }
 
-    if (Object.values(attributes).length > 0) {
-      Object.assign(this.attributes, attributes);
-    }
-
     if (this.requireUpdate) {
-      this.eventBus.emit(Component.EVENT.FLOW_CDU, prevProps, { ...this.props, ...this.attributes });
+      this.eventBus.emit(Component.EVENT.FLOW_CDU, prevProps, this.props);
       this.requireUpdate = false;
     }
   }
