@@ -1,3 +1,5 @@
+import { isObject } from '../utils';
+
 type QueryParams = {
   [N: string]: unknown,
 };
@@ -38,7 +40,7 @@ export class HTTPTransport {
     this.endpoint = `${this.apiURL}${endpoint}`;
   }
 
-  private escapingHTML(data: Record<string, string>) {
+  private escapingHTML(data: Record<string, unknown>) {
     const htmlEscapes = {
       '&': '&amp;',
       '<': '&lt;',
@@ -47,8 +49,32 @@ export class HTTPTransport {
       '\'': '&#146;',
     } as const;
 
-    return Object.entries(data).reduce((newData: Record<string, string>, [key, value]) => {
-      newData[key] = value.replace(/[&<>"']/g, (match) => htmlEscapes[match as keyof typeof htmlEscapes]);
+    return Object.entries(data).reduce((newData: Record<string, unknown>, [key, rawValue]) => {
+      let value = rawValue;
+
+      if (Array.isArray(value)) {
+        value = value.map((item) => {
+          if (typeof item === 'string') {
+            return item.replace(/[&<>"']/g, (match) => htmlEscapes[match as keyof typeof htmlEscapes]);
+          }
+
+          return item;
+        });
+      }
+
+      if (isObject(value) && !Array.isArray(value)) {
+        const escapedEntries = Object
+          .entries(value)
+          .map(([index, entryValue]) => [index, this.escapingHTML(entryValue)]);
+
+        value = Object.fromEntries(escapedEntries);
+      }
+
+      if (typeof value === 'string') {
+        value = value.replace(/[&<>"']/g, (match) => htmlEscapes[match as keyof typeof htmlEscapes]);
+      }
+
+      newData[key] = value;
 
       return newData;
     }, {});
