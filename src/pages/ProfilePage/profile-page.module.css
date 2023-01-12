@@ -51,6 +51,10 @@
   }
 }
 
+.username {
+  margin-bottom: 64px;
+}
+
 .chatTitle {
   margin-bottom: 64px;
 }
