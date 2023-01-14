@@ -1,18 +1,21 @@
 import classNames from 'classnames';
 import { Component } from '../../../core';
-import type { Props } from '../../../types/Component';
 import * as styles from './input.module.css';
+import type { Props } from '../../../types/component';
 
 export interface InputProps extends Props {
-  type?: 'text' | 'tel' | 'email' | 'password',
+  type?: 'text' | 'tel' | 'email' | 'password' | 'file',
   name: string,
   placeholder?: string,
   class?: string,
+  value?: string | number,
+  autocompleteOff?: boolean,
 }
 
 export class Input extends Component<InputProps> {
-  constructor(props: InputProps) {
-    super(props, 'input');
+  public setProps(nextProps: Partial<InputProps>) {
+    this.props.value = ' ';
+    super.setProps(nextProps);
   }
 
   protected render() {
@@ -22,14 +25,19 @@ export class Input extends Component<InputProps> {
       props.class,
     );
 
-    this.attributes = {
-      id: `input-${props.name}`,
-      name: props.name,
-      placeholder: props.placeholder || '',
-      type: props.type || 'text',
-      class: classList,
-    };
-
-    return '';
+    // language=hbs
+    return `
+        <input
+                id="input-{{name}}"
+                name="{{name}}"
+                type="{{type}}"
+                class="${classList}"
+                placeholder="{{placeholder}}"
+                value="{{value}}"
+            {{#if autocompleteOff}}
+                autocomplete="off"
+            {{/if}}
+        />
+    `;
   }
 }

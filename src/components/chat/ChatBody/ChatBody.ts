@@ -2,46 +2,62 @@ import classNames from 'classnames';
 import { Component } from '../../../core';
 import { MessageList } from '../MessageList';
 import { MessageForm } from '../MessageForm';
-import { messages } from '../../../data/messages';
 import * as styles from './chat-body.module.css';
-import type { Props } from '../../../types/Component';
+import { State } from '../../../types/store';
+import { withChats, withMessages, withUser } from '../../../hocs/withStore';
+import type { Props } from '../../../types/component';
 
-interface ChatBodyProps extends Props {
+interface ChatBodyBaseProps extends State, Props {
   class?: string,
+  hasMessages?: boolean,
 }
 
-export class ChatBody extends Component<ChatBodyProps> {
-  constructor(props: ChatBodyProps) {
-    const classList = classNames(
-      styles.container,
-      props.class,
-      messages.length === 0 && styles.containerEmpty,
-    );
-    const messageList = new MessageList({ messageList: messages, class: styles.messageList });
-    const messageForm = new MessageForm({});
+export class ChatBodyBase extends Component<ChatBodyBaseProps> {
+  protected init() {
+    const { user, chats } = this.props;
 
-    super(
-      {
-        ...props,
-        attributes: { class: classList },
-        messageList,
-        messageForm,
-      },
-    );
+    this.children.messageForm = new MessageForm();
+    this.children.messageList = new MessageList({
+      class: styles.messageList,
+      chatId: chats.selectedChatId,
+      userId: user.data.id,
+    });
+  }
 
-    this.props.hasMessages = messages.length > 0;
+  protected componentDidUpdate() {
+    const { selectedChatId } = this.props.chats;
+
+    (this.children.messageList as Component).setProps({ chatId: selectedChatId });
+    (this.children.messageForm as Component).setProps({ chatId: selectedChatId });
   }
 
   protected render(): string {
+    const {
+      class: className,
+      chats,
+      hasMessages,
+    } = this.props;
+
+    const classList = classNames(
+      styles.container,
+      className,
+      !chats.selectedChatId && styles.containerEmpty,
+      !hasMessages && styles.containerEmptyMessages,
+    );
+
     // language=hbs
     return `
-        {{#if hasMessages}}
-            {{{messageList}}}
-            <div class="${styles.divider}"></div>
-            {{{messageForm}}}
-        {{else}}
-            <span class="${styles.emptyMessage}">Выберите чат, чтобы отправить сообщение</span>
-        {{/if}}
+        <div class="${classList}">
+            {{#if chats.selectedChatId}}
+                {{{messageList}}}
+                <div class="${styles.divider}"></div>
+                {{{messageForm}}}
+            {{else}}
+                <span class="${styles.emptyMessage}">Выберите чат</span>
+            {{/if}}
+        </div>
     `;
   }
 }
+
+export const ChatBody = withChats(withUser(withMessages(ChatBodyBase)));

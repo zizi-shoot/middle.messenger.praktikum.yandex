@@ -1,6 +1,4 @@
-import type { ErrorMessages, ValidationRules } from '../services/validation';
 import { createValidator } from '../services/validation';
-import type { ProfileDataForm, ProfilePasswordForm } from '../types';
 import {
   MAX_LOGIN_LENGTH,
   MAX_PASSWORD_LENGTH,
@@ -20,11 +18,13 @@ import {
   validatePhone,
   validateSecondName,
 } from '../helpers/rules';
+import type { ErrorMessages, ValidationRules } from '../services/validation';
+import type { ProfileData, ProfilePasswordData } from '../../../types/forms';
 
 export type ProfileRules<FormType> = ValidationRules<FormType>;
 export type ProfileErrors<FormType> = ErrorMessages<FormType>;
 
-const dataRules: ProfileRules<ProfileDataForm> = {
+const dataRules: ProfileRules<ProfileData> = {
   login: validateLogin,
   first_name: validateFirstName,
   second_name: validateSecondName,
@@ -33,7 +33,7 @@ const dataRules: ProfileRules<ProfileDataForm> = {
   phone: validatePhone,
 };
 
-const dataErrors: ProfileErrors<ProfileDataForm> = {
+const dataErrors: ProfileErrors<ProfileData> = {
   login: `Логин может содержать ${MIN_LOGIN_LENGTH}-${MAX_LOGIN_LENGTH} символов (латинские буквы, цифры, дефис, подчёркивание)`,
   first_name: 'Имя может состоять из минимум 2 латинских или кириллических букв без пробелов и цифр, первая бука — заглавная',
   second_name: 'Фамилия может состоять из минимум 2 латинских или кириллических букв без пробелов и цифр, первая бука — заглавная',
@@ -44,13 +44,13 @@ const dataErrors: ProfileErrors<ProfileDataForm> = {
 
 export const validateProfileDataForm = createValidator(dataRules, dataErrors);
 
-const passRules: ProfileRules<ProfilePasswordForm> = {
+const passRules: ProfileRules<ProfilePasswordData> = {
   oldPassword: validateOldPassword,
   newPassword: validateNewPassword,
   checkNewPassword: validateCheckNewPassword,
 };
 
-const passErrors: ProfileErrors<ProfilePasswordForm> = {
+const passErrors: ProfileErrors<ProfilePasswordData> = {
   oldPassword: 'Введите старый пароль',
   newPassword: `Пароль должен содержать ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} символов. Обязательно должны быть хотя бы одна заглавная буква и цифра`,
   checkNewPassword: 'Пароли должны совпадать',

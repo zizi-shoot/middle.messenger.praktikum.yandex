@@ -135,4 +135,29 @@ export const formsData: Record<string, FormFieldProps[]> = {
       type: 'password',
     },
   ],
+  avatar: [
+    {
+      name: 'avatar',
+      hasError: false,
+      label: 'Выбор изображения',
+      type: 'file',
+      placeholder: '*.jpg, *.png',
+    },
+  ],
+  newChat: [
+    {
+      name: 'title',
+      hasError: false,
+      label: 'Название чата',
+      placeholder: 'Рабочий чат...',
+    },
+  ],
+  chatUser: [
+    {
+      name: 'login',
+      hasError: false,
+      label: 'Логин пользователя',
+      placeholder: 'username',
+    },
+  ],
 };

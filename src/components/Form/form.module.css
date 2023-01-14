@@ -12,3 +12,10 @@
 .fixWidth {
   width: 670px;
 }
+
+.buttonContainer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  width: 100%;
+}

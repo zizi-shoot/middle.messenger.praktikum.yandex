@@ -5,45 +5,56 @@ import { Button } from '../base';
 import { FormField } from '../FormField';
 import { formsData } from '../../data/formsData';
 import * as styles from './form.module.css';
-import type { Props } from '../../types/Component';
+import type { Props } from '../../types/component';
 import type { ValidationResult } from '../../utils/validation/services/validation';
 
 interface FormProps<T> extends Props {
   name: string,
-  buttonSubmitText: string,
-  handleValidateForm: (data: T) => ValidationResult<T>;
-  mode: 'entry' | 'profile';
+  title?: string,
+  submitButtonText: string,
+  cancelButtonText?: string,
+  validateForm: (data: T) => ValidationResult<T>,
+  mode: 'entry' | 'profile',
+  sentData: (data: FormData) => void,
+  handleCancel?: () => void,
+  values?: Record<string, string | number>,
 }
 
 export class Form<T> extends Component<FormProps<T>> {
-  constructor(props: FormProps<T>) {
-    const classList = classNames(
-      styles.form,
-      props.mode === 'entry' && 'shadow',
-      props.mode === 'profile' && styles.fixWidth,
-    );
-    const formFields = formsData[props.name].map((fieldProps) => new FormField(fieldProps));
-    const button = new Button({
-      type: 'submit',
-      text: props.buttonSubmitText,
-      fullWidth: true,
-    });
-
-    super(
-      {
-        ...props,
-        attributes: {
-          id: `${props.name}-form`,
-          class: classList,
-        },
-        formFields,
-        button,
-      },
-      'form',
-    );
+  protected init() {
+    const {
+      submitButtonText,
+      values,
+      handleCancel,
+      name,
+      cancelButtonText,
+    } = this.props;
 
     this.props.onSubmit = this.handleSubmit.bind(this);
     this.props.onFocusOut = this.handleFocusOut.bind(this);
+    this.children.formFields = formsData[name].map((fieldProps) => {
+      const props = fieldProps;
+
+      if (values) {
+        props.value = values[fieldProps.name];
+      }
+
+      return new FormField(props);
+    });
+
+    this.children.submitButton = new Button({
+      type: 'submit',
+      text: submitButtonText,
+      fullWidth: !cancelButtonText,
+    });
+
+    if (cancelButtonText) {
+      this.children.cancelButton = new Button({
+        text: cancelButtonText,
+        mode: 'alt',
+        onClick: handleCancel,
+      });
+    }
   }
 
   protected toggleErrors(target: EventTarget, errors: ValidationResult<T>['errors'] = {}) {
@@ -74,11 +85,10 @@ export class Form<T> extends Component<FormProps<T>> {
     event.preventDefault();
     const data = getFormData(event.target as HTMLFormElement) as T;
 
-    const { valid, errors } = this.props.handleValidateForm(data);
+    const { valid, errors } = this.props.validateForm(data);
 
     if (valid) {
-      // eslint-disable-next-line no-console
-      console.log(data);
+      this.props.sentData(new FormData(event.target as HTMLFormElement));
     }
 
     if (!valid) {
@@ -99,16 +109,29 @@ export class Form<T> extends Component<FormProps<T>> {
   protected handleFocusOut(event: FocusEvent) {
     const { currentTarget, target } = event;
     const data = getFormData(currentTarget as HTMLFormElement) as T;
-    const { errors } = this.props.handleValidateForm(data as T);
+    const { errors } = this.props.validateForm(data as T);
 
     this.toggleErrors(target!, errors);
   }
 
   protected render() {
+    const classList = classNames(
+      styles.form,
+      this.props.mode === 'entry' && 'shadow',
+      this.props.mode === 'profile' && styles.fixWidth,
+    );
     // language=hbs
     return `
-        {{{formFields}}}
-        {{{button}}}
+        <form class="${classList}" id="{{name}}-form">
+            {{#if title}}
+                <h3>{{title}}</h3>
+            {{/if}}
+            {{{formFields}}}
+            <div class="${styles.buttonContainer}">
+                {{{cancelButton}}}
+                {{{submitButton}}}
+            </div>
+        </form>
     `;
   }
 }

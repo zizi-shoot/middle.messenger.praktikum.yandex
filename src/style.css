@@ -6,9 +6,9 @@
 
 body {
   padding: 0;
-  background-color: var(--bg-page-color);
-  color: var(--font-main-color);
   font-family: "Exo 2", sans-serif;
+  color: var(--font-main-color);
+  background-color: var(--bg-page-color);
 }
 
 img {
@@ -21,14 +21,30 @@ ul {
 }
 
 #root {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
 }
 
+#portal {
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--blackAlpha-600);
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .link {
-  color: var(--font-link-color);
   text-decoration: none;
+  color: var(--font-link-color);
+  cursor: pointer;
 }
 
 .link--warning {

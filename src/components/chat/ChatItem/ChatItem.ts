@@ -1,41 +1,46 @@
 import { Component } from '../../../core';
 import { Avatar } from '../../base';
-import type { ChatItemProps } from '../../../types';
 import * as styles from './chat-item.module.css';
+import type { ChatInfo } from '../../../types/chats';
+import type { Props } from '../../../types/component';
+
+interface ChatItemProps extends Props, ChatInfo {
+}
 
 export class ChatItem extends Component<ChatItemProps> {
-  constructor(props: ChatItemProps) {
-    const avatar = new Avatar({
+  protected init() {
+    const { avatar, title } = this.props;
+
+    this.children.avatar = new Avatar({
       size: 48,
       class: 'chat-item__avatar',
-      src: props.userPic,
-      altText: `аватар пользователя ${props.userName}`,
+      src: avatar,
+      altText: `аватар чата ${title}`,
     });
-
-    super(
-      {
-        ...props,
-        attributes: { class: styles.container },
-        avatar,
-      },
-      'li',
-    );
   }
 
   protected render(): string {
+    const date = new Date(this.props.last_message?.time);
+    const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+
     // language=hbs
     return `
-        {{{avatar}}}
-        <div class="${styles.messageWrapper}">
-            <span class="${styles.username}">{{userName}}</span>
-            <p class="${styles.message}">{{message}}</p>
-        </div>
-        <div class="${styles.meta}">
-            <span class="${styles.time}">{{time}}</span>
-            {{#if counter}}
-                <span class="${styles.counter}">{{counter}}</span>
+        <li class="${styles.container}">
+            {{{avatar}}}
+            <div class="${styles.messageWrapper}">
+                <span class="${styles.chatTitle}">{{title}}</span>
+                <p class="${styles.message}">{{last_message.content}}</p>
+            </div>
+            {{#if last_message}}
+                <div class="${styles.meta}">
+                    <span class="${styles.time}">${time}</span>
+                    {{#if unread_counter}}
+                        <span class="${styles.counter}">{{unread_counter}}</span>
+                    {{/if}}
+                </div>
             {{/if}}
-        </div>
+
+        </li>
     `;
   }
 }

@@ -17,10 +17,10 @@ import {
   validatePhone,
   validateSecondName,
 } from '../helpers/rules';
-import type { SignUpForm } from '../types';
+import type { SignUpData } from '../../../types/forms';
 
-export type SignUpRules = ValidationRules<SignUpForm>;
-export type SignUpErrors = ErrorMessages<SignUpForm>;
+export type SignUpRules = ValidationRules<SignUpData>;
+export type SignUpErrors = ErrorMessages<SignUpData>;
 
 const rules: SignUpRules = {
   login: validateLogin,

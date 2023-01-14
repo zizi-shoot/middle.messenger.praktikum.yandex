@@ -11,32 +11,39 @@ export class FormField extends Component<FormFieldProps> {
       mode: props.mode || 'entry',
       direction: props.direction || 'vertical',
     });
+  }
 
+  protected init() {
     this.children.input = new Input({
       name: this.props.name,
-      placeholder: this.props.placeholder,
+      placeholder: this.props.placeholder || '',
       type: this.props.type,
       class: styles.input,
+      value: this.props.value,
     });
   }
 
   protected render(): string {
-    const classList = classNames(
+    const { direction, hasError, mode } = this.props;
+
+    const containerClassList = classNames(
       styles.container,
-      this.props.direction === 'vertical' && styles.containerVertical,
-      this.props.hasError && styles.containerError,
+      direction === 'vertical' && styles.containerVertical,
+      hasError && styles.containerError,
     );
 
-    this.attributes = { class: classList };
+    const wrapperClassList = classNames(mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile);
 
     // language=hbs
     return `
-        <label for="input-{{name}}" class="${styles.label}">{{label}}</label>
-        <div class="${this.props.mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile}">
-            {{{input}}}
-            {{#if hasError}}
-                <span class="${styles.helperText}">{{helperText}}</span>
-            {{/if}}
+        <div class="${containerClassList}">
+            <label for="input-{{name}}" class="${styles.label}">{{label}}</label>
+            <div class="${wrapperClassList}">
+                {{{input}}}
+                {{#if hasError}}
+                    <span class="${styles.helperText}">{{helperText}}</span>
+                {{/if}}
+            </div>
         </div>
     `;
   }

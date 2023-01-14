@@ -34,3 +34,6 @@ export const EMAIL_PATTERN = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$
 export const MIN_PHONE_LENGTH = 10;
 export const MAX_PHONE_LENGTH = 15;
 export const PHONE_PATTERN = /^(\+\d{1,3}|\d|)(?=\d{10,15}$)/;
+
+export const MIN_CHAT_TITLE_LENGTH = 3;
+export const MAX_CHAT_TITLE_LENGTH = 20;
