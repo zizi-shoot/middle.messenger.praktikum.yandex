@@ -25,7 +25,7 @@ export class Component<P extends Props = any> {
 
   protected children: Children = {};
 
-  constructor(allProps: P) {
+  constructor(allProps: P = {} as P) {
     if (allProps) {
       const { children, props } = this.getPropsAndChildren(allProps);
 

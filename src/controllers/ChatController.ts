@@ -15,11 +15,10 @@ export class ChatController {
 
   private async request(req: () => void) {
     this.store.set('chats.isLoading', true);
+    this.store.set('chats.error', null);
 
     try {
       await req();
-
-      this.store.set('chats.error', null);
     } catch (e: any) {
       this.store.set('chats.error', e.reason);
     } finally {
@@ -78,7 +77,9 @@ export class ChatController {
       await this.request(async () => {
         const user = await userController.findUserByLogin(login);
 
-        await this.api.deleteUsers(chatId, [user[0]?.id]);
+        if (user.length > 0) {
+          await this.api.deleteUsers(chatId, [user[0].id]);
+        }
       });
     }
   }

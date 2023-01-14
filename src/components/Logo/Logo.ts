@@ -2,10 +2,6 @@ import { Component } from '../../core';
 import * as styles from './logo.module.css';
 
 export class Logo extends Component {
-  constructor() {
-    super({});
-  }
-
   protected render(): string {
     // language=hbs
     return `

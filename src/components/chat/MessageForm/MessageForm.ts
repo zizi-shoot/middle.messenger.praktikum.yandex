@@ -36,12 +36,13 @@ export class MessageFormBase extends Component<MessageFormBaseProps> {
     event.preventDefault();
 
     const data = getFormData(event.target as HTMLFormElement) as MessageData;
+    const { chatId } = this.props;
 
-    if (data.message.length > 0 && this.props.chatId) {
+    if (data.message.length > 0 && chatId) {
       const { controller } = this.props;
 
       try {
-        await controller.sendMessage(this.props.chatId, data.message);
+        await controller.sendMessage(chatId, data.message);
 
         (this.children.input as Component).setProps({ value: '' });
       } catch (e) {

@@ -14,25 +14,35 @@ interface ChatBodyBaseProps extends State, Props {
 
 export class ChatBodyBase extends Component<ChatBodyBaseProps> {
   protected init() {
-    this.children.messageForm = new MessageForm({});
+    const { user, chats } = this.props;
+
+    this.children.messageForm = new MessageForm();
     this.children.messageList = new MessageList({
       class: styles.messageList,
-      chatId: this.props.chats.selectedChatId,
-      userId: this.props.user.data.id,
+      chatId: chats.selectedChatId,
+      userId: user.data.id,
     });
   }
 
   protected componentDidUpdate() {
-    (this.children.messageList as Component).setProps({ chatId: this.props.chats.selectedChatId });
-    (this.children.messageForm as Component).setProps({ chatId: this.props.chats.selectedChatId });
+    const { selectedChatId } = this.props.chats;
+
+    (this.children.messageList as Component).setProps({ chatId: selectedChatId });
+    (this.children.messageForm as Component).setProps({ chatId: selectedChatId });
   }
 
   protected render(): string {
+    const {
+      class: className,
+      chats,
+      hasMessages,
+    } = this.props;
+
     const classList = classNames(
       styles.container,
-      this.props.class,
-      !this.props.chats.selectedChatId && styles.containerEmpty,
-      !this.props.hasMessages && styles.containerEmptyMessages,
+      className,
+      !chats.selectedChatId && styles.containerEmpty,
+      !hasMessages && styles.containerEmptyMessages,
     );
 
     // language=hbs

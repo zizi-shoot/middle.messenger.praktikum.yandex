@@ -42,11 +42,13 @@ export class ChatSearchBase extends Component<ChatSearchProps> {
   }
 
   protected async createNewChat(data: FormData) {
-    await this.props.controller.create(data);
+    const { controller, chatsError } = this.props;
 
-    if (this.props.chatsError) {
+    await controller.create(data);
+
+    if (chatsError) {
       // eslint-disable-next-line no-alert
-      alert(this.props.chatsError);
+      alert(chatsError);
     } else {
       // eslint-disable-next-line no-alert
       alert('Новый чат успешно создан!');
@@ -60,7 +62,6 @@ export class ChatSearchBase extends Component<ChatSearchProps> {
         <div class="${styles.container}">
             <form class="{{class}}">
                 {{{icon}}}
-                <label for="chat-search"></label>
                 <input class="${styles.input}" type="text" name="chat-search" id="chat-search" placeholder="Поиск чата">
             </form>
             {{{createBtn}}}

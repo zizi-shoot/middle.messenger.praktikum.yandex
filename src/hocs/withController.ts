@@ -12,7 +12,7 @@ const withController = <T>(controller: T) => {
     type ComponentProps = typeof ComponentClass extends typeof Component<infer K extends Props> ? K : Props;
 
     return class WithController extends ComponentClass {
-      constructor(props: ComponentProps & PropsWithController<T>) {
+      constructor(props: ComponentProps & PropsWithController<T> = {}) {
         super({ ...props, controller });
       }
     };

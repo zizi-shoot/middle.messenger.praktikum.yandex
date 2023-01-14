@@ -13,15 +13,21 @@ interface ButtonProps extends Props {
 
 export class Button extends Component<ButtonProps> {
   protected render(): string {
+    const {
+      class: className,
+      mode,
+      type,
+      fullWidth,
+    } = this.props;
     const classList = classNames(
       styles.button,
-      this.props.mode === 'alt' && styles.buttonAlt,
-      this.props.fullWidth && styles.buttonFullWidth,
-      this.props.class,
+      mode === 'alt' && styles.buttonAlt,
+      fullWidth && styles.buttonFullWidth,
+      className,
     );
     // language=hbs
     return `
-        <button type="${this.props.type || 'button'}" class="${classList}">
+        <button type="${type || 'button'}" class="${classList}">
             {{{icon}}}
             {{text}}
         </button>

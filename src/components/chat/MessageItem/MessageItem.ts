@@ -15,26 +15,37 @@ export interface MessageItemProps extends Props {
 
 export class MessageItem extends Component<MessageItemProps> {
   protected init() {
-    this.children.avatar = new Avatar({
-      size: 42,
-      src: this.props.user?.avatar,
-      altText: `Аватар пользователя ${this.props.user?.display_name}`,
-    });
+    if (this.props.user) {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { avatar, display_name } = this.props.user;
+
+      this.children.avatar = new Avatar({
+        size: 42,
+        src: avatar,
+        altText: `Аватар пользователя ${display_name}`,
+      });
+    }
   }
 
   protected render(): string {
+    const {
+      class: className,
+      message,
+      isMine,
+    } = this.props;
+
     const itemClassList = classNames(
       styles.item,
-      this.props.isMine && styles.itemMe,
-      this.props.class,
+      isMine && styles.itemMe,
+      className,
     );
 
     const messageClassList = classNames(
       styles.message,
-      this.props.isMine && styles.messageMe,
+      isMine && styles.messageMe,
     );
 
-    const date = new Date(this.props.message.time);
+    const date = new Date(message.time);
     const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 
     // language=hbs

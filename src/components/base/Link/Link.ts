@@ -8,14 +8,17 @@ interface LinkProps extends PropsWithRouter {
   label: string,
   children?: Children,
   class?: string,
-  onClick?: () => void,
+  onClick?: (event: MouseEvent) => void,
   extraClickHandler?: () => void,
 }
 
 class BaseLink extends Component<LinkProps> {
   constructor(props: LinkProps) {
     super({
-      onClick: () => this.navigate(),
+      onClick: (event: MouseEvent) => {
+        event.preventDefault();
+        this.navigate();
+      },
       ...props,
     });
   }
@@ -27,7 +30,7 @@ class BaseLink extends Component<LinkProps> {
   protected render(): string {
     // language=hbs
     return `
-        <a class="${this.props.class}">
+        <a href="#" class="link ${this.props.class}">
             {{label}}
             {{{children}}}
         </a>

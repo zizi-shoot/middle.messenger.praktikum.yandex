@@ -22,13 +22,21 @@ interface FormProps<T> extends Props {
 
 export class Form<T> extends Component<FormProps<T>> {
   protected init() {
+    const {
+      submitButtonText,
+      values,
+      handleCancel,
+      name,
+      cancelButtonText,
+    } = this.props;
+
     this.props.onSubmit = this.handleSubmit.bind(this);
     this.props.onFocusOut = this.handleFocusOut.bind(this);
-    this.children.formFields = formsData[this.props.name].map((fieldProps) => {
+    this.children.formFields = formsData[name].map((fieldProps) => {
       const props = fieldProps;
 
-      if (this.props.values) {
-        props.value = this.props.values[fieldProps.name];
+      if (values) {
+        props.value = values[fieldProps.name];
       }
 
       return new FormField(props);
@@ -36,15 +44,15 @@ export class Form<T> extends Component<FormProps<T>> {
 
     this.children.submitButton = new Button({
       type: 'submit',
-      text: this.props.submitButtonText,
-      fullWidth: !this.props.cancelButtonText,
+      text: submitButtonText,
+      fullWidth: !cancelButtonText,
     });
 
-    if (this.props.cancelButtonText) {
+    if (cancelButtonText) {
       this.children.cancelButton = new Button({
-        text: this.props.cancelButtonText,
+        text: cancelButtonText,
         mode: 'alt',
-        onClick: this.props.handleCancel,
+        onClick: handleCancel,
       });
     }
   }

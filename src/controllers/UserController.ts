@@ -17,11 +17,10 @@ export class UserController {
 
   private async request(req: () => void) {
     this.store.set('user.isLoading', true);
+    this.store.set('user.error', null);
 
     try {
       await req();
-
-      this.store.set('user.error', null);
     } catch (e: any) {
       this.store.set('user.error', e.reason);
     } finally {

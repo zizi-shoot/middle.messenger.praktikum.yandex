@@ -1,5 +1,5 @@
 import { Component } from '../../../core';
-import { Button, Icon, Modal, Avatar } from '../../base';
+import { Avatar, Button, Icon, Modal } from '../../base';
 import { Form } from '../../Form';
 import * as styles from './chat-head.module.css';
 import { removePortal, renderPortal } from '../../../core/DOM';
@@ -18,10 +18,10 @@ interface ChatHeadBaseProps extends PropsWithController<ChatController>, Pick<St
 
 export class ChatHeadBase extends Component<ChatHeadBaseProps> {
   protected componentDidUpdate() {
-    const { data, selectedChatId } = this.props.chats;
+    const { chats } = this.props;
 
-    if (selectedChatId) {
-      const selectedChat = data.find(({ id }) => id === selectedChatId);
+    if (chats.selectedChatId) {
+      const selectedChat = chats.data.find(({ id }) => id === chats.selectedChatId);
 
       const addForm = new Form<ChatUserData>({
         name: 'chatUser',
@@ -71,14 +71,14 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
   }
 
   protected async addUserToChat(data: FormData) {
-    const { selectedChatId } = this.props.chats;
+    const { selectedChatId, error } = this.props.chats;
 
     if (selectedChatId) {
       await this.props.controller.addUserToChat(selectedChatId, data);
 
-      if (this.props.chats.error) {
+      if (error) {
         // eslint-disable-next-line no-alert
-        alert(this.props.chats.error);
+        alert(error);
       } else {
         // eslint-disable-next-line no-alert
         alert('Пользователь успешно добавлен в чат!');
@@ -88,14 +88,14 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
   }
 
   protected async deleteUserFromChat(data: FormData) {
-    const { selectedChatId } = this.props.chats;
+    const { selectedChatId, error } = this.props.chats;
 
     if (selectedChatId) {
       await this.props.controller.deleteUserFromChat(selectedChatId, data);
 
-      if (this.props.chats.error) {
+      if (error) {
         // eslint-disable-next-line no-alert
-        alert(this.props.chats.error);
+        alert(error);
       } else {
         // eslint-disable-next-line no-alert
         alert('Пользователь успешно удалён из чата!');

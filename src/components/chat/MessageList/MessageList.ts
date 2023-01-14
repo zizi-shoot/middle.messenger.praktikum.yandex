@@ -20,15 +20,22 @@ interface MessageListBaseProps extends Props {
 
 export class MessageListBase extends Component<MessageListBaseProps> {
   protected componentDidUpdate() {
-    if (this.props.chatId) {
-      const targetChatMessages = this.props.messages[this.props.chatId];
+    const {
+      chatId,
+      chatUsers,
+      userId,
+      messages,
+    } = this.props;
+
+    if (chatId) {
+      const targetChatMessages = messages[chatId];
 
       this.props.hasMessages = targetChatMessages.length > 0;
       this.children.messages = [...targetChatMessages].reverse().map((message, index, list) => new MessageItem({
         message,
-        user: this.props.chatUsers[message.user_id],
-        class: classNames(styles.item, message.user_id === this.props.userId && styles.itemMe),
-        isMine: message.user_id === this.props.userId,
+        user: chatUsers[message.user_id],
+        class: classNames(styles.item, message.user_id === userId && styles.itemMe),
+        isMine: message.user_id === userId,
         isLast: index === list.length - 1,
         withInternalID: true,
       }));

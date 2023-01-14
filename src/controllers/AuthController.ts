@@ -3,6 +3,7 @@ import { ROUTES } from '../utils/const';
 import type { Store } from '../core/Store';
 import { store as _store } from '../core/Store';
 import type { Router } from '../core/Router';
+// eslint-disable-next-line import/no-cycle
 import { router as _router } from '../core/Router';
 import { messagesController } from './MessagesController';
 import type { SignInData, SignUpData } from '../types/forms';
@@ -17,11 +18,10 @@ export class AuthController {
 
   private async request(req: () => void) {
     this.store.set('user.isLoading', true);
+    this.store.set('user.error', null);
 
     try {
       await req();
-
-      this.store.set('user.error', null);
     } catch (e: any) {
       this.store.set('user.error', e.reason);
     } finally {

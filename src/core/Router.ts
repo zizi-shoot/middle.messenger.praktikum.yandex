@@ -13,7 +13,9 @@ export class Router {
 
   private history = window.history;
 
-  constructor(private readonly rootQuery: string) {
+  constructor(
+    private readonly rootQuery: string,
+  ) {
     if (Router.instance) {
       // eslint-disable-next-line no-constructor-return
       return Router.instance;

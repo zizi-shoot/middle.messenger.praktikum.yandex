@@ -4,10 +4,6 @@ import { Logo } from '../Logo';
 import * as styles from './page-header.module.css';
 
 export class PageHeader extends Component {
-  constructor() {
-    super({});
-  }
-
   protected init() {
     this.children.chatLink = new Link({ to: '/', label: 'Чаты', class: styles.link });
     this.children.profileLink = new Link({ to: '/profile', label: 'Профиль', class: styles.link });

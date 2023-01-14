@@ -24,17 +24,21 @@ export class FormField extends Component<FormFieldProps> {
   }
 
   protected render(): string {
-    const classList = classNames(
+    const { direction, hasError, mode } = this.props;
+
+    const containerClassList = classNames(
       styles.container,
-      this.props.direction === 'vertical' && styles.containerVertical,
-      this.props.hasError && styles.containerError,
+      direction === 'vertical' && styles.containerVertical,
+      hasError && styles.containerError,
     );
+
+    const wrapperClassList = classNames(mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile);
 
     // language=hbs
     return `
-        <div class="${classList}">
+        <div class="${containerClassList}">
             <label for="input-{{name}}" class="${styles.label}">{{label}}</label>
-            <div class="${this.props.mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile}">
+            <div class="${wrapperClassList}">
                 {{{input}}}
                 {{#if hasError}}
                     <span class="${styles.helperText}">{{helperText}}</span>

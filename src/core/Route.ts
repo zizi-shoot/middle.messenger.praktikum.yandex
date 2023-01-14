@@ -33,7 +33,7 @@ export class Route {
 
   public render() {
     if (!this.component) {
-      this.component = new this.PageComponent({});
+      this.component = new this.PageComponent();
       renderDOM(this.query, this.component);
     }
   }

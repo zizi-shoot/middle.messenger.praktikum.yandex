@@ -9,11 +9,13 @@ interface ChatItemProps extends Props, ChatInfo {
 
 export class ChatItem extends Component<ChatItemProps> {
   protected init() {
+    const { avatar, title } = this.props;
+
     this.children.avatar = new Avatar({
       size: 48,
       class: 'chat-item__avatar',
-      src: this.props.avatar,
-      altText: `аватар чата ${this.props.avatar}`,
+      src: avatar,
+      altText: `аватар чата ${title}`,
     });
   }
 

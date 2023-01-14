@@ -20,9 +20,12 @@ interface ProfilePageBaseProps extends PropsWithController<UserController>, Pick
 
 export class ProfilePageBase extends Component<ProfilePageBaseProps> {
   constructor(props: ProfilePageBaseProps) {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { second_name, first_name } = props.user.data;
+
     super({
       ...props,
-      username: `${props.user.data.first_name} ${props.user.data.second_name}`,
+      username: `${first_name} ${second_name}`,
     });
 
     this.updateProfile = this.updateProfile.bind(this);
