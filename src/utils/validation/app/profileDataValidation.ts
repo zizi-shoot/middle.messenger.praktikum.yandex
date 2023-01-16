@@ -1,3 +1,4 @@
+import type { ProfileData, ProfilePasswordData } from '@typings/forms';
 import { createValidator } from '../services/validation';
 import {
   MAX_LOGIN_LENGTH,
@@ -19,7 +20,6 @@ import {
   validateSecondName,
 } from '../helpers/rules';
 import type { ErrorMessages, ValidationRules } from '../services/validation';
-import type { ProfileData, ProfilePasswordData } from '../../../types/forms';
 
 export type ProfileRules<FormType> = ValidationRules<FormType>;
 export type ProfileErrors<FormType> = ErrorMessages<FormType>;

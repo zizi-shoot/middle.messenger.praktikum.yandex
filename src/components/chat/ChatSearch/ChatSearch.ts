@@ -1,19 +1,21 @@
-import { Component } from '../../../core';
-import { Button, Icon, Modal } from '../../base';
+import { Component } from '@core';
+import { ChatController } from '@controllers/ChatController';
+import { withChatController } from '@hocs/withController';
+import { validateNewChatForm } from '@utils/validation/app/newChatDataValidation';
+import { removePortal, renderPortal } from '@core/DOM';
+import { withStore } from '@hocs/withStore';
+import type { PropsWithController } from '@typings/controller';
+import type { State } from '@typings/store';
+import type { NewChatData } from '@typings/forms';
+import type { Props } from '@typings/component';
+import template from './template.hbs';
+import styles from './chat-search.module.css';
 import { Form } from '../../Form';
-import { ChatController } from '../../../controllers/ChatController';
-import { withChatController } from '../../../hocs/withController';
-import { validateNewChatForm } from '../../../utils/validation/app/newChatDataValidation';
-import type { PropsWithController } from '../../../types/controller';
-import * as styles from './chat-search.module.css';
-import { removePortal, renderPortal } from '../../../core/DOM';
-import type { State } from '../../../types/store';
-import type { NewChatData } from '../../../types/forms';
-import { withStore } from '../../../hocs/withStore';
+import { Button, Icon, Modal } from '../../base';
 
 type ChatsError = State['chats']['error'];
 
-interface ChatSearchProps extends PropsWithController<ChatController> {
+interface ChatSearchProps extends PropsWithController<ChatController>, Props {
   class?: string,
   chatsError: ChatsError
 }
@@ -39,6 +41,8 @@ export class ChatSearchBase extends Component<ChatSearchProps> {
       icon: new Icon({ type: 'addChat' }),
       onClick: () => renderPortal(new Modal({ content: form })),
     });
+
+    this.props.styles = styles;
   }
 
   protected async createNewChat(data: FormData) {
@@ -56,18 +60,8 @@ export class ChatSearchBase extends Component<ChatSearchProps> {
     }
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <div class="${styles.container}">
-            <form class="{{class}}">
-                {{{icon}}}
-                <input class="${styles.input}" type="text" name="chat-search" id="chat-search" placeholder="Поиск чата">
-            </form>
-            {{{createBtn}}}
-        </div>
-
-    `;
+  protected render() {
+    return template;
   }
 }
 

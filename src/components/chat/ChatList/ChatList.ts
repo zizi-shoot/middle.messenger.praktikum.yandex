@@ -1,17 +1,19 @@
 import classNames from 'classnames';
-import { Component } from '../../../core';
-import { withChatController } from '../../../hocs/withController';
-import { withStore } from '../../../hocs/withStore';
+import { Component } from '@core';
+import { withChatController } from '@hocs/withController';
+import { withStore } from '@hocs/withStore';
+import type { PropsWithController } from '@typings/controller';
+import type { State } from '@typings/store';
+import type { ChatController } from '@controllers/ChatController';
+import type { ChatInfo } from '@typings/chats';
+import type { Props } from '@typings/component';
+import template from './template.hbs';
+import styles from './chat-list.module.css';
 import { ChatItem } from '../ChatItem';
-import * as styles from './chat-list.module.css';
-import type { PropsWithController } from '../../../types/controller';
-import type { State } from '../../../types/store';
-import type { ChatController } from '../../../controllers/ChatController';
-import type { ChatInfo } from '../../../types/chats';
 
 type ChatsData = State['chats']['data'];
 
-interface ChatListBaseProps extends PropsWithController<ChatController> {
+interface ChatListBaseProps extends PropsWithController<ChatController>, Props {
   class?: string,
   chats: {
     data: ChatsData,
@@ -38,17 +40,11 @@ export class ChatListBase extends Component<ChatListBaseProps> {
 
   protected init() {
     this.children.chats = this.createChats(this.props.chats.data);
+    this.props.classList = classNames(styles.container, this.props.class);
   }
 
-  protected render(): string {
-    const classList = classNames(styles.container, this.props.class);
-
-    // language=hbs
-    return `
-        <ul class="${classList}">
-            {{{chats}}}
-        </ul>
-    `;
+  protected render() {
+    return template;
   }
 }
 

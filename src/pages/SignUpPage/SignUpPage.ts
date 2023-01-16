@@ -1,15 +1,17 @@
-import { Component } from '../../core';
-import { Form } from '../../components';
-import { AuthController } from '../../controllers/AuthController';
-import { validateSignUpForm } from '../../utils/validation/app/signUpValidation';
-import { Link } from '../../components/base';
-import { withUser } from '../../hocs/withStore';
-import { withAuthController } from '../../hocs/withController';
-import * as styles from '../entry.module.css';
-import type { SignUpData } from '../../types/forms';
-import type { PropsWithController } from '../../types/controller';
+import { Component } from '@core';
+import { Form } from '@components';
+import { AuthController } from '@controllers/AuthController';
+import { validateSignUpForm } from '@utils/validation/app/signUpValidation';
+import { Link } from '@components/base';
+import { withUser } from '@hocs/withStore';
+import { withAuthController } from '@hocs/withController';
+import type { SignUpData } from '@typings/forms';
+import type { PropsWithController } from '@typings/controller';
+import type { Props } from '@typings/component';
+import template from './template.hbs';
+import styles from '../entry.module.css';
 
-interface SignUpPageBaseProps extends PropsWithController<AuthController> {
+interface SignUpPageBaseProps extends PropsWithController<AuthController>, Props {
 }
 
 export class SignUpPageBase extends Component<SignUpPageBaseProps> {
@@ -31,29 +33,13 @@ export class SignUpPageBase extends Component<SignUpPageBaseProps> {
       mode: 'entry',
       sentData: this.signUpUser.bind(this),
     });
-    this.children.signInLink = new Link({ to: '/signin', label: 'Войти', class: 'link' });
+    this.children.signInLink = new Link({ to: '/signin', label: 'Войти', classList: 'link' });
+
+    this.props.styles = styles;
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <div class="page-container">
-            <main class="${styles.container}">
-                <section class="${styles.section}">
-                    <picture>
-                        <source srcset="images/logo.webp" type="image/webp" />
-                        <img src="images/logo.png" alt="логотип летчат" />
-                    </picture>
-                    <h1 class="${styles.title}">Регистрация</h1>
-                    <div class="${styles.helperText}">
-                        Уже есть аккаунт?
-                        {{{signInLink}}}
-                    </div>
-                    {{{form}}}
-                </section>
-            </main>
-        </div>
-    `;
+  protected render() {
+    return template;
   }
 }
 

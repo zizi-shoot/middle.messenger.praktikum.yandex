@@ -1,8 +1,12 @@
-import { IndexPage, NotFoundPage, ProfilePage, ServerErrorPage, SignInPage, SignUpPage } from './pages';
-import { router } from './core/Router';
-import { authController } from './controllers/AuthController';
-import { ROUTES } from './utils/const';
-import { store } from './core/Store';
+import './vendor/normalize.css';
+import './config/fonts.css';
+import './config/vars.css';
+import './style.css';
+import { IndexPage, NotFoundPage, ProfilePage, ServerErrorPage, SignInPage, SignUpPage } from '@pages';
+import { router } from '@core/Router';
+import { authController } from '@controllers/AuthController';
+import { ROUTES } from '@utils/const';
+import { store } from '@core/Store';
 
 window.addEventListener('DOMContentLoaded', async () => {
   router

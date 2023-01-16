@@ -1,4 +1,4 @@
-import type { Router } from '../core/Router';
+import type { Router } from '@core/Router';
 
 export type Pathname = string;
 export type Query = string;

@@ -1,5 +1,5 @@
+import { isPlainEqual } from '@utils';
 import { renderDOM } from './DOM';
-import { isPlainEqual } from '../utils';
 import type { Component } from './Component';
 import type { Pathname, Query } from '../types/router';
 import type { PageComponent } from '../types/component';

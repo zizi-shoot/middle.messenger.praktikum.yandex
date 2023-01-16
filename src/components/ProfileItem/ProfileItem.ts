@@ -1,15 +1,14 @@
-import { Component } from '../../core';
-import * as styles from './profile-item.module.css';
-import type { ProfileItemProps } from '../../types';
+import { Component } from '@core';
+import type { ProfileItemProps } from '@typings';
+import styles from './profile-item.module.css';
+import template from './template.hbs';
 
 export class ProfileItem extends Component<ProfileItemProps> {
-  protected render(): string {
-    // language=hbs
-    return `
-        <li class="${styles.container}">
-            <span class="${styles.property}">{{label}}</span>
-            <span class="${styles.value}">{{value}}</span>
-        </li>
-    `;
+  protected init() {
+    this.props.styles = styles;
+  }
+
+  protected render() {
+    return template;
   }
 }

@@ -1,22 +1,28 @@
-import { Component } from '../../../core';
-import { Avatar, Button, Icon, Modal } from '../../base';
+import { Component } from '@core';
+import { removePortal, renderPortal } from '@core/DOM';
+import { withChatController } from '@hocs/withController';
+import { withChats } from '@hocs/withStore';
+import { validateChatUserForm } from '@utils/validation/app/addUserDataValidation';
+import type { PropsWithController } from '@typings/controller';
+import type { ChatController } from '@controllers/ChatController';
+import type { State } from '@typings/store';
+import type { ChatUserData } from '@typings/forms';
+import type { Props } from '@typings/component';
+import template from './template.hbs';
+import styles from './chat-head.module.css';
 import { Form } from '../../Form';
-import * as styles from './chat-head.module.css';
-import { removePortal, renderPortal } from '../../../core/DOM';
-import { withChatController } from '../../../hocs/withController';
-import { withChats } from '../../../hocs/withStore';
-import { validateChatUserForm } from '../../../utils/validation/app/addUserDataValidation';
-import type { PropsWithController } from '../../../types/controller';
-import type { ChatController } from '../../../controllers/ChatController';
-import type { State } from '../../../types/store';
-import type { ChatUserData } from '../../../types/forms';
+import { Avatar, Button, Icon, Modal } from '../../base';
 
-interface ChatHeadBaseProps extends PropsWithController<ChatController>, Pick<State, 'chats'> {
+interface ChatHeadBaseProps extends PropsWithController<ChatController>, Pick<State, 'chats'>, Props {
   title?: ChatTitle,
   avatar?: AvatarType,
 }
 
 export class ChatHeadBase extends Component<ChatHeadBaseProps> {
+  protected init() {
+    this.props.styles = styles;
+  }
+
   protected componentDidUpdate() {
     const { chats } = this.props;
 
@@ -104,20 +110,8 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
     }
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <div class="${styles.container}">
-            <div class="${styles.user}">
-                {{{avatar}}}
-                <span>{{title}}</span>
-            </div>
-            <div class="${styles.controls}">
-                {{{addUserButton}}}
-                {{{removeUserButton}}}
-            </div>
-        </div>
-    `;
+  protected render() {
+    return template;
   }
 }
 

@@ -1,13 +1,14 @@
 import classNames from 'classnames';
-import { Component } from '../../../core';
+import { Component } from '@core';
+import { MessagesController } from '@controllers/MessagesController';
+import { getFormData } from '@utils';
+import { withMessageController } from '@hocs/withController';
+import { PropsWithController } from '@typings/controller';
+import type { MessageData } from '@typings/forms';
+import type { Props } from '@typings/component';
+import styles from './message-form.module.css';
+import template from './template.hbs';
 import { Button, Icon, Input } from '../../base';
-import * as styles from './message-form.module.css';
-import { getFormData } from '../../../utils';
-import type { MessageData } from '../../../types/forms';
-import { withMessageController } from '../../../hocs/withController';
-import { PropsWithController } from '../../../types/controller';
-import { MessagesController } from '../../../controllers/MessagesController';
-import type { Props } from '../../../types/component';
 
 interface MessageFormBaseProps extends PropsWithController<MessagesController>, Props {
   class?: string,
@@ -30,6 +31,9 @@ export class MessageFormBase extends Component<MessageFormBaseProps> {
       text: '',
       icon: new Icon({ type: 'sent' }),
     });
+
+    this.props.classList = classNames(styles.container, this.props.class);
+    this.props.styles = styles;
   }
 
   protected async handleSubmit(event: SubmitEvent) {
@@ -52,20 +56,8 @@ export class MessageFormBase extends Component<MessageFormBaseProps> {
     }
   }
 
-  protected render(): string {
-    const clasList = classNames(styles.container, this.props.class);
-
-    // language=hbs
-    return `
-        <form class="${clasList}">
-            <label class="${styles.label}" for="message">Введите сообщение</label>
-            {{{input}}}
-            <button class="${styles.attachBtn}" type="button">
-                {{{attachIcon}}}
-            </button>
-            {{{sentButton}}}
-        </form>
-    `;
+  protected render() {
+    return template;
   }
 }
 

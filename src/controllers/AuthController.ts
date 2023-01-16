@@ -1,8 +1,8 @@
-import { AuthAPI } from '../api';
-import { ROUTES } from '../utils/const';
-import type { Store } from '../core/Store';
+import { AuthAPI } from '@api';
+import { ROUTES } from '@utils/const';
+import type { Store } from '@core/Store';
+import type { Router } from '@core/Router';
 import { store as _store } from '../core/Store';
-import type { Router } from '../core/Router';
 // eslint-disable-next-line import/no-cycle
 import { router as _router } from '../core/Router';
 import { messagesController } from './MessagesController';

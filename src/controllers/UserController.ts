@@ -1,9 +1,9 @@
-import { UserAPI } from '../api';
-import type { Store } from '../core/Store';
+import { UserAPI } from '@api';
+import type { Store } from '@core/Store';
+import type { Router } from '@core/Router';
+import { ROUTES } from '@utils/const';
 import { store as _store } from '../core/Store';
-import type { Router } from '../core/Router';
 import { router as _router } from '../core/Router';
-import { ROUTES } from '../utils/const';
 import type { ProfileData, ProfilePasswordData } from '../types/forms';
 import type { User } from '../types';
 

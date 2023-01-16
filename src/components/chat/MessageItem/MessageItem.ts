@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import { Component } from '../../../core';
-import * as styles from './message-item.module.css';
-import type { Props } from '../../../types/component';
-import type { Message } from '../../../types/messages';
-import type { User } from '../../../types';
+import { Component } from '@core';
+import type { Props } from '@typings/component';
+import type { Message } from '@typings/messages';
+import type { User } from '@typings';
 import { Avatar } from '../../base';
+import styles from './message-item.module.css';
+import template from './template.hbs';
 
 export interface MessageItemProps extends Props {
   message: Message,
@@ -25,44 +26,32 @@ export class MessageItem extends Component<MessageItemProps> {
         altText: `Аватар пользователя ${display_name}`,
       });
     }
-  }
 
-  protected render(): string {
     const {
       class: className,
       message,
       isMine,
     } = this.props;
 
-    const itemClassList = classNames(
+    this.props.itemClassList = classNames(
       styles.item,
       isMine && styles.itemMe,
       className,
     );
 
-    const messageClassList = classNames(
+    this.props.messageClassList = classNames(
       styles.message,
       isMine && styles.messageMe,
     );
 
     const date = new Date(message.time);
-    const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 
-    // language=hbs
-    return `
-        <li class="${itemClassList}">
-            {{{avatar}}}
-            <div class="${messageClassList}">
-                <p class="${styles.text}">
-                    {{#if isMine}}
-                    {{else}}
-                        <b>{{user.first_name}}: </b>
-                    {{/if}}
-                    {{message.content}}
-                </p>
-                <span class="${styles.time}">${time}</span>
-            </div>
-        </li>
-    `;
+    this.props.time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+
+    this.props.styles = styles;
+  }
+
+  protected render() {
+    return template;
   }
 }

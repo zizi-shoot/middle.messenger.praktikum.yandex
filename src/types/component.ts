@@ -1,4 +1,4 @@
-import type { Component } from '../core';
+import type { Component } from '@core';
 
 export type Element = HTMLElement | SVGElement;
 export type Children = Record<string, Component | Component[]>;

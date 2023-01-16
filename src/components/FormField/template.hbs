@@ -1,0 +1,9 @@
+<div class="{{containerClassList}}">
+  <label for="input-{{name}}" class="{{styles.label}}">{{label}}</label>
+  <div class="{{wrapperClassList}}">
+    {{{input}}}
+    {{#if hasError}}
+      <span class="{{styles.helperText}}">{{helperText}}</span>
+    {{/if}}
+  </div>
+</div>

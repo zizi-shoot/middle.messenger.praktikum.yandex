@@ -1,7 +1,7 @@
+import { ROUTES } from '@utils/const';
 import { Route } from './Route';
 import { Pathname } from '../types/router';
 import { PageComponent } from '../types/component';
-import { ROUTES } from '../utils/const';
 import { store } from './Store';
 
 export class Router {

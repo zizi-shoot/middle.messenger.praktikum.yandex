@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import { Component } from '../../../core';
-import * as styles from './message-list.module.css';
-import type { Props } from '../../../types/component';
-import { State } from '../../../types/store';
-import { withStore } from '../../../hocs/withStore';
+import { Component } from '@core';
+import { withStore } from '@hocs/withStore';
+import type { State } from '@typings/store';
+import type { Props } from '@typings/component';
 import { MessageItem } from '../MessageItem';
+import styles from './message-list.module.css';
+import template from './template.hbs';
 
 type MessagesData = State['messages']['data'];
 type SelectedChatUsers = State['chats']['selectedChatUsers'];
@@ -19,6 +20,11 @@ interface MessageListBaseProps extends Props {
 }
 
 export class MessageListBase extends Component<MessageListBaseProps> {
+  protected init() {
+    this.props.classList = classNames(styles.container, this.props.class);
+    this.props.styles = styles;
+  }
+
   protected componentDidUpdate() {
     const {
       chatId,
@@ -42,19 +48,8 @@ export class MessageListBase extends Component<MessageListBaseProps> {
     }
   }
 
-  protected render(): string {
-    const classList = classNames(styles.container, this.props.class);
-
-    // language=hbs
-    return `
-        <ul class="${classList}">
-            {{#if hasMessages}}
-                {{{messages}}}
-            {{else}}
-                <span class="${styles.emptyMessage}">Нет сообщений</span>
-            {{/if}}
-        </ul>
-    `;
+  protected render() {
+    return template;
   }
 }
 

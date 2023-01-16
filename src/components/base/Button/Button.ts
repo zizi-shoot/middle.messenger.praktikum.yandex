@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import { Component } from '../../../core';
-import * as styles from './Button.module.css';
-import type { Props } from '../../../types/component';
+import { Component } from '@core';
+import type { Props } from '@typings/component';
+import styles from './Button.module.css';
+import template from './template.hbs';
 
 interface ButtonProps extends Props {
   text: string,
@@ -12,25 +13,25 @@ interface ButtonProps extends Props {
 }
 
 export class Button extends Component<ButtonProps> {
-  protected render(): string {
+  protected init() {
     const {
       class: className,
       mode,
       type,
       fullWidth,
     } = this.props;
-    const classList = classNames(
+
+    this.props.classList = classNames(
       styles.button,
       mode === 'alt' && styles.buttonAlt,
       fullWidth && styles.buttonFullWidth,
       className,
     );
-    // language=hbs
-    return `
-        <button type="${type || 'button'}" class="${classList}">
-            {{{icon}}}
-            {{text}}
-        </button>
-    `;
+
+    this.props.type = type ?? 'button';
+  }
+
+  protected render() {
+    return template;
   }
 }

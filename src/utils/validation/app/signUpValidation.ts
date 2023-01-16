@@ -1,3 +1,4 @@
+import type { SignUpData } from '@typings/forms';
 import {
   MAX_LOGIN_LENGTH,
   MAX_PASSWORD_LENGTH,
@@ -17,7 +18,6 @@ import {
   validatePhone,
   validateSecondName,
 } from '../helpers/rules';
-import type { SignUpData } from '../../../types/forms';
 
 export type SignUpRules = ValidationRules<SignUpData>;
 export type SignUpErrors = ErrorMessages<SignUpData>;

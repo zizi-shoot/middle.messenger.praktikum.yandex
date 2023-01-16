@@ -5,8 +5,8 @@
   "source": "src/index.html",
   "scripts": {
     "start": "npm run build && node src/server.js",
-    "build": "parcel build",
-    "dev": "parcel -p 3000",
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack serve --config webpack.dev.js",
     "eslint": "eslint \"src/**/*.ts\" --ignore-path .gitignore",
     "stylelint": "stylelint \"src/**/*.css\"",
     "lint": "npm run eslint && npm run stylelint"
@@ -28,25 +28,35 @@
     "nanoid": "4.0.0"
   },
   "devDependencies": {
-    "@parcel/validator-typescript": "2.8.0",
     "@typescript-eslint/eslint-plugin": "5.44.0",
     "@typescript-eslint/parser": "5.44.0",
-    "autoprefixer": "10.4.13",
     "chai": "4.3.7",
+    "copy-webpack-plugin": "11.0.0",
+    "css-loader": "6.7.3",
+    "css-minimizer-webpack-plugin": "4.2.2",
     "cssnano": "5.1.14",
     "eslint": "8.28.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-plugin-import": "2.26.0",
+    "fork-ts-checker-webpack-plugin": "7.3.0",
+    "handlebars-loader": "1.7.3",
+    "html-webpack-plugin": "5.5.0",
+    "mini-css-extract-plugin": "2.7.2",
     "mocha": "10.2.0",
-    "parcel": "2.8.0",
-    "parcel-reporter-clean-dist": "1.0.4",
-    "parcel-reporter-static-files-copy": "1.4.0",
     "postcss": "8.4.19",
+    "postcss-loader": "7.0.2",
     "postcss-nested": "6.0.0",
+    "postcss-preset-env": "7.8.3",
+    "style-loader": "3.3.1",
     "stylelint": "14.15.0",
     "stylelint-config-standard": "29.0.0",
-    "typescript": "4.9.3"
+    "ts-loader": "9.4.2",
+    "typescript": "4.9.3",
+    "webpack": "5.75.0",
+    "webpack-cli": "5.0.1",
+    "webpack-dev-server": "4.11.1",
+    "webpack-merge": "5.8.0"
   },
   "browserslist": {
     "production": [
@@ -59,10 +69,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "@parcel/transformer-css": {
-    "cssModules": {
-      "pattern": "[hash]-[name]__[local]"
-    }
   }
 }

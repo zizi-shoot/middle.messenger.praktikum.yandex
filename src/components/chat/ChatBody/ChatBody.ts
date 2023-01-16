@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import { Component } from '../../../core';
+import { Component } from '@core';
+import { State } from '@typings/store';
+import { withChats, withMessages, withUser } from '@hocs/withStore';
+import type { Props } from '@typings/component';
 import { MessageList } from '../MessageList';
 import { MessageForm } from '../MessageForm';
-import * as styles from './chat-body.module.css';
-import { State } from '../../../types/store';
-import { withChats, withMessages, withUser } from '../../../hocs/withStore';
-import type { Props } from '../../../types/component';
+import styles from './chat-body.module.css';
+import template from './template.hbs';
 
 interface ChatBodyBaseProps extends State, Props {
   class?: string,
@@ -14,7 +15,12 @@ interface ChatBodyBaseProps extends State, Props {
 
 export class ChatBodyBase extends Component<ChatBodyBaseProps> {
   protected init() {
-    const { user, chats } = this.props;
+    const {
+      user,
+      chats,
+      class: className,
+      hasMessages,
+    } = this.props;
 
     this.children.messageForm = new MessageForm();
     this.children.messageList = new MessageList({
@@ -22,41 +28,39 @@ export class ChatBodyBase extends Component<ChatBodyBaseProps> {
       chatId: chats.selectedChatId,
       userId: user.data.id,
     });
-  }
 
-  protected componentDidUpdate() {
-    const { selectedChatId } = this.props.chats;
-
-    (this.children.messageList as Component).setProps({ chatId: selectedChatId });
-    (this.children.messageForm as Component).setProps({ chatId: selectedChatId });
-  }
-
-  protected render(): string {
-    const {
-      class: className,
-      chats,
-      hasMessages,
-    } = this.props;
-
-    const classList = classNames(
+    this.props.classList = classNames(
       styles.container,
       className,
       !chats.selectedChatId && styles.containerEmpty,
       !hasMessages && styles.containerEmptyMessages,
     );
 
-    // language=hbs
-    return `
-        <div class="${classList}">
-            {{#if chats.selectedChatId}}
-                {{{messageList}}}
-                <div class="${styles.divider}"></div>
-                {{{messageForm}}}
-            {{else}}
-                <span class="${styles.emptyMessage}">Выберите чат</span>
-            {{/if}}
-        </div>
-    `;
+    this.props.styles = styles;
+  }
+
+  protected componentDidUpdate() {
+    const { selectedChatId } = this.props.chats;
+
+    const {
+      chats,
+      class: className,
+      hasMessages,
+    } = this.props;
+
+    this.props.classList = classNames(
+      styles.container,
+      className,
+      !chats.selectedChatId && styles.containerEmpty,
+      !hasMessages && styles.containerEmptyMessages,
+    );
+
+    (this.children.messageList as Component).setProps({ chatId: selectedChatId });
+    (this.children.messageForm as Component).setProps({ chatId: selectedChatId });
+  }
+
+  protected render() {
+    return template;
   }
 }
 

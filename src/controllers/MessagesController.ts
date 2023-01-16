@@ -1,4 +1,4 @@
-import { WSTransport } from '../core/WSTransport';
+import { WSTransport } from '@core/WSTransport';
 import { Store, store as _store } from '../core/Store';
 // eslint-disable-next-line import/no-cycle
 import { chatController } from './ChatController';

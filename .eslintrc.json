@@ -8,7 +8,6 @@
     "airbnb-base",
     "airbnb-typescript/base"
   ],
-  "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",

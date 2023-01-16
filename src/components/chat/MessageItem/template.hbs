@@ -1,0 +1,13 @@
+<li class="{{itemClassList}}">
+  {{{avatar}}}
+  <div class="{{messageClassList}}">
+    <p class="{{styles.text}}">
+      {{#if isMine}}
+      {{else}}
+        <b>{{user.first_name}}: </b>
+      {{/if}}
+      {{message.content}}
+    </p>
+    <span class="{{styles.time}}">{{time}}</span>
+  </div>
+</li>

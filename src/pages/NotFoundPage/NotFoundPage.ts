@@ -1,24 +1,15 @@
-import { Component } from '../../core';
-import { Link } from '../../components/base';
-import * as styles from '../errors.module.css';
+import { Component } from '@core';
+import { Link } from '@components/base';
+import styles from '../errors.module.css';
+import template from './template.hbs';
 
 export class NotFoundPage extends Component {
-  constructor() {
-    const returnLink = new Link({ to: '/', label: 'Вернуться на главную', class: styles.returnLink });
-
-    super({ returnLink });
+  protected init() {
+    this.children.returnLink = new Link({ to: '/', label: 'Вернуться на главную', classList: styles.returnLink });
+    this.props.styles = styles;
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <div class="page-container">
-            <main class="${styles.container}">
-                <h1 class="${styles.title}">404</h1>
-                <p class="${styles.descr}">Сожалеем, но такой страницы не существует</p>
-                {{{returnLink}}}
-            </main>
-        </div>
-    `;
+  protected render() {
+    return template;
   }
 }

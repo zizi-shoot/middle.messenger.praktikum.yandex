@@ -1,13 +1,27 @@
-import { Component } from '../../../core';
-import { template } from './Icon.template';
-import type { Props } from '../../../types/component';
+import { Component } from '@core';
+import type { Props } from '@typings/component';
+import addIcon from './templates/add.hbs';
+import addChatIcon from './templates/addChat.hbs';
+import attachIcon from './templates/attach.hbs';
+import removeIcon from './templates/remove.hbs';
+import sentIcon from './templates/sent.hbs';
+import searchIcon from './templates/search.hbs';
+
+const templates = {
+  add: addIcon,
+  addChat: addChatIcon,
+  attach: attachIcon,
+  remove: removeIcon,
+  sent: sentIcon,
+  search: searchIcon,
+};
 
 interface IconProps extends Props {
-  type: keyof typeof template,
+  type: keyof typeof templates,
 }
 
 export class Icon extends Component<IconProps> {
-  protected render(): string {
-    return template[this.props.type];
+  protected render() {
+    return templates[this.props.type];
   }
 }

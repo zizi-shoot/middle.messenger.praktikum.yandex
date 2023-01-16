@@ -1,13 +1,14 @@
-import { Component } from '../../../core';
-import { PropsWithRouter } from '../../../types/router';
-import { withRouter } from '../../../hocs';
-import type { Children } from '../../../types/component';
+import { Component } from '@core';
+import { PropsWithRouter } from '@typings/router';
+import { withRouter } from '@hocs';
+import type { Children, Props } from '@typings/component';
+import template from './template.hbs';
 
-interface LinkProps extends PropsWithRouter {
+interface LinkProps extends PropsWithRouter, Props {
   to: string,
   label: string,
   children?: Children,
-  class?: string,
+  classList?: string,
   onClick?: (event: MouseEvent) => void,
   extraClickHandler?: () => void,
 }
@@ -27,14 +28,8 @@ class BaseLink extends Component<LinkProps> {
     this.props.router.go(this.props.to);
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <a href="#" class="link ${this.props.class}">
-            {{label}}
-            {{{children}}}
-        </a>
-    `;
+  protected render() {
+    return template;
   }
 }
 

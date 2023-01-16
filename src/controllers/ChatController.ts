@@ -1,5 +1,5 @@
-import { ChatAPI } from '../api';
-import type { Store } from '../core/Store';
+import { ChatAPI } from '@api';
+import type { Store } from '@core/Store';
 import { store as _store } from '../core/Store';
 // eslint-disable-next-line import/no-cycle
 import { messagesController } from './MessagesController';

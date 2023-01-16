@@ -1,0 +1,15 @@
+<li class="{{styles.container}}">
+  {{{avatar}}}
+  <div class="{{styles.messageWrapper}}">
+    <span class="{{styles.chatTitle}}">{{title}}</span>
+    <p class="{{styles.message}}">{{last_message.content}}</p>
+  </div>
+  {{#if last_message}}
+    <div class="{{styles.meta}}">
+      <span class="{{styles.time}}">{{time}}</span>
+      {{#if unread_counter}}
+        <span class="{{styles.counter}}">{{unread_counter}}</span>
+      {{/if}}
+    </div>
+  {{/if}}
+</li>

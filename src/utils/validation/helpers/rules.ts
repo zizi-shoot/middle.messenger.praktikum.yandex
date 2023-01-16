@@ -1,4 +1,3 @@
-import { all, ValidationRule } from '../services/validation';
 import type {
   ChatUserData,
   AvatarData,
@@ -7,7 +6,8 @@ import type {
   ProfilePasswordData,
   SignInData,
   SignUpData,
-} from '../../../types/forms';
+} from '@typings/forms';
+import { all, ValidationRule } from '../services/validation';
 import { contains, inRange, notEmpty, notEmptyFile } from './utils';
 import {
   EMAIL_PATTERN,
