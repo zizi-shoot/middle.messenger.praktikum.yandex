@@ -12,7 +12,9 @@
     "dev": "webpack serve --config webpack.dev.js",
     "lint:script": "eslint \"src/**/*.ts\" --ignore-path .gitignore",
     "lint:style": "stylelint \"src/**/*.css\"",
-    "lint-all": "npm-run-all --parallel lint:style lint:script"
+    "lint:all": "npm-run-all --parallel lint:style lint:script",
+    "prepare": "husky install",
+    "pre-commit": "npm run lint:all"
   },
   "repository": {
     "type": "git",
@@ -60,7 +62,8 @@
     "webpack": "5.75.0",
     "webpack-cli": "5.0.1",
     "webpack-dev-server": "4.11.1",
-    "webpack-merge": "5.8.0"
+    "webpack-merge": "5.8.0",
+    "husky": "^8.0.0"
   },
   "browserslist": {
     "production": [
