@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import { Component } from '@core';
-import type { Props } from '@typings/component';
+import { Component } from '../../../core';
 import styles from './input.module.css';
 import template from './template.hbs';
+import type { Props } from '../../../types/component';
 
 export interface InputProps extends Props {
   type?: 'text' | 'tel' | 'email' | 'password' | 'file',

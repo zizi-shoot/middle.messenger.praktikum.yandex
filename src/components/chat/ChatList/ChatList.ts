@@ -1,15 +1,15 @@
 import classNames from 'classnames';
-import { Component } from '@core';
-import { withChatController } from '@hocs/withController';
-import { withStore } from '@hocs/withStore';
-import type { PropsWithController } from '@typings/controller';
-import type { State } from '@typings/store';
-import type { ChatController } from '@controllers/ChatController';
-import type { ChatInfo } from '@typings/chats';
-import type { Props } from '@typings/component';
+import { Component } from '../../../core';
+import { withChatController } from '../../../hocs/withController';
+import { withStore } from '../../../hocs/withStore';
 import template from './template.hbs';
 import styles from './chat-list.module.css';
 import { ChatItem } from '../ChatItem';
+import type { State } from '../../../types/store';
+import type { PropsWithController } from '../../../types/controller';
+import type { ChatController } from '../../../controllers/ChatController';
+import type { Props } from '../../../types/component';
+import type { ChatInfo } from '../../../types/chats';
 
 type ChatsData = State['chats']['data'];
 

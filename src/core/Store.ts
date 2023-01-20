@@ -1,4 +1,4 @@
-import { set } from '@utils';
+import { set } from 'src/utils';
 import { EventBus } from './EventBus';
 import type { State } from '../types/store';
 

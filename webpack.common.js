@@ -13,19 +13,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.ts'],
-    alias: {
-      '@components': path.resolve(__dirname, 'src', 'components'),
-      '@api': path.resolve(__dirname, 'src', 'api'),
-      '@config': path.resolve(__dirname, 'src', 'config'),
-      '@controllers': path.resolve(__dirname, 'src', 'controllers'),
-      '@core': path.resolve(__dirname, 'src', 'core'),
-      '@data': path.resolve(__dirname, 'src', 'data'),
-      '@hocs': path.resolve(__dirname, 'src', 'hocs'),
-      '@pages': path.resolve(__dirname, 'src', 'pages'),
-      '@typings': path.resolve(__dirname, 'src', 'types'),
-      '@utils': path.resolve(__dirname, 'src', 'utils'),
-      '@vendor': path.resolve(__dirname, 'src', 'vendor'),
-    },
   },
   module: {
     rules: [

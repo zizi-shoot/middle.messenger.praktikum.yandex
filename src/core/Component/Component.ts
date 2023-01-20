@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
-import { TemplateDelegate } from 'handlebars';
-import { isEqual, isObject } from '@utils';
-import { EventBus } from './EventBus';
-import type { Children, Element, Props, PropsAndChildren } from '../types/component';
-import type { EventCallback } from '../types';
+import type { TemplateDelegate } from 'handlebars';
+import { isEqual, isObject } from '../../utils';
+import { EventBus } from '../EventBus';
+import type { EventCallback } from '../../types';
+import type { Children, Props, PropsAndChildren } from '../../types/component';
 
 export class Component<P extends Props = any> {
   public static EVENT = {
@@ -88,7 +88,6 @@ export class Component<P extends Props = any> {
     this.removeEvents();
 
     const newElement = fragment.firstElementChild as HTMLElement;
-
     if (this.element && newElement) {
       this.element.replaceWith(newElement);
     }

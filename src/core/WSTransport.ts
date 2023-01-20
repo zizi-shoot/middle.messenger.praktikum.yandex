@@ -1,5 +1,5 @@
-import { PING_INTERVAL } from '@utils/const';
 import { EventBus } from './EventBus';
+import { PING_INTERVAL } from '../utils/const';
 
 export class WSTransport extends EventBus {
   static EVENT = {

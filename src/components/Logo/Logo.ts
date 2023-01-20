@@ -1,4 +1,4 @@
-import { Component } from '@core';
+import { Component } from '../../core';
 import styles from './logo.module.css';
 import template from './template.hbs';
 

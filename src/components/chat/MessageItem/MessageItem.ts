@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import { Component } from '@core';
-import type { Props } from '@typings/component';
-import type { Message } from '@typings/messages';
-import type { User } from '@typings';
+import { Component } from '../../../core';
 import { Avatar } from '../../base';
 import styles from './message-item.module.css';
 import template from './template.hbs';
+import type { Props } from '../../../types/component';
+import type { Message } from '../../../types/messages';
+import type { User } from '../../../types';
 
 export interface MessageItemProps extends Props {
   message: Message,

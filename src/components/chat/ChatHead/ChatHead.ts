@@ -1,17 +1,17 @@
-import { Component } from '@core';
-import { removePortal, renderPortal } from '@core/DOM';
-import { withChatController } from '@hocs/withController';
-import { withChats } from '@hocs/withStore';
-import { validateChatUserForm } from '@utils/validation/app/addUserDataValidation';
-import type { PropsWithController } from '@typings/controller';
-import type { ChatController } from '@controllers/ChatController';
-import type { State } from '@typings/store';
-import type { ChatUserData } from '@typings/forms';
-import type { Props } from '@typings/component';
-import template from './template.hbs';
-import styles from './chat-head.module.css';
 import { Form } from '../../Form';
 import { Avatar, Button, Icon, Modal } from '../../base';
+import { Component } from '../../../core';
+import { validateChatUserForm } from '../../../utils/validation/app/addUserDataValidation';
+import { withChats } from '../../../hocs/withStore';
+import { withChatController } from '../../../hocs/withController';
+import { removePortal, renderPortal } from '../../../core/DOM';
+import styles from './chat-head.module.css';
+import template from './template.hbs';
+import type { PropsWithController } from '../../../types/controller';
+import type { ChatController } from '../../../controllers/ChatController';
+import type { State } from '../../../types/store';
+import type { Props } from '../../../types/component';
+import type { ChatUserData } from '../../../types/forms';
 
 interface ChatHeadBaseProps extends PropsWithController<ChatController>, Pick<State, 'chats'>, Props {
   title?: ChatTitle,

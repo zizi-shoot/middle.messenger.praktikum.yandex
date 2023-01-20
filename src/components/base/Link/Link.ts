@@ -1,8 +1,8 @@
-import { Component } from '@core';
-import { PropsWithRouter } from '@typings/router';
-import { withRouter } from '@hocs';
-import type { Children, Props } from '@typings/component';
+import { withRouter } from '../../../hocs';
+import { Component } from '../../../core';
 import template from './template.hbs';
+import type { PropsWithRouter } from '../../../types/router';
+import type { Children, Props } from '../../../types/component';
 
 interface LinkProps extends PropsWithRouter, Props {
   to: string,

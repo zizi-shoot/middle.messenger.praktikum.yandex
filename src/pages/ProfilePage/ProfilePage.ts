@@ -1,20 +1,20 @@
-import { Component } from '@core';
-import { UserController } from '@controllers/UserController';
-import { Avatar, Button, Modal } from '@components/base';
-import { Form, PageHeader, ProfileDataList } from '@components';
-import { validateProfileDataForm, validateProfilePasswordForm } from '@utils/validation/app/profileDataValidation';
-import { validateAvatarForm } from '@utils/validation/app/avatarDataValidation';
-import { withUser } from '@hocs/withStore';
-import { withUserController } from '@hocs/withController';
-import { profileItemList } from '@data/profileItemList';
-import { removePortal, renderPortal } from '@core/DOM';
-import type { User } from '@typings';
-import type { AvatarData, ProfileData, ProfilePasswordData } from '@typings/forms';
-import type { PropsWithController } from '@typings/controller';
-import type { State } from '@typings/store';
-import type { Props } from '@typings/component';
+import { UserController } from '../../controllers/UserController';
+import { Component } from '../../core';
+import { Avatar, Button, Modal } from '../../components/base';
+import { Form, PageHeader, ProfileDataList } from '../../components';
+import { validateAvatarForm } from '../../utils/validation/app/avatarDataValidation';
+import { removePortal, renderPortal } from '../../core/DOM';
+import { validateProfileDataForm, validateProfilePasswordForm } from '../../utils/validation/app/profileDataValidation';
+import { profileItemList } from '../../data/profileItemList';
+import { withUser } from '../../hocs/withStore';
+import { withUserController } from '../../hocs/withController';
 import template from './template.hbs';
 import styles from './profile-page.module.css';
+import type { PropsWithController } from '../../types/controller';
+import type { State } from '../../types/store';
+import type { Props } from '../../types/component';
+import type { AvatarData, ProfileData, ProfilePasswordData } from '../../types/forms';
+import type { User } from '../../types';
 
 interface ProfilePageBaseProps extends PropsWithController<UserController>, Pick<State, 'user'>, Props {
   username: string,

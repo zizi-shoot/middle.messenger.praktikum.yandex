@@ -1,9 +1,9 @@
-import { Component } from '@core';
-import type { ChatInfo } from '@typings/chats';
-import type { Props } from '@typings/component';
+import { Component } from '../../../core';
 import { Avatar } from '../../base';
 import styles from './chat-item.module.css';
 import template from './template.hbs';
+import type { Props } from '../../../types/component';
+import type { ChatInfo } from '../../../types/chats';
 
 interface ChatItemProps extends Props, ChatInfo {
 }

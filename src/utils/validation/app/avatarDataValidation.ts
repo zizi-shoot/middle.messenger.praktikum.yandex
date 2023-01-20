@@ -1,7 +1,7 @@
-import type { AvatarData } from '@typings/forms';
 import type { ErrorMessages, ValidationRules } from '../services/validation';
 import { createValidator } from '../services/validation';
 import { validateAvatar } from '../helpers/rules';
+import type { AvatarData } from '../../../types/forms';
 
 export type AvatarRules = ValidationRules<AvatarData>;
 export type AvatarErrors = ErrorMessages<AvatarData>;

@@ -1,5 +1,5 @@
-import { Component } from '@core';
-import { Link } from '@components/base';
+import { Component } from '../../core';
+import { Link } from '../../components/base';
 import styles from '../errors.module.css';
 import template from './template.hbs';
 

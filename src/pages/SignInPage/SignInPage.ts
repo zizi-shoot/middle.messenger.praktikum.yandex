@@ -1,16 +1,16 @@
-import { Component } from '@core';
-import { AuthController } from '@controllers/AuthController';
-import { Form } from '@components';
-import { validateSignInForm } from '@utils/validation/app/signInValidation';
-import { Link } from '@components/base';
-import { withAuthController } from '@hocs/withController';
-import { withUser } from '@hocs/withStore';
-import type { SignInData } from '@typings/forms';
-import type { PropsWithController } from '@typings/controller';
-import type { State } from '@typings/store';
-import type { Props } from '@typings/component';
+import { AuthController } from '../../controllers/AuthController';
+import { Component } from '../../core';
+import { Form } from '../../components';
+import { validateSignInForm } from '../../utils/validation/app/signInValidation';
+import { Link } from '../../components/base';
+import { withUser } from '../../hocs/withStore';
+import { withAuthController } from '../../hocs/withController';
 import template from './template.hbs';
 import styles from '../entry.module.css';
+import type { PropsWithController } from '../../types/controller';
+import type { State } from '../../types/store';
+import type { Props } from '../../types/component';
+import type { SignInData } from '../../types/forms';
 
 interface SignInPageBaseProps extends PropsWithController<AuthController>, Pick<State, 'user'>, Props {
 }

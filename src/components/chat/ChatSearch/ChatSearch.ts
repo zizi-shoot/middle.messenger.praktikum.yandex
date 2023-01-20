@@ -1,17 +1,17 @@
-import { Component } from '@core';
-import { ChatController } from '@controllers/ChatController';
-import { withChatController } from '@hocs/withController';
-import { validateNewChatForm } from '@utils/validation/app/newChatDataValidation';
-import { removePortal, renderPortal } from '@core/DOM';
-import { withStore } from '@hocs/withStore';
-import type { PropsWithController } from '@typings/controller';
-import type { State } from '@typings/store';
-import type { NewChatData } from '@typings/forms';
-import type { Props } from '@typings/component';
-import template from './template.hbs';
-import styles from './chat-search.module.css';
+import { Component } from '../../../core';
 import { Form } from '../../Form';
 import { Button, Icon, Modal } from '../../base';
+import { validateNewChatForm } from '../../../utils/validation/app/newChatDataValidation';
+import { withChatController } from '../../../hocs/withController';
+import { withStore } from '../../../hocs/withStore';
+import { removePortal, renderPortal } from '../../../core/DOM';
+import template from './template.hbs';
+import styles from './chat-search.module.css';
+import type { State } from '../../../types/store';
+import type { PropsWithController } from '../../../types/controller';
+import type { ChatController } from '../../../controllers/ChatController';
+import type { Props } from '../../../types/component';
+import type { NewChatData } from '../../../types/forms';
 
 type ChatsError = State['chats']['error'];
 

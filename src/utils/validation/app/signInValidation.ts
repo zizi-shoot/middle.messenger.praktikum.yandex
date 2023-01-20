@@ -1,8 +1,8 @@
-import type { SignInData } from '@typings/forms';
 import { MAX_LOGIN_LENGTH, MAX_PASSWORD_LENGTH, MIN_LOGIN_LENGTH, MIN_PASSWORD_LENGTH } from '../helpers/const';
 import { createValidator } from '../services/validation';
 import { validateLogin, validatePassword } from '../helpers/rules';
 import type { ErrorMessages, ValidationRules } from '../services/validation';
+import type { SignInData } from '../../../types/forms';
 
 export type SignInRules = ValidationRules<SignInData>;
 export type SignInErrors = ErrorMessages<SignInData>;

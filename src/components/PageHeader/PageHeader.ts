@@ -1,4 +1,4 @@
-import { Component } from '@core';
+import { Component } from '../../core';
 import { Link } from '../base';
 import { Logo } from '../Logo';
 import styles from './page-header.module.css';

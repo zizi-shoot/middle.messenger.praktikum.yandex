@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import { Component } from '@core';
-import { withStore } from '@hocs/withStore';
-import type { State } from '@typings/store';
-import type { Props } from '@typings/component';
+import { Component } from '../../../core';
+import { withStore } from '../../../hocs/withStore';
 import { MessageItem } from '../MessageItem';
 import styles from './message-list.module.css';
 import template from './template.hbs';
+import type { State } from '../../../types/store';
+import type { Props } from '../../../types/component';
 
 type MessagesData = State['messages']['data'];
 type SelectedChatUsers = State['chats']['selectedChatUsers'];

@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import { Component } from '@core';
-import { State } from '@typings/store';
-import { withChats, withMessages, withUser } from '@hocs/withStore';
-import type { Props } from '@typings/component';
+import { Component } from '../../../core';
 import { MessageList } from '../MessageList';
 import { MessageForm } from '../MessageForm';
+import { withChats, withMessages, withUser } from '../../../hocs/withStore';
 import styles from './chat-body.module.css';
 import template from './template.hbs';
+import type { State } from '../../../types/store';
+import type { Props } from '../../../types/component';
 
 interface ChatBodyBaseProps extends State, Props {
   class?: string,

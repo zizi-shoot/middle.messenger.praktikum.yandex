@@ -1,14 +1,14 @@
 import classNames from 'classnames';
-import { Component } from '@core';
-import { MessagesController } from '@controllers/MessagesController';
-import { getFormData } from '@utils';
-import { withMessageController } from '@hocs/withController';
-import { PropsWithController } from '@typings/controller';
-import type { MessageData } from '@typings/forms';
-import type { Props } from '@typings/component';
+import { Component } from '../../../core';
+import { withMessageController } from '../../../hocs/withController';
+import { getFormData } from '../../../utils';
+import { Button, Icon, Input } from '../../base';
 import styles from './message-form.module.css';
 import template from './template.hbs';
-import { Button, Icon, Input } from '../../base';
+import type { PropsWithController } from '../../../types/controller';
+import type { MessagesController } from '../../../controllers/MessagesController';
+import type { Props } from '../../../types/component';
+import type { MessageData } from '../../../types/forms';
 
 interface MessageFormBaseProps extends PropsWithController<MessagesController>, Props {
   class?: string,

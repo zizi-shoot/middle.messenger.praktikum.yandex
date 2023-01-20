@@ -1,15 +1,15 @@
-import { Component } from '@core';
-import { Form } from '@components';
-import { AuthController } from '@controllers/AuthController';
-import { validateSignUpForm } from '@utils/validation/app/signUpValidation';
-import { Link } from '@components/base';
-import { withUser } from '@hocs/withStore';
-import { withAuthController } from '@hocs/withController';
-import type { SignUpData } from '@typings/forms';
-import type { PropsWithController } from '@typings/controller';
-import type { Props } from '@typings/component';
+import { AuthController } from '../../controllers/AuthController';
+import { Component } from '../../core';
+import { Form } from '../../components';
+import { validateSignUpForm } from '../../utils/validation/app/signUpValidation';
+import { Link } from '../../components/base';
+import { withUser } from '../../hocs/withStore';
+import { withAuthController } from '../../hocs/withController';
 import template from './template.hbs';
 import styles from '../entry.module.css';
+import type { Props } from '../../types/component';
+import type { PropsWithController } from '../../types/controller';
+import type { SignUpData } from '../../types/forms';
 
 interface SignUpPageBaseProps extends PropsWithController<AuthController>, Props {
 }

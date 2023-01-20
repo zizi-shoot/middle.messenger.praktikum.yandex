@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { Component } from '@core';
-import type { FormFieldProps } from '@typings';
+import { Component } from '../../core';
 import { Input } from '../base';
 import styles from './form-field.module.css';
 import template from './template.hbs';
+import type { FormFieldProps } from '../../types';
 
 export class FormField extends Component<FormFieldProps> {
   constructor(props: FormFieldProps) {

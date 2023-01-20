@@ -1,14 +1,14 @@
-import { Component } from '@core';
-import { AuthController } from '@controllers/AuthController';
-import { PropsWithController } from '@typings/controller';
-import { withAuthController } from '@hocs/withController';
-import { withUser } from '@hocs/withStore';
-import type { Props } from '@typings/component';
-import type { ProfileItemProps } from '@typings';
-import styles from './profile-data.module.css';
-import template from './template.hbs';
+import { Component } from '../../core';
 import { Link } from '../base';
 import { ProfileItem } from '../ProfileItem';
+import { AuthController } from '../../controllers/AuthController';
+import { withUser } from '../../hocs/withStore';
+import { withAuthController } from '../../hocs/withController';
+import styles from './profile-data.module.css';
+import template from './template.hbs';
+import type { Props } from '../../types/component';
+import type { PropsWithController } from '../../types/controller';
+import type { ProfileItemProps } from '../../types';
 
 interface ProfileDataProps extends Props, PropsWithController<AuthController> {
   items: ProfileItemProps[],

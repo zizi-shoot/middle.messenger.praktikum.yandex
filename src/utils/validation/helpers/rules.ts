@@ -1,12 +1,3 @@
-import type {
-  ChatUserData,
-  AvatarData,
-  NewChatData,
-  ProfileData,
-  ProfilePasswordData,
-  SignInData,
-  SignUpData,
-} from '@typings/forms';
 import { all, ValidationRule } from '../services/validation';
 import { contains, inRange, notEmpty, notEmptyFile } from './utils';
 import {
@@ -26,6 +17,14 @@ import {
   PASSWORD_PATTERN,
   PHONE_PATTERN,
 } from './const';
+import type {
+  AvatarData,
+  ChatUserData, NewChatData,
+  ProfileData,
+  ProfilePasswordData,
+  SignInData,
+  SignUpData,
+} from '../../../types/forms';
 
 type Rule<FormType> = ValidationRule<FormType>;
 type CommonData = ProfileData | SignUpData;

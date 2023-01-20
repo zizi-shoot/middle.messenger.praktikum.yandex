@@ -1,13 +1,13 @@
 import classNames from 'classnames';
-import { getFormData } from '@utils';
-import { Component } from '@core';
-import { formsData } from '@data/formsData';
-import type { Props } from '@typings/component';
-import type { ValidationResult } from '@utils/validation/services/validation';
+import { Component } from '../../core';
 import { Button } from '../base';
 import { FormField } from '../FormField';
+import { formsData } from '../../data/formsData';
+import { getFormData } from '../../utils';
 import styles from './form.module.css';
 import template from './template.hbs';
+import type { Props } from '../../types/component';
+import type { ValidationResult } from '../../utils/validation/services/validation';
 
 interface FormProps<T> extends Props {
   name: string,

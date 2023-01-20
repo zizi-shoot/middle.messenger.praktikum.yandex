@@ -1,12 +1,12 @@
-import { Component } from '@core';
-import { ChatBody, ChatHead, ChatList, ChatSearch } from '@components/chat';
-import { PageHeader } from '@components';
-import { withChatController } from '@hocs/withController';
-import { PropsWithController } from '@typings/controller';
-import { ChatController } from '@controllers/ChatController';
-import type { Props } from '@typings/component';
+import { Component } from '../../core';
+import { ChatController } from '../../controllers/ChatController';
+import { PageHeader } from '../../components';
+import { withChatController } from '../../hocs/withController';
+import { ChatBody, ChatHead, ChatList, ChatSearch } from '../../components/chat';
 import styles from './index-page.module.css';
 import template from './template.hbs';
+import type { PropsWithController } from '../../types/controller';
+import type { Props } from '../../types/component';
 
 interface IndexPageBaseProps extends PropsWithController<ChatController>, Props {
 }
