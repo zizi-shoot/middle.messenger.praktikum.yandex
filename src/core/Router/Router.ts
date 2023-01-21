@@ -1,8 +1,8 @@
-import { Route } from './Route';
-import { Pathname } from '../types/router';
-import { PageComponent } from '../types/component';
-import { store } from './Store';
-import { ROUTES } from '../utils/const';
+import { Route } from '../Route';
+import { Pathname } from '../../types/router';
+import { PageComponent } from '../../types/component';
+import { store } from '../Store';
+import { ROUTES } from '../../utils/const';
 
 export class Router {
   private static instance: Router;
@@ -95,6 +95,11 @@ export class Router {
 
   public getRoute(pathname: Pathname) {
     return this.routes.find((route) => route.match(pathname));
+  }
+
+  public reset() {
+    this.currentRoute = null;
+    this.routes = [];
   }
 }
 

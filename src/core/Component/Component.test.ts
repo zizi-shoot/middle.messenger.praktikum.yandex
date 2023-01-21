@@ -36,7 +36,7 @@ const getInstance = <P extends Props>(props: P, isMock = false) => {
   return new Instance(props);
 };
 
-describe.only('Component', () => {
+describe('Component', () => {
   const startProps = { text: 'Hello, world!' };
   const newProps = { text: 'Hello, guys!' };
 
