@@ -12,7 +12,7 @@
 
 LetChat — это многопользовательский чат, написанный на чистом JS(TS).
 
-Уже работают:
+Реализованы следующие фичи:
  - авторизация/регистрация пользователей
  - создание чатов
  - добавление/удаление пользователей из чата
@@ -22,17 +22,18 @@ LetChat — это многопользовательский чат, напис
 В разработке используется своя реализация жизненного цикла компонент на чистом JS в связке с паттерном шины событий.
 
 Написаны собственные абстракции над XMLHttpRequest и Websocket для упрощения взаимодействия с API.
-В проекте используются:
 
+В проекте используются:
 - [**Макеты в Figma**](https://www.figma.com/file/fkWCkwhqOUHU1nBjMGgGEP/LetChat?node-id=0%3A1)
 - [**Handlebars**](https://handlebarsjs.com) — шаблонизатор HTML
 - [**Typescript**](https://www.typescriptlang.org) — надстройка на JS для статической типизации
 - [**PostCSS**](https://postcss.org) — обработка CSS
 - [**ESLint**](https://eslint.org) и [**stylelint**](https://stylelint.io) — статический анализ кода
-- [**Parcel**](https://parceljs.org) — сборка проекта
-- Деплоится всё на [**Netlify**](https://www.netlify.com)
+- [**Webpack**](https://https://webpack.js.org) — сборка проекта
+- [**Docker**](https://www.docker.com) - контейнеризация сборки
+- Деплоится всё на [**Yandex.Cloud**](https://cloud.yandex.ru)
 
-**Ссылка на приложение** - https://letchat-messenger.netlify.app
+**Ссылка на приложение** - https://bbae5fg8iobu1609qbne.containers.yandexcloud.net/
 
 ## Установка
 
@@ -63,5 +64,9 @@ LetChat — это многопользовательский чат, напис
 Сборка проекта:
 
 `npm run build`
+
+Запуск тестов:
+
+`npm test`
 
 
