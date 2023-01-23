@@ -4,12 +4,22 @@
   "description": "messenger app",
   "source": "src/index.html",
   "scripts": {
-    "start": "npm run build && node src/server.js",
-    "build": "parcel build",
-    "dev": "parcel -p 3000",
-    "eslint": "eslint \"src/**/*.ts\" --ignore-path .gitignore",
-    "stylelint": "stylelint \"src/**/*.css\"",
-    "lint": "npm run eslint && npm run stylelint"
+    "build:dev": "webpack --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "start:server": "node src/server.js",
+    "start:dev": "npm-run-all build:dev start:server",
+    "start": "npm-run-all build start:server",
+    "dev": "webpack serve --config webpack.dev.js",
+    "lint:script": "eslint --ignore-path .gitignore",
+    "lint:style": "stylelint",
+    "lint:all": "npm-run-all --parallel lint:style lint:script",
+    "test": "mocha",
+    "prepare": "husky install",
+    "pre-push": "npm test"
+  },
+  "lint-staged": {
+    "*.ts": "npm run lint:script",
+    "*.css": "npm run lint:style"
   },
   "repository": {
     "type": "git",
@@ -25,28 +35,49 @@
     "classnames": "2.3.2",
     "express": "4.18.2",
     "handlebars": "4.7.7",
-    "nanoid": "4.0.0"
+    "nanoid": "3.3.4"
   },
   "devDependencies": {
-    "@parcel/validator-typescript": "2.8.0",
-    "@typescript-eslint/eslint-plugin": "5.44.0",
-    "@typescript-eslint/parser": "5.44.0",
-    "autoprefixer": "10.4.13",
+    "@types/chai": "4.3.4",
+    "@types/mocha": "10.0.1",
+    "@types/proxyquire": "1.3.28",
+    "@types/sinon": "10.0.13",
+    "@typescript-eslint/eslint-plugin": "5.48.2",
+    "@typescript-eslint/parser": "5.48.2",
     "chai": "4.3.7",
+    "copy-webpack-plugin": "11.0.0",
+    "css-loader": "6.7.3",
+    "css-minimizer-webpack-plugin": "4.2.2",
     "cssnano": "5.1.14",
-    "eslint": "8.28.0",
+    "eslint": "8.32.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-airbnb-typescript": "17.0.0",
-    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-import": "2.27.5",
+    "fork-ts-checker-webpack-plugin": "7.3.0",
+    "handlebars-loader": "1.7.3",
+    "html-webpack-plugin": "5.5.0",
+    "husky": "8.0.0",
+    "jsdom": "21.0.0",
+    "lint-staged": "13.1.0",
+    "mini-css-extract-plugin": "2.7.2",
     "mocha": "10.2.0",
-    "parcel": "2.8.0",
-    "parcel-reporter-clean-dist": "1.0.4",
-    "parcel-reporter-static-files-copy": "1.4.0",
-    "postcss": "8.4.19",
+    "npm-run-all": "4.1.5",
+    "postcss": "8.4.21",
+    "postcss-loader": "7.0.2",
     "postcss-nested": "6.0.0",
-    "stylelint": "14.15.0",
+    "postcss-preset-env": "7.8.3",
+    "proxyquire": "2.1.3",
+    "sinon": "15.0.1",
+    "style-loader": "3.3.1",
+    "stylelint": "14.16.1",
     "stylelint-config-standard": "29.0.0",
-    "typescript": "4.9.3"
+    "ts-loader": "9.4.2",
+    "ts-node": "10.9.1",
+    "typescript": "4.9.4",
+    "webpack": "5.75.0",
+    "webpack-cli": "5.0.1",
+    "webpack-dev-server": "4.11.1",
+    "webpack-merge": "5.8.0"
   },
   "browserslist": {
     "production": [
@@ -59,10 +90,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "@parcel/transformer-css": {
-    "cssModules": {
-      "pattern": "[hash]-[name]__[local]"
-    }
   }
 }

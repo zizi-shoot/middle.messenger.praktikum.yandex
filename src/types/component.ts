@@ -1,6 +1,5 @@
 import type { Component } from '../core';
 
-export type Element = HTMLElement | SVGElement;
 export type Children = Record<string, Component | Component[]>;
 export type Props = {
   withInternalID?: boolean,

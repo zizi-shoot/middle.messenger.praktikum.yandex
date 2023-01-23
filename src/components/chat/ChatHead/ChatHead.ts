@@ -1,22 +1,28 @@
-import { Component } from '../../../core';
-import { Avatar, Button, Icon, Modal } from '../../base';
 import { Form } from '../../Form';
-import * as styles from './chat-head.module.css';
-import { removePortal, renderPortal } from '../../../core/DOM';
-import { withChatController } from '../../../hocs/withController';
-import { withChats } from '../../../hocs/withStore';
+import { Avatar, Button, Icon, Modal } from '../../base';
+import { Component } from '../../../core';
 import { validateChatUserForm } from '../../../utils/validation/app/addUserDataValidation';
+import { withChats } from '../../../hocs/withStore';
+import { withChatController } from '../../../hocs/withController';
+import { removePortal, renderPortal } from '../../../core/DOM';
+import styles from './chat-head.module.css';
+import template from './template.hbs';
 import type { PropsWithController } from '../../../types/controller';
 import type { ChatController } from '../../../controllers/ChatController';
 import type { State } from '../../../types/store';
+import type { Props } from '../../../types/component';
 import type { ChatUserData } from '../../../types/forms';
 
-interface ChatHeadBaseProps extends PropsWithController<ChatController>, Pick<State, 'chats'> {
+interface ChatHeadBaseProps extends PropsWithController<ChatController>, Pick<State, 'chats'>, Props {
   title?: ChatTitle,
   avatar?: AvatarType,
 }
 
 export class ChatHeadBase extends Component<ChatHeadBaseProps> {
+  protected init() {
+    this.props.styles = styles;
+  }
+
   protected componentDidUpdate() {
     const { chats } = this.props;
 
@@ -104,20 +110,8 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
     }
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <div class="${styles.container}">
-            <div class="${styles.user}">
-                {{{avatar}}}
-                <span>{{title}}</span>
-            </div>
-            <div class="${styles.controls}">
-                {{{addUserButton}}}
-                {{{removeUserButton}}}
-            </div>
-        </div>
-    `;
+  protected render() {
+    return template;
   }
 }
 

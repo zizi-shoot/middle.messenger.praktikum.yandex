@@ -1,5 +1,5 @@
 import { Component } from '../core';
-import { router } from '../core/Router';
+import { router } from '../core/Router/Router';
 import type { PropsWithRouter } from '../types/router';
 import type { Props } from '../types/component';
 

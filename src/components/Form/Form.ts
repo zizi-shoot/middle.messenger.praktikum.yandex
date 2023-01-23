@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import { getFormData } from '../../utils';
 import { Component } from '../../core';
 import { Button } from '../base';
 import { FormField } from '../FormField';
 import { formsData } from '../../data/formsData';
-import * as styles from './form.module.css';
+import { getFormData } from '../../utils';
+import styles from './form.module.css';
+import template from './template.hbs';
 import type { Props } from '../../types/component';
 import type { ValidationResult } from '../../utils/validation/services/validation';
 
@@ -55,6 +56,14 @@ export class Form<T> extends Component<FormProps<T>> {
         onClick: handleCancel,
       });
     }
+
+    this.props.classList = classNames(
+      styles.form,
+      this.props.mode === 'entry' && 'shadow',
+      this.props.mode === 'profile' && styles.fixWidth,
+    );
+
+    this.props.styles = styles;
   }
 
   protected toggleErrors(target: EventTarget, errors: ValidationResult<T>['errors'] = {}) {
@@ -115,23 +124,6 @@ export class Form<T> extends Component<FormProps<T>> {
   }
 
   protected render() {
-    const classList = classNames(
-      styles.form,
-      this.props.mode === 'entry' && 'shadow',
-      this.props.mode === 'profile' && styles.fixWidth,
-    );
-    // language=hbs
-    return `
-        <form class="${classList}" id="{{name}}-form">
-            {{#if title}}
-                <h3>{{title}}</h3>
-            {{/if}}
-            {{{formFields}}}
-            <div class="${styles.buttonContainer}">
-                {{{cancelButton}}}
-                {{{submitButton}}}
-            </div>
-        </form>
-    `;
+    return template;
   }
 }

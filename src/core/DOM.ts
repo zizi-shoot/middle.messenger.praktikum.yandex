@@ -1,4 +1,4 @@
-import type { Component } from './Component';
+import type { Component } from './Component/Component';
 
 export const renderDOM = <T extends Component>(query: string, component: T) => {
   const root = document.querySelector(query);

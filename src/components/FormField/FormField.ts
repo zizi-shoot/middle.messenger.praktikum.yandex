@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import { Component } from '../../core';
 import { Input } from '../base';
-import * as styles from './form-field.module.css';
+import styles from './form-field.module.css';
+import template from './template.hbs';
 import type { FormFieldProps } from '../../types';
 
 export class FormField extends Component<FormFieldProps> {
@@ -14,6 +15,15 @@ export class FormField extends Component<FormFieldProps> {
   }
 
   protected init() {
+    const { direction, hasError, mode } = this.props;
+
+    this.props.containerClassList = classNames(
+      styles.container,
+      direction === 'vertical' && styles.containerVertical,
+      hasError && styles.containerError,
+    );
+    this.props.wrapperClassList = classNames(mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile);
+
     this.children.input = new Input({
       name: this.props.name,
       placeholder: this.props.placeholder || '',
@@ -21,30 +31,11 @@ export class FormField extends Component<FormFieldProps> {
       class: styles.input,
       value: this.props.value,
     });
+
+    this.props.styles = styles;
   }
 
-  protected render(): string {
-    const { direction, hasError, mode } = this.props;
-
-    const containerClassList = classNames(
-      styles.container,
-      direction === 'vertical' && styles.containerVertical,
-      hasError && styles.containerError,
-    );
-
-    const wrapperClassList = classNames(mode === 'entry' ? styles.wrapperEntry : styles.wrapperProfile);
-
-    // language=hbs
-    return `
-        <div class="${containerClassList}">
-            <label for="input-{{name}}" class="${styles.label}">{{label}}</label>
-            <div class="${wrapperClassList}">
-                {{{input}}}
-                {{#if hasError}}
-                    <span class="${styles.helperText}">{{helperText}}</span>
-                {{/if}}
-            </div>
-        </div>
-    `;
+  protected render() {
+    return template;
   }
 }

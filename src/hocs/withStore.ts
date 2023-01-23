@@ -1,5 +1,5 @@
 import { Component } from '../core';
-import { store, Store } from '../core/Store';
+import { Store, store } from '../core/Store';
 import type { Props } from '../types/component';
 
 // eslint-disable-next-line arrow-body-style

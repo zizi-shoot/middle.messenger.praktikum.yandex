@@ -1,11 +1,11 @@
 import { AuthAPI } from '../api';
+import { store as _store } from '../core/Store';
+// eslint-disable-next-line import/no-cycle
+import { router as _router } from '../core/Router/Router';
+import { messagesController } from './MessagesController';
 import { ROUTES } from '../utils/const';
 import type { Store } from '../core/Store';
-import { store as _store } from '../core/Store';
-import type { Router } from '../core/Router';
-// eslint-disable-next-line import/no-cycle
-import { router as _router } from '../core/Router';
-import { messagesController } from './MessagesController';
+import type { Router } from '../core/Router/Router';
 import type { SignInData, SignUpData } from '../types/forms';
 
 export class AuthController {
