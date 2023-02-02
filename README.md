@@ -31,9 +31,9 @@ LetChat — это многопользовательский чат, напис
 - [**ESLint**](https://eslint.org) и [**stylelint**](https://stylelint.io) — статический анализ кода
 - [**Webpack**](https://https://webpack.js.org) — сборка проекта
 - [**Docker**](https://www.docker.com) - контейнеризация сборки
-- Деплоится всё на [**Yandex.Cloud**](https://cloud.yandex.ru)
+- Деплоится всё на [**Netlify**](https://www.netlify.com)
 
-**Ссылка на приложение** - https://bbae5fg8iobu1609qbne.containers.yandexcloud.net/
+**Ссылка на приложение** -  https://letchat-messenger.netlify.app/
 
 ## Установка
 
