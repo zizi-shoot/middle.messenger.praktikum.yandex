@@ -13,7 +13,7 @@ export class WSTransport extends EventBus {
 
   private socket: WebSocket | null = null;
 
-  private pingInterval: number = 0;
+  private pingInterval?: NodeJS.Timer;
 
   constructor(private readonly params: string) {
     super();

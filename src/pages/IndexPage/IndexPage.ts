@@ -1,12 +1,14 @@
 import { Component } from '../../core';
-import { ChatBody, ChatHead, ChatList, ChatSearch } from '../../components/chat';
+import { ChatController } from '../../controllers/ChatController';
 import { PageHeader } from '../../components';
 import { withChatController } from '../../hocs/withController';
-import * as styles from './index-page.module.css';
-import { PropsWithController } from '../../types/controller';
-import { ChatController } from '../../controllers/ChatController';
+import { ChatBody, ChatHead, ChatList, ChatSearch } from '../../components/chat';
+import styles from './index-page.module.css';
+import template from './template.hbs';
+import type { PropsWithController } from '../../types/controller';
+import type { Props } from '../../types/component';
 
-interface IndexPageBaseProps extends PropsWithController<ChatController> {
+interface IndexPageBaseProps extends PropsWithController<ChatController>, Props {
 }
 
 export class IndexPageBase extends Component<IndexPageBaseProps> {
@@ -19,21 +21,11 @@ export class IndexPageBase extends Component<IndexPageBaseProps> {
 
     // eslint-disable-next-line no-alert
     this.props.controller.fetchChats().catch(() => alert('Не удалось получить список чатов!'));
+    this.props.styles = styles;
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <div class="page-container">
-            {{{header}}}
-            <main class="${styles.container}">
-                {{{chatSearch}}}
-                {{{chatHead}}}
-                {{{chatList}}}
-                {{{chatBody}}}
-            </main>
-        </div>
-    `;
+  protected render() {
+    return template;
   }
 }
 

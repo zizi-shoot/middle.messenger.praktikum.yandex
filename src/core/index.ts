@@ -1,3 +1,3 @@
-export { Component } from './Component';
+export { Component } from './Component/Component';
 export { EventBus } from './EventBus';
-export { HTTPTransport } from './HTTPTransport';
+export { HTTPTransport } from './HTTPTransport/HTTPTransport';

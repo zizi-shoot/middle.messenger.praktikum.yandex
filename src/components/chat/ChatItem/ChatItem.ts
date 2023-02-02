@@ -1,44 +1,31 @@
 import { Component } from '../../../core';
 import { Avatar } from '../../base';
-import * as styles from './chat-item.module.css';
-import type { ChatInfo } from '../../../types/chats';
+import styles from './chat-item.module.css';
+import template from './template.hbs';
 import type { Props } from '../../../types/component';
+import type { ChatInfo } from '../../../types/chats';
 
 interface ChatItemProps extends Props, ChatInfo {
 }
 
 export class ChatItem extends Component<ChatItemProps> {
   protected init() {
+    const { avatar, title } = this.props;
+
     this.children.avatar = new Avatar({
       size: 48,
       class: 'chat-item__avatar',
-      src: this.props.avatar,
-      altText: `аватар чата ${this.props.avatar}`,
+      src: avatar,
+      altText: `аватар чата ${title}`,
     });
+
+    const date = new Date(this.props.last_message?.time);
+
+    this.props.time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    this.props.styles = styles;
   }
 
-  protected render(): string {
-    const date = new Date(this.props.last_message?.time);
-    const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-
-    // language=hbs
-    return `
-        <li class="${styles.container}">
-            {{{avatar}}}
-            <div class="${styles.messageWrapper}">
-                <span class="${styles.chatTitle}">{{title}}</span>
-                <p class="${styles.message}">{{last_message.content}}</p>
-            </div>
-            {{#if last_message}}
-                <div class="${styles.meta}">
-                    <span class="${styles.time}">${time}</span>
-                    {{#if unread_counter}}
-                        <span class="${styles.counter}">{{unread_counter}}</span>
-                    {{/if}}
-                </div>
-            {{/if}}
-
-        </li>
-    `;
+  protected render() {
+    return template;
   }
 }

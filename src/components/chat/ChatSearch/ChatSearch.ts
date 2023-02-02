@@ -1,19 +1,21 @@
 import { Component } from '../../../core';
-import { Button, Icon, Modal } from '../../base';
 import { Form } from '../../Form';
-import { ChatController } from '../../../controllers/ChatController';
-import { withChatController } from '../../../hocs/withController';
+import { Button, Icon, Modal } from '../../base';
 import { validateNewChatForm } from '../../../utils/validation/app/newChatDataValidation';
-import type { PropsWithController } from '../../../types/controller';
-import * as styles from './chat-search.module.css';
-import { removePortal, renderPortal } from '../../../core/DOM';
-import type { State } from '../../../types/store';
-import type { NewChatData } from '../../../types/forms';
+import { withChatController } from '../../../hocs/withController';
 import { withStore } from '../../../hocs/withStore';
+import { removePortal, renderPortal } from '../../../core/DOM';
+import template from './template.hbs';
+import styles from './chat-search.module.css';
+import type { State } from '../../../types/store';
+import type { PropsWithController } from '../../../types/controller';
+import type { ChatController } from '../../../controllers/ChatController';
+import type { Props } from '../../../types/component';
+import type { NewChatData } from '../../../types/forms';
 
 type ChatsError = State['chats']['error'];
 
-interface ChatSearchProps extends PropsWithController<ChatController> {
+interface ChatSearchProps extends PropsWithController<ChatController>, Props {
   class?: string,
   chatsError: ChatsError
 }
@@ -39,14 +41,18 @@ export class ChatSearchBase extends Component<ChatSearchProps> {
       icon: new Icon({ type: 'addChat' }),
       onClick: () => renderPortal(new Modal({ content: form })),
     });
+
+    this.props.styles = styles;
   }
 
   protected async createNewChat(data: FormData) {
-    await this.props.controller.create(data);
+    const { controller, chatsError } = this.props;
 
-    if (this.props.chatsError) {
+    await controller.create(data);
+
+    if (chatsError) {
       // eslint-disable-next-line no-alert
-      alert(this.props.chatsError);
+      alert(chatsError);
     } else {
       // eslint-disable-next-line no-alert
       alert('Новый чат успешно создан!');
@@ -54,19 +60,8 @@ export class ChatSearchBase extends Component<ChatSearchProps> {
     }
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <div class="${styles.container}">
-            <form class="{{class}}">
-                {{{icon}}}
-                <label for="chat-search"></label>
-                <input class="${styles.input}" type="text" name="chat-search" id="chat-search" placeholder="Поиск чата">
-            </form>
-            {{{createBtn}}}
-        </div>
-
-    `;
+  protected render() {
+    return template;
   }
 }
 

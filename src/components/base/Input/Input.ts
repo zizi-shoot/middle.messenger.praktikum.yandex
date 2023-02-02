@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { Component } from '../../../core';
-import * as styles from './input.module.css';
+import styles from './input.module.css';
+import template from './template.hbs';
 import type { Props } from '../../../types/component';
 
 export interface InputProps extends Props {
@@ -18,26 +19,14 @@ export class Input extends Component<InputProps> {
     super.setProps(nextProps);
   }
 
-  protected render() {
-    const { props } = this;
-    const classList = classNames(
+  protected init() {
+    this.props.classList = classNames(
       styles.input,
-      props.class,
+      this.props.class,
     );
+  }
 
-    // language=hbs
-    return `
-        <input
-                id="input-{{name}}"
-                name="{{name}}"
-                type="{{type}}"
-                class="${classList}"
-                placeholder="{{placeholder}}"
-                value="{{value}}"
-            {{#if autocompleteOff}}
-                autocomplete="off"
-            {{/if}}
-        />
-    `;
+  protected render() {
+    return template;
   }
 }

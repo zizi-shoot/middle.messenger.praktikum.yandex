@@ -1,4 +1,19 @@
 {
+  "ts-node": {
+    "files": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noImplicitAny": false,
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
+      "sourceMap": true,
+      "strictNullChecks": false,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "esModuleInterop": true
+    }
+  },
   "compilerOptions": {
     "target": "es2022",
     "lib": [
@@ -19,12 +34,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "sourceMap": true,
-    "baseUrl": "./",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": "./",
   },
-  "include": ["src/**/*"],
+  "include": [
+	  "src/**/*"
+  ],
   "exclude": ["node_modules", "dist/**/*"]
 }

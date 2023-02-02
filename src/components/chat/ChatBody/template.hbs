@@ -1,0 +1,9 @@
+<div class="{{classList}}">
+  {{#if chats.selectedChatId}}
+    {{{messageList}}}
+    <div class="{{styles.divider}}"></div>
+    {{{messageForm}}}
+  {{else}}
+    <span class="{{styles.emptyMessage}}">Выберите чат</span>
+  {{/if}}
+</div>

@@ -1,11 +1,11 @@
 import { UserAPI } from '../api';
-import type { Store } from '../core/Store';
 import { store as _store } from '../core/Store';
-import type { Router } from '../core/Router';
-import { router as _router } from '../core/Router';
+import { router as _router } from '../core/Router/Router';
 import { ROUTES } from '../utils/const';
 import type { ProfileData, ProfilePasswordData } from '../types/forms';
 import type { User } from '../types';
+import type { Store } from '../core/Store';
+import type { Router } from '../core/Router/Router';
 
 export class UserController {
   constructor(
@@ -17,11 +17,10 @@ export class UserController {
 
   private async request(req: () => void) {
     this.store.set('user.isLoading', true);
+    this.store.set('user.error', null);
 
     try {
       await req();
-
-      this.store.set('user.error', null);
     } catch (e: any) {
       this.store.set('user.error', e.reason);
     } finally {

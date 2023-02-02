@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
-import * as Handlebars from 'handlebars';
-import { EventBus } from './EventBus';
-import { isEqual, isObject } from '../utils';
-import type { Children, Element, Props, PropsAndChildren } from '../types/component';
-import type { EventCallback } from '../types';
+import type { TemplateDelegate } from 'handlebars';
+import { isEqual, isObject } from '../../utils';
+import { EventBus } from '../EventBus';
+import type { EventCallback } from '../../types';
+import type { Children, Props, PropsAndChildren } from '../../types/component';
 
 export class Component<P extends Props = any> {
   public static EVENT = {
@@ -25,7 +25,7 @@ export class Component<P extends Props = any> {
 
   protected children: Children = {};
 
-  constructor(allProps: P) {
+  constructor(allProps: P = {} as P) {
     if (allProps) {
       const { children, props } = this.getPropsAndChildren(allProps);
 
@@ -88,7 +88,6 @@ export class Component<P extends Props = any> {
     this.removeEvents();
 
     const newElement = fragment.firstElementChild as HTMLElement;
-
     if (this.element && newElement) {
       this.element.replaceWith(newElement);
     }
@@ -206,7 +205,7 @@ export class Component<P extends Props = any> {
 
     const fragment = document.createElement('template');
 
-    fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
+    fragment.innerHTML = this.render()!(propsAndStubs);
 
     Object.entries(children).forEach(([key, child]) => {
       if (Array.isArray(child)) {
@@ -227,7 +226,6 @@ export class Component<P extends Props = any> {
         }
       }
     });
-
     return fragment.content;
   }
 
@@ -248,8 +246,8 @@ export class Component<P extends Props = any> {
   protected componentDidUpdate() {
   }
 
-  protected render(): string {
-    return '';
+  protected render(): TemplateDelegate | null {
+    return null;
   }
 
   public getContent() {

@@ -1,8 +1,8 @@
-import { Route } from './Route';
-import { Pathname } from '../types/router';
-import { PageComponent } from '../types/component';
-import { ROUTES } from '../utils/const';
-import { store } from './Store';
+import { Route } from '../Route';
+import { Pathname } from '../../types/router';
+import { PageComponent } from '../../types/component';
+import { store } from '../Store';
+import { ROUTES } from '../../utils/const';
 
 export class Router {
   private static instance: Router;
@@ -13,7 +13,9 @@ export class Router {
 
   private history = window.history;
 
-  constructor(private readonly rootQuery: string) {
+  constructor(
+    private readonly rootQuery: string,
+  ) {
     if (Router.instance) {
       // eslint-disable-next-line no-constructor-return
       return Router.instance;
@@ -93,6 +95,11 @@ export class Router {
 
   public getRoute(pathname: Pathname) {
     return this.routes.find((route) => route.match(pathname));
+  }
+
+  public reset() {
+    this.currentRoute = null;
+    this.routes = [];
   }
 }
 

@@ -24,7 +24,6 @@ export class EventBus {
   public emit<K>(event: string, ...args: K[]): void {
     if (!this.listeners[event]) {
       return;
-      // throw new Error(`Событие "${event}" не зарегистрировано!`);
     }
 
     this.listeners[event].forEach((listener) => {

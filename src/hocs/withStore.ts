@@ -1,5 +1,5 @@
 import { Component } from '../core';
-import { store, Store } from '../core/Store';
+import { Store, store } from '../core/Store';
 import type { Props } from '../types/component';
 
 // eslint-disable-next-line arrow-body-style
@@ -7,7 +7,7 @@ export const withStore = <P extends Props>(mapStateToProps: (state: any) => any)
   // eslint-disable-next-line arrow-body-style
   return (ComponentClass: typeof Component<any>) => {
     return class WithStore extends ComponentClass {
-      constructor(props: P) {
+      constructor(props: P = {} as P) {
         let previousState = mapStateToProps(store.getState());
 
         super({ ...props, ...previousState });

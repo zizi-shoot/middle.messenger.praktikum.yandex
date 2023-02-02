@@ -1,8 +1,8 @@
 import { validateChatUser } from '../helpers/rules';
 import type { ErrorMessages, ValidationRules } from '../services/validation';
 import { createValidator } from '../services/validation';
-import type { ChatUserData } from '../../../types/forms';
 import { MAX_LOGIN_LENGTH, MIN_LOGIN_LENGTH } from '../helpers/const';
+import type { ChatUserData } from '../../../types/forms';
 
 export type ChatUserRules = ValidationRules<ChatUserData>;
 export type ChatUserErrors = ErrorMessages<ChatUserData>;

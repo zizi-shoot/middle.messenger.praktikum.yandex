@@ -1,27 +1,33 @@
-import { Component } from '../../../core';
-import { Button, Icon, Modal, Avatar } from '../../base';
 import { Form } from '../../Form';
-import * as styles from './chat-head.module.css';
-import { removePortal, renderPortal } from '../../../core/DOM';
-import { withChatController } from '../../../hocs/withController';
-import { withChats } from '../../../hocs/withStore';
+import { Avatar, Button, Icon, Modal } from '../../base';
+import { Component } from '../../../core';
 import { validateChatUserForm } from '../../../utils/validation/app/addUserDataValidation';
+import { withChats } from '../../../hocs/withStore';
+import { withChatController } from '../../../hocs/withController';
+import { removePortal, renderPortal } from '../../../core/DOM';
+import styles from './chat-head.module.css';
+import template from './template.hbs';
 import type { PropsWithController } from '../../../types/controller';
 import type { ChatController } from '../../../controllers/ChatController';
 import type { State } from '../../../types/store';
+import type { Props } from '../../../types/component';
 import type { ChatUserData } from '../../../types/forms';
 
-interface ChatHeadBaseProps extends PropsWithController<ChatController>, Pick<State, 'chats'> {
+interface ChatHeadBaseProps extends PropsWithController<ChatController>, Pick<State, 'chats'>, Props {
   title?: ChatTitle,
   avatar?: AvatarType,
 }
 
 export class ChatHeadBase extends Component<ChatHeadBaseProps> {
-  protected componentDidUpdate() {
-    const { data, selectedChatId } = this.props.chats;
+  protected init() {
+    this.props.styles = styles;
+  }
 
-    if (selectedChatId) {
-      const selectedChat = data.find(({ id }) => id === selectedChatId);
+  protected componentDidUpdate() {
+    const { chats } = this.props;
+
+    if (chats.selectedChatId) {
+      const selectedChat = chats.data.find(({ id }) => id === chats.selectedChatId);
 
       const addForm = new Form<ChatUserData>({
         name: 'chatUser',
@@ -71,14 +77,14 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
   }
 
   protected async addUserToChat(data: FormData) {
-    const { selectedChatId } = this.props.chats;
+    const { selectedChatId, error } = this.props.chats;
 
     if (selectedChatId) {
       await this.props.controller.addUserToChat(selectedChatId, data);
 
-      if (this.props.chats.error) {
+      if (error) {
         // eslint-disable-next-line no-alert
-        alert(this.props.chats.error);
+        alert(error);
       } else {
         // eslint-disable-next-line no-alert
         alert('Пользователь успешно добавлен в чат!');
@@ -88,14 +94,14 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
   }
 
   protected async deleteUserFromChat(data: FormData) {
-    const { selectedChatId } = this.props.chats;
+    const { selectedChatId, error } = this.props.chats;
 
     if (selectedChatId) {
       await this.props.controller.deleteUserFromChat(selectedChatId, data);
 
-      if (this.props.chats.error) {
+      if (error) {
         // eslint-disable-next-line no-alert
-        alert(this.props.chats.error);
+        alert(error);
       } else {
         // eslint-disable-next-line no-alert
         alert('Пользователь успешно удалён из чата!');
@@ -104,20 +110,8 @@ export class ChatHeadBase extends Component<ChatHeadBaseProps> {
     }
   }
 
-  protected render(): string {
-    // language=hbs
-    return `
-        <div class="${styles.container}">
-            <div class="${styles.user}">
-                {{{avatar}}}
-                <span>{{title}}</span>
-            </div>
-            <div class="${styles.controls}">
-                {{{addUserButton}}}
-                {{{removeUserButton}}}
-            </div>
-        </div>
-    `;
+  protected render() {
+    return template;
   }
 }
 

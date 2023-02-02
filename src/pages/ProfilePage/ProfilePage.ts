@@ -1,28 +1,33 @@
-import { Component } from '../../core';
 import { UserController } from '../../controllers/UserController';
+import { Component } from '../../core';
 import { Avatar, Button, Modal } from '../../components/base';
 import { Form, PageHeader, ProfileDataList } from '../../components';
-import { validateProfileDataForm, validateProfilePasswordForm } from '../../utils/validation/app/profileDataValidation';
 import { validateAvatarForm } from '../../utils/validation/app/avatarDataValidation';
+import { removePortal, renderPortal } from '../../core/DOM';
+import { validateProfileDataForm, validateProfilePasswordForm } from '../../utils/validation/app/profileDataValidation';
+import { profileItemList } from '../../data/profileItemList';
 import { withUser } from '../../hocs/withStore';
 import { withUserController } from '../../hocs/withController';
-import { profileItemList } from '../../data/profileItemList';
-import { removePortal, renderPortal } from '../../core/DOM';
-import * as styles from './profile-page.module.css';
-import type { User } from '../../types';
-import type { AvatarData, ProfileData, ProfilePasswordData } from '../../types/forms';
+import template from './template.hbs';
+import styles from './profile-page.module.css';
 import type { PropsWithController } from '../../types/controller';
 import type { State } from '../../types/store';
+import type { Props } from '../../types/component';
+import type { AvatarData, ProfileData, ProfilePasswordData } from '../../types/forms';
+import type { User } from '../../types';
 
-interface ProfilePageBaseProps extends PropsWithController<UserController>, Pick<State, 'user'> {
+interface ProfilePageBaseProps extends PropsWithController<UserController>, Pick<State, 'user'>, Props {
   username: string,
 }
 
 export class ProfilePageBase extends Component<ProfilePageBaseProps> {
   constructor(props: ProfilePageBaseProps) {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { second_name, first_name } = props.user.data;
+
     super({
       ...props,
-      username: `${props.user.data.first_name} ${props.user.data.second_name}`,
+      username: `${first_name} ${second_name}`,
     });
 
     this.updateProfile = this.updateProfile.bind(this);
@@ -72,6 +77,8 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
     });
 
     this.children.pageHeader = new PageHeader();
+
+    this.props.styles = styles;
   }
 
   protected async updateProfile(data: FormData) {
@@ -146,7 +153,7 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
     }
   }
 
-  protected render(): string {
+  protected render() {
     // eslint-disable-next-line no-restricted-globals
     const { pathname } = location;
     const content = this.getContentComponent(pathname);
@@ -157,20 +164,7 @@ export class ProfilePageBase extends Component<ProfilePageBaseProps> {
     };
 
     // language=hbs
-    return `
-        <div class="page-container">
-            {{{pageHeader}}}
-            <main class="${styles.container}">
-                <h1 class="visually-hidden">Страница профиля</h1>
-                <div class="${styles.profile}">
-                    {{{avatarBtn}}}
-                    <h2 class="${styles.username}">{{username}}</h2>
-                    {{{button}}}
-                    {{{content}}}
-                </div>
-            </main>
-        </div>
-    `;
+    return template;
   }
 }
 
